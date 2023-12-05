@@ -31,5 +31,4 @@ jobs:
           composer install
           php artisan optimize:clear
           npm install
-          npm run build
-          yarn build
+          npm run build          
