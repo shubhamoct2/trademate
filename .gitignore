@@ -18,6 +18,7 @@ yarn-error.log
 /.
 /storage/debugbar/*
 .editorconfig
+/public/build/
 
 
 
