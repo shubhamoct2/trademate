@@ -9,5 +9,5 @@
 
     gtag('js', new Date());
 
-    gtag('config', "{{$GoogleAnalyticsId}}");
+    gtag('config', '{{$GoogleAnalyticsId}}');
 </script>
