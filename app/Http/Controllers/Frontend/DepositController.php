@@ -153,7 +153,7 @@ class DepositController extends GatewayController
     }
 
     public function alphapoCallback(Request $request) {
-        Log::info("Callback detected: " . json_encode($request->all()));
+        // Log::info("Callback detected: " . json_encode($request->all()));
 
         if (isset($request['status']) && $request['status'] === 'confirmed') {
             $address = $request['crypto_address']['address'];
