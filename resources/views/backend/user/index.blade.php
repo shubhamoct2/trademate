@@ -78,8 +78,17 @@
                 ],
                 dom: 'Bfrtip',
                 buttons: [
-                    'csv',
-                ]
+                    {
+                        extend:'csv',
+                        exportOptions: {
+                            modifier: {
+                                order : 'index',
+                                page: 'all',
+                                search: 'applied'   
+                            }
+                        },
+                    }
+                ],
             });
 
 
