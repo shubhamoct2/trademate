@@ -1,13 +1,13 @@
 @extends('frontend::layouts.user')
 @section('title')
-    {{ __('Send Money Logs') }}
+    {{ __('SEND TO LOGs') }}
 @endsection
 @section('content')
     <div class="row">
         <div class="col-xl-12 desktop-screen-show">
             <div class="site-card">
                 <div class="site-card-header">
-                    <h3 class="title">{{ __('All Send Money Log') }}</h3>
+                    <h3 class="title">{{ __('All SEND TO LOG') }}</h3>
                 </div>
                 <div class="site-card-body">
                     <div class="site-table">
@@ -88,7 +88,7 @@
         <div class="col-12 mobile-screen-show">
             <!-- Transactions -->
             <div class="all-feature-mobile mobile-transactions mb-3">
-                <div class="title">{{ __('All Send Money Log') }}</div>
+                <div class="title">{{ __('All SEND TO LOG') }}</div>
                 <div class="mobile-transaction-filter">
                     <div class="filter">
                         <form action="{{ route('user.send-money.log') }}" method="get">

@@ -39,6 +39,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('First Name') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="first_name"
@@ -51,6 +52,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Last Name') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="last_name"
@@ -63,6 +65,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Username') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="username"
@@ -74,7 +77,7 @@
                             <div class="col-xl-6 col-md-12">
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Gender') }}</label>
                                 <div class="input-group">
-                                    <select name="gender" id="kycTypeSelect" class="nice-select site-nice-select"
+                                    <select disabled name="gender" id="kycTypeSelect" class="nice-select site-nice-select"
                                             required>
                                         @foreach(['male','female','other'] as $gender)
                                             <option @if($user->gender == $gender) selected
@@ -89,6 +92,7 @@
                                        class="form-label">{{ __('Date of Birth') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="date"
                                         name="date_of_birth"
                                         class="form-control"
@@ -124,6 +128,7 @@
                                 >
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control disabled"
                                         value="{{ $user->country }}"
@@ -137,6 +142,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('City') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="city"
@@ -149,6 +155,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Zip') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="zip_code"
@@ -161,6 +168,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Address') }}</label>
                                 <div class="input-group">
                                     <input
+                                        disabled
                                         type="text"
                                         class="form-control"
                                         name="address"

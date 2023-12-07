@@ -8,14 +8,18 @@
                         <strong>{{ __('KYC Pending') }}</strong>
                     @else
                         {{ __('Please complete') }}
-                        <strong>{{ __('KYC') }}</strong> {{ __('to use all of TradeMates services.') }}
+                        @if(Route::is('user.wallet-exchange') )
+                            <strong>{{ __('KYC') }}</strong> {{ __('in order to withdraw any profits.') }}
+                        @else
+                            <strong>{{ __('KYC') }}</strong> {{ __('to use all of TradeMates services.') }}
+                        @endif                        
                     @endif
                 </div>
                 @if($user->kyc != \App\Enums\KYCStatus::Pending->value)
                     <div class="action">
                         <a href="{{ route('user.kyc') }}" class="site-btn-sm grad-btn"><i
                                 class="anticon anticon-info-circle"></i>{{ __('Submit Now') }}</a>
-                        <a href="" class="site-btn-sm red-btn ms-2" type="button" data-bs-dismiss="alert"
+                        <a href="" class="site-btn-sm grad-btn ms-2" type="button" data-bs-dismiss="alert"
                            aria-label="Close"><i class="anticon anticon-close"></i>{{ __('Later') }}</a>
                     </div>
                 @endif

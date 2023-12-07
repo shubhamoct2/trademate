@@ -63,7 +63,7 @@
             </li>
             <li class="side-nav-item {{ isActive('user.send-money.log') }}">
                 <a href="{{ route('user.send-money.log') }}"><i
-                        class="anticon anticon-cloud"></i><span>{{ __('Send Money Log') }}</span></a>
+                        class="anticon anticon-cloud"></i><span>{{ __('SEND TO LOG') }}</span></a>
             </li>
 
             <li class="side-nav-item @if( Route::currentRouteName() != 'user.withdraw.log') {{ isActive('user.withdraw*') }} @endif">

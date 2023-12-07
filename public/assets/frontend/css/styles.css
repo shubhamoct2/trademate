@@ -7963,13 +7963,22 @@ span {
 }
 
 .side-wallet-box .actions .user-sidebar-btn {
-    width: 48%;
+    width: 30%;
     background: #5364f1;
-    padding: 10px 12px;
+    padding: 10px 6px;
     border-radius: 4px;
     font-size: 16px;
     font-weight: 400;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-wallet-box .actions .user-sidebar-btn.blue-btn {
+    background: #ffc300;
+    color: #333;
+    border-radius: 4px;
 }
 
 .side-wallet-box .actions .user-sidebar-btn:last-of-type {
@@ -11375,3 +11384,8 @@ i {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+
+.trans-type-list .title {
+    font-size: 18px;
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use App\Enums\TxnType;
 
 class TransactionController extends Controller
 {
@@ -17,6 +18,8 @@ class TransactionController extends Controller
                 });
         })->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
-        return view('frontend::user.transaction.index', compact('transactions'));
+        $types = TxnType::array();
+
+        return view('frontend::user.transaction.index', compact('transactions', 'types'));
     }
 }

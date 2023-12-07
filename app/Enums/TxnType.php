@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use LaracraftTech\LaravelUsefulAdditions\Traits\UsefulEnums;
+
 enum TxnType: string
 {
+    use UsefulEnums;
+
     case Deposit = 'deposit';
     case Subtract = 'subtract';
     case ManualDeposit = 'manual_deposit';

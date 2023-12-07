@@ -10,7 +10,7 @@
                     <h3 class="title">{{ __('Send Money') }}</h3>
                     <div class="card-header-links">
                         <a href="{{ route('user.send-money.log') }}"
-                           class="card-header-link">{{ __('SEND MONEY LOG') }}</a>
+                           class="card-header-link">{{ __('SEND TO LOG') }}</a>
                     </div>
                 </div>
                 <div class="site-card-body">

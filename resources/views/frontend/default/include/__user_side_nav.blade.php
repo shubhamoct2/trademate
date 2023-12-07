@@ -17,8 +17,10 @@
         <div class="actions">
             <a href="{{ route('user.deposit.amount') }}" class="user-sidebar-btn"><i
                     class="anticon anticon-file-add"></i>{{ __('Deposit') }}</a>
-            <a href="{{ route('user.schema') }}" class="user-sidebar-btn red-btn"><i
-                    class="anticon anticon-export"></i>{{ __('Invest Now') }}</a>
+            <a href="{{ route('user.withdraw.view') }}" class="user-sidebar-btn blue-btn"><i
+                    class="anticon anticon-file-add"></i>{{ __('Withdraw') }}</a>
+            <a href="{{ route('user.wallet-exchange') }}" class="user-sidebar-btn red-btn"><i
+                    class="anticon anticon-export"></i>{{ __('Internal Transfer') }}</a>
         </div>
     </div>
     <div class="side-nav-inside">
@@ -32,10 +34,10 @@
                 <a href="{{ route('user.deposit.amount') }}"><i
                         class="anticon anticon-file-add"></i><span>{{ __('Deposit') }}</span></a>
             </li>
-            <li class="side-nav-item {{ isActive('user.schema*') }}">
+            <!-- <li class="side-nav-item {{ isActive('user.schema*') }}">
                 <a href="{{route('user.schema')}}"><i
                         class="anticon anticon-check-square"></i><span>{{ __('Invest') }}</span></a>
-            </li>
+            </li> -->
             <li class="side-nav-item {{ isActive('user.invest*') }}">
                 <a href="{{ route('user.invest-logs') }}"><i
                         class="anticon anticon-copy"></i><span>{{ __('Investment Logs') }}</span></a>
@@ -63,7 +65,7 @@
             </li>
             <!--<li class="side-nav-item {{ isActive('user.send-money.log') }}">
                 <a href="{{ route('user.send-money.log') }}"><i
-                        class="anticon anticon-cloud"></i><span>{{ __('Send Money Log') }}</span></a>
+                        class="anticon anticon-cloud"></i><span>{{ __('SEND TO LOG') }}</span></a>
             </li>-->
 
             <li class="side-nav-item @if( Route::currentRouteName() != 'user.withdraw.log') {{ isActive('user.withdraw*') }} @endif">

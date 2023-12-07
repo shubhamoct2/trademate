@@ -100,10 +100,17 @@
                                 </tbody>
                             </table>
                             {{  $transactions->links() }}
+                        </div>                        
+                    </div>
+                    <div class="trans-type-list">
+                        <h5 class="title">{{ __('All Transaction Types') }}</h5>
+                        <div class="lh-lg">
+                        @foreach($types as $key => $value)
+                            <span class="site-badge primary-bg">{{ $key }}</span>&nbsp;
+                        @endforeach 
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="col-12 mobile-screen-show">
@@ -132,6 +139,9 @@
                                     </div>
                                     <div class="transaction-id">{{ $transaction->tnx }}</div>
                                     <div class="transaction-date">{{ $transaction->created_at }}</div>
+                                    <div class="mt-2">
+                                        <div class="site-badge primary-bg">{{ str_replace('_',' ',$transaction->type->value) }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="transaction-right">
@@ -155,6 +165,14 @@
                     @endforeach
                 </div>
                 {{  $transactions->onEachSide(1)->links() }}
+                <div class="trans-type-list mb-2">
+                    <h5 class="">{{ __('All Transaction Types') }}</h5>
+                    <div class="lh-lg">
+                    @foreach($types as $key => $value)
+                        <span class="site-badge primary-bg">{{ $key }}</span>&nbsp;
+                    @endforeach 
+                    </div>
+                </div>
             </div>
 
         </div>

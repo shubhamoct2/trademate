@@ -72,7 +72,7 @@
                     {data: 'email', name: 'email'},
                     {data: 'balance', name: 'balance'},
                     {data: 'total_profit', name: 'total_profit', orderable: false, searchable: false},
-                    {data: 'kyc', name: 'kyc'},
+                    {data: 'kyc', name: 'kyc', orderable: true},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],

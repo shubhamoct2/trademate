@@ -19,7 +19,7 @@ class SendMoneyController extends Controller
     {
 
         if (! setting('transfer_status', 'permission') or ! \Auth::user()->transfer_status) {
-            abort('403', 'Send Money Disable Now');
+            abort('403', 'Send To Disable Now');
         }
 
         $isStepOne = 'current';
@@ -31,7 +31,7 @@ class SendMoneyController extends Controller
     public function sendMoneyNow(Request $request)
     {
         if (! setting('transfer_status', 'permission') || ! \Auth::user()->transfer_status) {
-            abort('403', 'Send Money Disable Now');
+            abort('403', 'Send To Disable Now');
         }
 
         $validator = Validator::make($request->all(), [
@@ -48,7 +48,7 @@ class SendMoneyController extends Controller
         $todayTransaction = Transaction::where('type', TxnType::SendMoney)->whereDate('created_at', Carbon::today())->count();
         $dayLimit = (float) Setting('send_money_day_limit', 'fee');
         if ($todayTransaction >= $dayLimit) {
-            notify()->error(__('Today Send Money limit has been reached'), 'Error');
+            notify()->error(__('Today Send To limit has been reached'), 'Error');
 
             return redirect()->back();
         }
@@ -87,7 +87,7 @@ class SendMoneyController extends Controller
         $totalAmount = $amount + $charge;
 
         if ($fromUser->balance < $amount) {
-            notify()->error(__('Insufficient Balance Your Main Wallet'), 'Error');
+            notify()->error(__('Insufficient Balance In Your Wallet'), 'Error');
 
             return redirect()->back();
         }
@@ -102,17 +102,17 @@ class SendMoneyController extends Controller
         $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $receiveDescription,
             TxnType::ReceiveMoney, TxnStatus::Success, null, null, $toUser->id, $fromUser->id, 'User', [], $input['note']);
 
-        notify()->success('Successfully Send Money', 'success');
+        notify()->success('Successfully Send To', 'success');
 
         $symbol = setting('currency_symbol', 'global');
 
         $notify = [
-            'card-header' => 'Success Your Send Money Process',
-            'title' => $symbol.$txnInfo->amount.' Send Money Successfully',
-            'p' => 'The Send Money has been successfully sent to the'.$toUser->first_name.' '.$toUser->last_name,
+            'card-header' => 'Success Your Send To Process',
+            'title' => $symbol.$txnInfo->amount.' Send To Successfully',
+            'p' => 'The Send To has been successfully sent to the'.$toUser->first_name.' '.$toUser->last_name,
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
             'action' => route('user.send-money.view'),
-            'a' => 'Send Money again',
+            'a' => 'Send To again',
             'view_name' => 'send_money',
         ];
         Session::put('user_notify', $notify);

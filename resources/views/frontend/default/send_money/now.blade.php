@@ -26,15 +26,15 @@
                 </div>
                 <div class="col-xl-12 col-md-12 mt-3">
                     <label for="exampleFormControlInput1"
-                           class="form-label">{{ __('Send Money Note (Optional)') }}</label>
+                           class="form-label">{{ __('Send To Note (Optional)') }}</label>
                     <div class="input-group">
-                        <textarea class="form-control-textarea" placeholder="Send Money Note" name="note"></textarea>
+                        <textarea class="form-control-textarea" placeholder="Send To Note" name="note"></textarea>
                     </div>
                 </div>
             </div>
             <div class="transaction-list table-responsive">
                 <div class="user-panel-title">
-                    <h3>{{ __('Send Money Details') }}</h3>
+                    <h3>{{ __('Send To Details') }}</h3>
                 </div>
                 <table class="table">
                     <tbody>
@@ -56,7 +56,7 @@
 
             <div class="buttons">
                 <button type="submit" class="site-btn blue-btn">
-                    {{ __('Send Money') }}<i class="anticon anticon-double-right"></i>
+                    {{ __('Send To') }}<i class="anticon anticon-double-right"></i>
                 </button>
             </div>
         </form>
