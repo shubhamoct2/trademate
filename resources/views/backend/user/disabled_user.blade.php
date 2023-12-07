@@ -26,6 +26,8 @@
                                     <tr>
                                         <th>{{ __('Avatar') }}</th>
                                         <th>{{ __('User') }}</th>
+                                        <th>{{ __('First Name') }}</th>
+                                        <th>{{ __('Last Name') }}</th>
                                         <th>{{ __('Email') }}</th>
                                         <th>{{ __('Balance') }}</th>
                                         <th>{{ __('Profit') }}</th>
@@ -66,12 +68,18 @@
                 columns: [
                     {data: 'avatar', name: 'avatar'},
                     {data: 'username', name: 'username'},
+                    {data: 'first_name', name: 'first_name'},
+                    {data: 'last_name', name: 'last_name'},
                     {data: 'email', name: 'email'},
                     {data: 'balance', name: 'balance'},
                     {data: 'total_profit', name: 'total_profit', orderable: false, searchable: false},
                     {data: 'kyc', name: 'kyc'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv',
                 ]
             });
 

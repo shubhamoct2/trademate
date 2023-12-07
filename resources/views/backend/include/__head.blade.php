@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('backend/css/animate.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/nice-select.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/datatables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('global/css/jquery.datatables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('global/css/buttons.datatables.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/simple-notify.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/simple-notify.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/daterangepicker.css') }}"/>

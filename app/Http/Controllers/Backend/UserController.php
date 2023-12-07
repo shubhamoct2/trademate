@@ -69,6 +69,12 @@ class UserController extends Controller
                 ->editColumn('username', function ($request) {
                     return safe($request->username);
                 })
+                ->editColumn('first_name', function ($request) {
+                    return safe($request->first_name);
+                })
+                ->editColumn('last_name', function ($request) {
+                    return safe($request->last_name);
+                })
                 ->editColumn('total_profit', function ($request) {
                     return $request->total_profit.' '.setting('site_currency');
                 })
@@ -103,6 +109,12 @@ class UserController extends Controller
                 ->editColumn('email', function ($request) {
                     return safe($request->email);
                 })
+                ->editColumn('first_name', function ($request) {
+                    return safe($request->first_name);
+                })
+                ->editColumn('last_name', function ($request) {
+                    return safe($request->last_name);
+                })
                 ->editColumn('kyc', 'backend.user.include.__kyc')
                 ->editColumn('status', 'backend.user.include.__status')
                 ->addColumn('action', 'backend.user.include.__action')
@@ -136,6 +148,12 @@ class UserController extends Controller
                 })
                 ->editColumn('total_profit', function ($request) {
                     return $request->total_profit.' '.setting('site_currency');
+                })
+                ->editColumn('first_name', function ($request) {
+                    return safe($request->first_name);
+                })
+                ->editColumn('last_name', function ($request) {
+                    return safe($request->last_name);
                 })
                 ->addColumn('action', 'backend.user.include.__action')
                 ->rawColumns(['avatar', 'kyc', 'status', 'action'])
