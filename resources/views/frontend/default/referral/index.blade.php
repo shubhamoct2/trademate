@@ -1,6 +1,6 @@
 @extends('frontend::layouts.user')
 @section('title')
-    {{ __('Dashboard') }}
+    {{ __('Referral') }}
 @endsection
 @section('content')
     <div class="row">

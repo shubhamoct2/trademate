@@ -38,10 +38,10 @@
                 <a href="{{route('user.schema')}}"><i
                         class="anticon anticon-check-square"></i><span>{{ __('Invest') }}</span></a>
             </li> -->
-            <li class="side-nav-item {{ isActive('user.invest*') }}">
+            <!-- <li class="side-nav-item {{ isActive('user.invest*') }}">
                 <a href="{{ route('user.invest-logs') }}"><i
                         class="anticon anticon-copy"></i><span>{{ __('Investment Logs') }}</span></a>
-            </li>
+            </li> -->
 
             <li class="side-nav-item {{ isActive('user.transactions*') }}">
                 <a href="{{ route('user.transactions') }}"><i

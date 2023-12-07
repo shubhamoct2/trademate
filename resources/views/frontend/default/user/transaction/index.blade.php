@@ -1,7 +1,7 @@
 @php use App\Enums\TxnStatus; @endphp
 @extends('frontend::layouts.user')
 @section('title')
-    {{ __('Schema Logs') }}
+    {{ __('Transaction History') }}
 @endsection
 @section('content')
     <div class="row">

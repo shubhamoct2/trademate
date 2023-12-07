@@ -1,6 +1,6 @@
 @extends('frontend::layouts.user')
 @section('title')
-    {{ __('All Notifications') }}
+    {{ __('Notifications') }}
 @endsection
 @section('content')
     <div class="row">

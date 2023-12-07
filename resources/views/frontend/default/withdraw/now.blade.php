@@ -1,6 +1,6 @@
 @extends('frontend::layouts.user')
 @section('title')
-    {{ __('Withdraw Now') }}
+    {{ __('Withdraw') }}
 @endsection
 @section('content')
     <div class="row">
