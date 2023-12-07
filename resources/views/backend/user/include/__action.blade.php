@@ -1,4 +1,6 @@
 @canany(['customer-basic-manage','customer-balance-add-or-subtract','customer-change-password','all-type-status'])
+    <a href="{{route('admin.user.login',$id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
+       title="Login As User" data-bs-original-title="Login As User"><i icon-name="user-circle"></i></a>
     <a href="{{route('admin.user.edit',$id)}}" class="round-icon-btn primary-btn" data-bs-toggle="tooltip"
        title="Edit User" data-bs-original-title="Edit User"><i icon-name="edit-3"></i></a>
 @endcanany
