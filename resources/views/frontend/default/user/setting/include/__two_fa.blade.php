@@ -4,7 +4,6 @@
             <h3 class="title">{{ __('2FA Security') }}</h3>
         </div>
         <div class="site-card-body">
-
             @if( null != $user->google2fa_secret)
 
                 <div class="progress-steps-form">
@@ -15,15 +14,14 @@
                         $google2fa = (new \PragmaRX\Google2FAQRCode\Google2FA());
 
                         $inlineUrl = $google2fa->getQRCodeInline(
-                           setting('site_title','global'),
+                            setting('site_title','global'),
                             $user->email,
                             $user->google2fa_secret
                         );
+
                     @endphp
 
-{{--                    {!! app('pragmarx.google2fa')->getQRCodeInline(config('app.name'), $user->email, $user->google2fa_secret) !!}--}}
-
-                    <img src="{{ $inlineUrl }}">
+                    {!! $inlineUrl !!}
 
                     <p class="pt-2">
                         @if($user->two_fa)
