@@ -233,6 +233,15 @@
                     </li>
                 @endcanany
 
+                @canany(['internal-transfer-manage'])
+                    @can('internal-transfer-manage')
+                        <li class="side-nav-item {{ isActive('admin.exchange.list') }}">
+                            <a href="{{ route('admin.exchange.list') }}"><i
+                                    icon-name="door-open"></i><span>{{ __('Internal Transfer') }}</span></a>
+                        </li>
+                    @endcan
+                @endcanany
+
                 @canany(['target-manage','referral-create','referral-list','referral-edit','referral-delete'])
                     <li class="side-nav-item side-nav-dropdown {{ isActive(['admin.referral*']) }}">
                         <a href="javascript:void(0);" class="dropdown-link"><i

@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\TicketController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\WithdrawController;
+use App\Http\Controllers\Backend\ExchangeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,11 +87,17 @@ Route::get('all-profits/{id?}', [ProfitController::class, 'allProfits'])->name('
 
 //===============================  Essentials ==================================
 
+Route::group(['prefix' => 'exchange', 'as' => 'exchange.', 'controller' => ExchangeController::class], function () {
+    Route::get('/', 'index')->name('list');
+    Route::post('update', 'update')->name('update');
+});
+
 Route::group(['prefix' => 'gateway', 'as' => 'gateway.', 'controller' => GatewayController::class], function () {
     Route::get('/automatic', 'automatic')->name('automatic');
     Route::post('update/{id}', 'update')->name('update')->withoutMiddleware('XSS');
     Route::get('currency/{gateway_id}', 'gatewayCurrency')->name('supported.currency');
 });
+
 Route::group(['prefix' => 'deposit', 'as' => 'deposit.', 'controller' => DepositController::class], function () {
     //=============================== deposit Method ================================
     Route::group(['prefix' => 'method', 'as' => 'method.'], function () {

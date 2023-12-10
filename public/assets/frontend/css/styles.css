@@ -11389,3 +11389,13 @@ i {
 .trans-type-list .title {
     font-size: 18px;
 }
+
+.yellow-btn {
+    color: #ffc300;
+    background: #e73667;
+}
+
+.yellow-btn:hover {
+    background: #ffc300;
+    color: #001219;
+}

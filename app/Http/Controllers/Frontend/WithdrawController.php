@@ -272,7 +272,7 @@ class WithdrawController extends Controller
 
         $user = Auth::user();
         if ($user->balance < $totalAmount) {
-            notify()->error(__('Insufficient Balance Your Main Wallet'), 'Error');
+            notify()->error(__('Insufficient Balance In Your Wallet'), 'Error');
 
             return redirect()->back();
         }

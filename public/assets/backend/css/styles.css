@@ -4948,3 +4948,13 @@ img {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+.yellow-btn {
+  color: #ffffff;
+  background: #c29913;
+}
+
+.yellow-btn:hover {
+  background: #9f8122;
+  color: #ffffff;
+}

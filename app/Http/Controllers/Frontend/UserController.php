@@ -107,32 +107,32 @@ class UserController extends Controller
         if (1 == $input['from_wallet'] && $user->balance < $totalAmount || 2 == $input['from_wallet'] && $user->profit_balance < $totalAmount) {
             $walletName = 1 == $input['from_wallet'] ? 'Main Wallet' : 'Profit Wallet';
 
-            notify()->error(__('Insufficient Balance Your ').$walletName, 'Error');
+            notify()->error(__('Insufficient Balance In Your ').$walletName, 'Error');
 
             return redirect()->back();
         }
 
         if (1 == $input['from_wallet']) {
             $user->decrement('balance', $totalAmount);
-            $user->increment('profit_balance', $amount);
+            // $user->increment('profit_balance', $amount);
 
-            $sendDescription = 'Main to Profit Wallet Exchanged';
+            $sendDescription = 'Main to Profit Wallet Exchange';
             $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $sendDescription,
-                TxnType::Exchange, TxnStatus::Success, null, null, $user->id);
+                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
         } else {
             $user->decrement('profit_balance', $totalAmount);
-            $user->increment('balance', $amount);
+            // $user->increment('balance', $amount);
 
-            $sendDescription = 'Profit to Main Wallet Exchanged';
+            $sendDescription = 'Profit to Main Wallet Exchange';
             $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $sendDescription,
-                TxnType::Exchange, TxnStatus::Success, null, null, $user->id);
+                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
         }
 
         $symbol = setting('currency_symbol', 'global');
 
         $notify = [
-            'card-header' => 'Success Your Exchange Money Process',
-            'title' => $symbol.$txnInfo->amount.' Exchange Wallet Money Successfully',
+            'card-header' => 'Success Your Exchange Money Request',
+            'title' => $symbol.$txnInfo->amount.' Exchange Wallet Money Requested Successfully. Admin will review it.',
             'p' => $sendDescription,
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
             'action' => route('user.wallet-exchange'),

@@ -46,11 +46,11 @@ class InvestController extends GatewayController
 
         //Insufficient Balance validation
         if ($input['wallet'] == 'main' && $user->balance < $investAmount) {
-            notify()->error('Insufficient Balance Your Main Wallet', 'Error');
+            notify()->error('Insufficient Balance In Your Wallet', 'Error');
 
             return redirect()->route('user.schema.preview', $schema->id);
         } elseif ($input['wallet'] == 'profit' && $user->profit_balance < $investAmount) {
-            notify()->error('Insufficient Balance Your Profit Wallet', 'Error');
+            notify()->error('Insufficient Balance In Your Profit Wallet', 'Error');
 
             return redirect()->route('user.schema.preview', $schema->id);
         }

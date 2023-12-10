@@ -7,4 +7,5 @@ enum TxnStatus: string
     case Success = 'success';
     case Pending = 'pending';
     case Failed = 'failed';
+    case Rejected = 'rejected';
 }
