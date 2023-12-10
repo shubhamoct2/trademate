@@ -1,7 +1,13 @@
 @php
-    $footerContent = json_decode(\App\Models\LandingPage::where('locale',app()->getLocale())->where('status',true)->where('code','footer')->first()->data,true);
+    $footerContent = \App\Models\LandingPage::where('locale',app()->getLocale())->where('status', true)->where('code','footer')->first();
+
+    if (!is_null($footerContent)) {
+        $footerContent = json_decode($footerContent['data'], true);
+    }
+
 @endphp
 
+@if ($footerContent)
 <footer class="footer dark-blue-bg section-style-2">
     <div class="bat-right" style="background: url({{ asset($footerContent['right_img']) }}) repeat;"
          data-aos="fade-down-left" data-aos-duration="2000"></div>
@@ -9,7 +15,7 @@
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                 <div class="footer-widget" data-aos="fade-down" data-aos-duration="1000">
-                    <h4>{{ $footerContent['widget_left_title'] }}</h4>
+                    
                     <p>
                         {{ $footerContent['widget_left_description'] }}
                     </p>
@@ -58,3 +64,4 @@
         </div>
     </div>
 </footer>
+@endif

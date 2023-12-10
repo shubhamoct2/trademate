@@ -16,6 +16,7 @@
         "coderflex/laravel-ticket": "^1.0",
         "coingate/coingate-php": "^4.1",
         "cryptomus/api-php-sdk": "^1.0",
+        "devaslanphp/auto-translate": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
         "joedixon/laravel-translation": "^2.1",

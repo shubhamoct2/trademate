@@ -215,6 +215,7 @@ return [
 
         Barryvdh\Debugbar\ServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        \Devaslanphp\AutoTranslate\AutoTranslateProvider::class,
     ],
 
     /*

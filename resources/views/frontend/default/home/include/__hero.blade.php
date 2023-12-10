@@ -5,7 +5,7 @@
             <div class="col-xl-7 col-lg-7 col-md-12 col-12">
                 <div class="banner-content">
                     <h2 data-aos="fade-right" data-aos-duration="1000">
-                        {{ $data['hero_title'] }}
+                        {{ __($data['hero_title']) }}
                     </h2>
                     <p data-aos="fade-up" data-aos-duration="1500">
                         {{ $data['hero_content'] }}

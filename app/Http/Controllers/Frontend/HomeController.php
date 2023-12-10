@@ -31,7 +31,6 @@ class HomeController extends Controller
         $redirectPage = setting('home_redirect', 'global');
         if ($redirectPage == '/') {
             $homeContent = LandingPage::where('status', true)->whereNot('code', 'footer')->where('locale', app()->getLocale())->orderBy('short')->get();
-
             return view('frontend::home.index', compact('homeContent'));
         }
 
