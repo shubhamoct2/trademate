@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.datatable')
 @section('content')
     <div class="main-content">
         <div class="page-title">

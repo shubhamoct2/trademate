@@ -22,15 +22,9 @@
     <!--Page Content-->
 </div>
 <!--/Full Layout-->
-
-@include('backend.include.__script')
 @include('backend.include.__datatable_script')
-
-
 </body>
-
 @stack('datatable-script')
-
 </html>
 
 
