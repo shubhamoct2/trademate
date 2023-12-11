@@ -9,7 +9,6 @@ use App\Models\LevelReferral;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Traits\NotifyTrait;
-use DataTables;
 use Exception;
 use Hash;
 use Illuminate\Contracts\Foundation\Application;
@@ -21,6 +20,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Txn;
+
+use App\DataTables\UsersDataTable;
+use App\DataTables\ActiveUsersDataTable;
+use App\DataTables\DisabledUsersDataTable;
 
 class UserController extends Controller
 {
@@ -48,42 +51,18 @@ class UserController extends Controller
      *
      * @throws Exception
      */
-    public function index(Request $request)
-    {
+    public function index(UsersDataTable $dataTable) {
+        return $dataTable->render('backend.user.index');
+    }
 
-        if ($request->ajax()) {
 
-            $data = User::latest();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('avatar', 'backend.user.include.__avatar')
-                ->editColumn('kyc', 'backend.user.include.__kyc')
-                ->editColumn('status', 'backend.user.include.__status')
-                ->editColumn('balance', function ($request) {
-                    return $request->balance.' '.setting('site_currency');
-                })
-                ->editColumn('email', function ($request) {
-                    return safe($request->email);
-                })
-                ->editColumn('username', function ($request) {
-                    return safe($request->username);
-                })
-                ->editColumn('first_name', function ($request) {
-                    return safe($request->first_name);
-                })
-                ->editColumn('last_name', function ($request) {
-                    return safe($request->last_name);
-                })
-                ->editColumn('total_profit', function ($request) {
-                    return $request->total_profit.' '.setting('site_currency');
-                })
-                ->addColumn('action', 'backend.user.include.__action')
-                ->rawColumns(['avatar', 'kyc', 'status', 'action'])
-                ->make(true);
-        }
-
-        return view('backend.user.index');
+    /**
+     * @return Application|Factory|View|JsonResponse
+     *
+     * @throws Exception
+     */
+    public function activeUser(ActiveUsersDataTable $dataTable) {
+        return $dataTable->render('backend.user.active');
     }
 
     /**
@@ -91,76 +70,9 @@ class UserController extends Controller
      *
      * @throws Exception
      */
-    public function activeUser(Request $request)
+    public function disabledUser(DisabledUsersDataTable $dataTable)
     {
-        if ($request->ajax()) {
-
-            $data = User::where('status', 1)->latest();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('avatar', 'backend.user.include.__avatar')
-                ->editColumn('balance', function ($request) {
-                    return $request->balance.' '.setting('site_currency');
-                })
-                ->editColumn('total_profit', function ($request) {
-                    return $request->total_profit.' '.setting('site_currency');
-                })
-                ->editColumn('email', function ($request) {
-                    return safe($request->email);
-                })
-                ->editColumn('first_name', function ($request) {
-                    return safe($request->first_name);
-                })
-                ->editColumn('last_name', function ($request) {
-                    return safe($request->last_name);
-                })
-                ->editColumn('kyc', 'backend.user.include.__kyc')
-                ->editColumn('status', 'backend.user.include.__status')
-                ->addColumn('action', 'backend.user.include.__action')
-                ->rawColumns(['avatar', 'kyc', 'status', 'action'])
-                ->make(true);
-        }
-
-        return view('backend.user.active_user');
-    }
-
-    /**
-     * @return Application|Factory|View|JsonResponse
-     *
-     * @throws Exception
-     */
-    public function disabled(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = User::where('status', 0)->latest();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('avatar', 'backend.user.include.__avatar')
-                ->editColumn('kyc', 'backend.user.include.__kyc')
-                ->editColumn('status', 'backend.user.include.__status')
-                ->editColumn('balance', function ($request) {
-                    return $request->balance.' '.setting('site_currency');
-                })
-                ->editColumn('email', function ($request) {
-                    return safe($request->email);
-                })
-                ->editColumn('total_profit', function ($request) {
-                    return $request->total_profit.' '.setting('site_currency');
-                })
-                ->editColumn('first_name', function ($request) {
-                    return safe($request->first_name);
-                })
-                ->editColumn('last_name', function ($request) {
-                    return safe($request->last_name);
-                })
-                ->addColumn('action', 'backend.user.include.__action')
-                ->rawColumns(['avatar', 'kyc', 'status', 'action'])
-                ->make(true);
-        }
-
-        return view('backend.user.disabled_user');
+        return $dataTable->render('backend.user.disabled');
     }
 
     /**

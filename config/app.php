@@ -216,6 +216,11 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         \Devaslanphp\AutoTranslate\AutoTranslateProvider::class,
+
+        Yajra\DataTables\DataTablesServiceProvider::class,
+	    Yajra\DataTables\ButtonsServiceProvider::class,
+
+        Hedii\ArtisanLogCleaner\ArtisanLogCleanerServiceProvider::class
     ],
 
     /*
@@ -237,6 +242,7 @@ return [
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
 
 ];
