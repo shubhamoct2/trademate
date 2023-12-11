@@ -165,16 +165,7 @@
                     @endforeach
                 </div>
                 {{  $transactions->onEachSide(1)->links() }}
-                <div class="trans-type-list mb-2">
-                    <h5 class="">{{ __('All Transaction Types') }}</h5>
-                    <div class="lh-lg">
-                    @foreach($types as $key => $value)
-                        <span class="site-badge primary-bg">{{ $key }}</span>&nbsp;
-                    @endforeach 
-                    </div>
-                </div>
             </div>
-
         </div>
     </div>
 @endsection
