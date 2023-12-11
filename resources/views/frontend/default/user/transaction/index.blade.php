@@ -102,14 +102,6 @@
                             {{  $transactions->links() }}
                         </div>                        
                     </div>
-                    <div class="trans-type-list">
-                        <h5 class="title">{{ __('All Transaction Types') }}</h5>
-                        <div class="lh-lg">
-                        @foreach($types as $key => $value)
-                            <span class="site-badge primary-bg">{{ $key }}</span>&nbsp;
-                        @endforeach 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
