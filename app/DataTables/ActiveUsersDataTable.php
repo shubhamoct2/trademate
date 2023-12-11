@@ -23,6 +23,7 @@ class ActiveUsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('select_users', '<input type="checkbox" name="selected_users[]" value="{{ $id }}" >')
             ->addColumn('avatar', 'backend.user.include.__avatar')
             ->addColumn('kyc', 'backend.user.include.__kyc')
             ->addColumn('status', 'backend.user.include.__status')
@@ -33,7 +34,7 @@ class ActiveUsersDataTable extends DataTable
                 return $request->total_profit.' '.setting('site_currency');
             })
             ->addColumn('action', 'backend.user.include.__action')
-            ->rawColumns(['avatar', 'kyc', 'status', 'action']);
+            ->rawColumns(['select_users', 'avatar', 'kyc', 'status', 'action']);
     }
 
     /**
@@ -60,7 +61,7 @@ class ActiveUsersDataTable extends DataTable
                     ->minifiedAjax()
                     ->orderBy(1)
                     ->parameters([
-                        'dom'          => 'Bfrtip',
+                        'dom'          => 'Blfrtip',
                         'buttons'      => ['csv'],
                     ]);
     }
@@ -73,6 +74,11 @@ class ActiveUsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [            
+            Column::computed('select_users')
+                ->title('')
+                ->exportable(false)
+                ->printable(false)
+                ->width('10px'),
             Column::make('id'),
             Column::computed('avatar')
                   ->exportable(false)

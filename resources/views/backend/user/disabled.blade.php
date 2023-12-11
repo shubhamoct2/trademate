@@ -58,3 +58,7 @@
         })(jQuery);
     </script>
 @endsection
+
+@push('datatable-script')
+    {{ $dataTable->scripts() }}
+@endpush

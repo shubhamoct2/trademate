@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +13,9 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class DisabledUsersDataTable extends DataTable
+use App\Enums\TxnType;
+
+class ProfitsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,29 +26,36 @@ class DisabledUsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('select_users', '<input type="checkbox" name="selected_users[]" value="{{ $id }}" >')
-            ->addColumn('avatar', 'backend.user.include.__avatar')
-            ->addColumn('kyc', 'backend.user.include.__kyc')
-            ->addColumn('status', 'backend.user.include.__status')
-            ->addColumn('balance', function ($request) {
-                return $request->balance.' '.setting('site_currency');
+            ->addColumn('status', 'backend.transaction.include.__txn_status')
+            ->addColumn('type', 'backend.transaction.include.__txn_type')
+            ->addColumn('username', 'backend.transaction.include.__user')
+            ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
+            ->addColumn('first_name', function ($transaction) {
+                return ($transaction->user->first_name);
             })
-            ->addColumn('total_profit', function ($request) {
-                return $request->total_profit.' '.setting('site_currency');
+            ->addColumn('last_name', function ($transaction) {
+                return ($transaction->user->last_name);
             })
-            ->addColumn('action', 'backend.user.include.__action')
-            ->rawColumns(['select_users', 'avatar', 'kyc', 'status', 'action']);
+            ->addColumn('profit_from', function ($request) {
+                return $request->from_user_id != null ? User::find($request->from_user_id)->username : 'System';
+            })
+            ->rawColumns(['status', 'type', 'username', 'final_amount']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\Transaction $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model): QueryBuilder
+    public function query(Transaction $model): QueryBuilder
     {
-        return $model->where('status', 0)->newQuery();
+        return $model::whereIn('type', [
+                        TxnType::Referral,
+                        TxnType::Interest,
+                        TxnType::Bonus,
+                        TxnType::SignupBonus,
+            ])->newQuery();
     }
 
     /**
@@ -73,25 +83,18 @@ class DisabledUsersDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [         
-            Column::computed('select_users')
-                ->title('')
-                ->exportable(false)
-                ->printable(false)
-                ->width('10px'),   
+        return [
             Column::make('id'),
-            Column::computed('avatar')
-                  ->exportable(false)
-                  ->printable(false),
-            Column::make('username'),
-            Column::make('first_name'),
-            Column::make('last_name'),
-            Column::make('email'),
-            Column::computed('balance'),
-            Column::computed('total_profit'),
-            Column::computed('kyc'),
-            Column::computed('status'),
-            Column::computed('action')
+            Column::make('created_at')
+                ->title('Date'),
+            Column::computed('username'),
+            Column::computed('first_name'),
+            Column::computed('last_name'),
+            Column::make('tnx'),
+            Column::computed('type'),
+            Column::computed('final_amount'),
+            Column::computed('profit_from'),
+            Column::make('description'),
         ];
     }
 

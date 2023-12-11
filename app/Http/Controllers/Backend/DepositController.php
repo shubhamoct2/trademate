@@ -22,6 +22,8 @@ use Illuminate\Validation\Rule;
 use Purifier;
 use Txn;
 
+use App\DataTables\DepositHistoryDataTable;
+
 class DepositController extends Controller
 {
     use NotifyTrait, ImageUpload;
@@ -215,29 +217,9 @@ class DepositController extends Controller
         return view('backend.deposit.manual');
     }
 
-    public function history(Request $request)
+    public function history(DepositHistoryDataTable $dataTable)
     {
-
-        if ($request->ajax()) {
-            $data = Transaction::where(function ($query) {
-                $query->where('type', TxnType::ManualDeposit)
-                    ->orWhere('type', TxnType::Deposit);
-            })->latest();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('status', 'backend.transaction.include.__txn_status')
-                ->editColumn('type', 'backend.transaction.include.__txn_type')
-                ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
-                ->editColumn('charge', function ($request) {
-                    return $request->charge.' '.setting('site_currency', 'global');
-                })
-                ->addColumn('username', 'backend.transaction.include.__user')
-                ->rawColumns(['status', 'type', 'final_amount', 'username'])
-                ->make(true);
-        }
-
-        return view('backend.deposit.history');
+        return $dataTable->render('backend.deposit.history');
     }
 
     public function depositAction($id)

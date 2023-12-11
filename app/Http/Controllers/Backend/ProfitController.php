@@ -15,6 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\DataTables\ProfitsDataTable;
+
 class ProfitController extends Controller
 {
     /**
@@ -33,41 +35,8 @@ class ProfitController extends Controller
      *
      * @throws Exception
      */
-    public function allProfits(Request $request, $id = null)
+    public function allProfits(ProfitsDataTable $dataTable)
     {
-
-        if ($request->ajax()) {
-            if ($id) {
-                $data = Transaction::where('user_id', $id)->whereIn('type', [
-                    TxnType::Referral,
-                    TxnType::Interest,
-                    TxnType::Bonus,
-                    TxnType::SignupBonus,
-                ])->latest();
-            } else {
-                $data = Transaction::whereIn('type', [
-                    TxnType::Referral,
-                    TxnType::Interest,
-                    TxnType::Bonus,
-                    TxnType::SignupBonus,
-                ])->latest();
-            }
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('type', 'backend.transaction.include.__txn_type')
-                ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
-                ->editColumn('charge', function ($request) {
-                    return $request->charge.' '.setting('site_currency', 'global');
-                })
-                ->addColumn('username', 'backend.transaction.include.__user')
-                ->addColumn('profit_from', function ($request) {
-                    return $request->from_user_id != null ? User::find($request->from_user_id)->username : 'System';
-                })
-                ->rawColumns(['status', 'type', 'final_amount', 'username'])
-                ->make(true);
-        }
-
-        return view('backend.transaction.profit');
+        return $dataTable->render('backend.transaction.profit');
     }
 }

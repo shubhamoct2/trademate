@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Validator;
 use Str;
 use Txn;
 
+use App\DataTables\WithdrawHistoryDataTable;
+
 class WithdrawController extends Controller
 {
     use ImageUpload, NotifyTrait;
@@ -249,35 +251,9 @@ class WithdrawController extends Controller
      *
      * @throws Exception
      */
-    public function history(Request $request)
+    public function history(WithdrawHistoryDataTable $dataTable)
     {
-
-        $data = Transaction::where(function ($query) {
-            $query->where('type', TxnType::Withdraw);
-
-        })->get();
-
-        if ($request->ajax()) {
-            $data = Transaction::where(function ($query) {
-                $query->where('type', TxnType::Withdraw)
-                    ->orWhere('type', TxnType::WithdrawAuto);
-
-            })->latest();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('status', 'backend.transaction.include.__txn_status')
-                ->editColumn('type', 'backend.transaction.include.__txn_type')
-                ->editColumn('amount', 'backend.transaction.include.__txn_amount')
-                ->editColumn('charge', function ($request) {
-                    return $request->charge.' '.setting('site_currency', 'global');
-                })
-                ->addColumn('username', 'backend.transaction.include.__user')
-                ->rawColumns(['status', 'type', 'amount', 'username'])
-                ->make(true);
-        }
-
-        return view('backend.withdraw.history');
+        return $dataTable->render('backend.withdraw.history');
     }
 
     /**

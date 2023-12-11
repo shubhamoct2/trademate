@@ -7,22 +7,7 @@
         <div class="site-card">
             <div class="site-card-body table-responsive">
                 <div class="site-datatable">
-                    <table id="dataTable" class="display data-table">
-                        <thead>
-                        <tr>
-                            <th>{{ __('Date') }}</th>
-                            <th>{{ __('User') }}</th>
-                            <th>{{ __('Transaction ID') }}</th>
-                            <th>{{ __('Amount') }}</th>
-                            <th>{{ __('Charge') }}</th>
-                            <th>{{ __('Gateway') }}</th>
-                            <th>{{ __('Status') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                    {!! $dataTable->table(['class' => 'data-table']) !!}
                 </div>
             </div>
         </div>
@@ -53,3 +38,6 @@
         })(jQuery);
     </script>
 @endsection
+@push('datatable-script')
+    {{ $dataTable->scripts() }}
+@endpush

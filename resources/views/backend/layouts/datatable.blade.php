@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('backend.include.__datatable_head')
+@include('backend.include.__head')
 
 <body>
 <!--Full Layout-->
@@ -24,11 +24,12 @@
 <!--/Full Layout-->
 
 @include('backend.include.__script')
+@include('backend.include.__datatable_script')
 
 
 </body>
 
-{!! $dataTable->scripts() !!}
+@stack('datatable-script')
 
 </html>
 

@@ -12,6 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\DataTables\TransactionsDataTable;
+
 class TransactionController extends Controller
 {
     /**
@@ -30,29 +32,31 @@ class TransactionController extends Controller
      *
      * @throws \Exception
      */
-    public function transactions(Request $request, $id = null)
+    public function transactions(TransactionsDataTable $dataTable)
     {
-        if ($request->ajax()) {
+        return $dataTable->render('backend.transaction.index');
 
-            if ($id) {
-                $data = Transaction::where('user_id', $id)->latest();
-            } else {
-                $data = Transaction::query()->latest();
-            }
+        // if ($request->ajax()) {
 
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('status', 'backend.transaction.include.__txn_status')
-                ->editColumn('type', 'backend.transaction.include.__txn_type')
-                ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
-                ->editColumn('charge', function ($request) {
-                    return $request->charge.' '.setting('site_currency', 'global');
-                })
-                ->addColumn('username', 'backend.transaction.include.__user')
-                ->rawColumns(['status', 'type', 'final_amount', 'username'])
-                ->make(true);
-        }
+        //     if ($id) {
+        //         $data = Transaction::where('user_id', $id)->latest();
+        //     } else {
+        //         $data = Transaction::query()->latest();
+        //     }
 
-        return view('backend.transaction.index');
+        //     return Datatables::of($data)
+        //         ->addIndexColumn()
+        //         ->editColumn('status', 'backend.transaction.include.__txn_status')
+        //         ->editColumn('type', 'backend.transaction.include.__txn_type')
+        //         ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
+        //         ->editColumn('charge', function ($request) {
+        //             return $request->charge.' '.setting('site_currency', 'global');
+        //         })
+        //         ->addColumn('username', 'backend.transaction.include.__user')
+        //         ->rawColumns(['status', 'type', 'final_amount', 'username'])
+        //         ->make(true);
+        // }
+
+        // return view('backend.transaction.index');
     }
 }
