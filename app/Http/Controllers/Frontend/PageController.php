@@ -24,8 +24,9 @@ class PageController extends Controller
         }
 
         $data = new Fluent(json_decode($page->data, true));
+        $locale = app()->getLocale();
 
-        return view('frontend::pages.'.$url, compact('data'));
+        return view('frontend::pages.'.$url, compact('data', 'locale'));
     }
 
     public function getPage($section)

@@ -14,7 +14,11 @@
             <div class="row justify-content-center">
                 <div class="col-xl-12">
                     <div class="frontend-editor-data">
-                        {!! $data['content'] !!}
+                        @if ($locale != "en")
+                            {!! html_entity_decode(base64_decode($data['content'])) !!}
+                        @else
+                            {!! html_entity_decode($data['content']) !!}
+                        @endif
                     </div>
                 </div>
             </div>
