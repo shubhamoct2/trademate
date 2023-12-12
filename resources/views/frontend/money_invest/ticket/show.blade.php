@@ -118,7 +118,7 @@
                             <div class="row">
                                 <div class="col-xl-12 col-md-12">
                                     <div class="input-group">
-                                        <textarea class="form-control textarea" placeholder="Write Replay"
+                                        <textarea class="form-control textarea" placeholder="Write reply"
                                                   name="message"></textarea>
                                     </div>
                                 </div>

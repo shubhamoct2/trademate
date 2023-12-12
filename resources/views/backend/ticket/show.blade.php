@@ -140,7 +140,7 @@
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12">
                                             <div class="site-input-groups">
-                                                <textarea class="form-textarea" placeholder="Write Replay"
+                                                <textarea class="form-textarea" placeholder="Write reply"
                                                           name="message"></textarea>
                                             </div>
                                         </div>
