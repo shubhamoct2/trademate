@@ -17,15 +17,16 @@ use App\Libraries\AlphaPo;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Auth;
+
 class DepositController extends GatewayController
 {
     use ImageUpload, NotifyTrait;
 
     public function deposit()
     {
-
-        if (! setting('user_deposit', 'permission') || ! \Auth::user()->deposit_status) {
-            abort('403', 'Deposit Disable Now');
+        if (! setting('user_deposit', 'permission') || ! Auth::user()->deposit_status) {
+            abort('403', 'Deposit Is Disabled Now');
         }
 
         $isStepOne = 'current';
@@ -37,7 +38,7 @@ class DepositController extends GatewayController
 
     public function depositNow(Request $request)
     {
-        if (! setting('user_deposit', 'permission') || ! \Auth::user()->deposit_status) {
+        if (! setting('user_deposit', 'permission') || ! Auth::user()->deposit_status) {
             abort('403', 'Deposit Disable Now');
         }
 

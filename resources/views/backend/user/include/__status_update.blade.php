@@ -147,7 +147,7 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="profile-card-single">
-                        <h5 class="heading">{{ __('Send Money Status') }}</h5>
+                        <h5 class="heading">{{ __('Send To Status') }}</h5>
                         <div class="switch-field">
                             <input
                                 type="radio"

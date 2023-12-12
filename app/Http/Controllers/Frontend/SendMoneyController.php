@@ -13,13 +13,14 @@ use Session;
 use Txn;
 use Validator;
 
+use Illuminate\Support\Facades\Auth;
+
 class SendMoneyController extends Controller
 {
     public function sendMoney()
     {
-
-        if (! setting('transfer_status', 'permission') or ! \Auth::user()->transfer_status) {
-            abort('403', 'Send To Disable Now');
+        if (! setting('transfer_status', 'permission') or ! Auth::user()->transfer_status) {
+            abort('403', 'Send To Is Disabled Now');
         }
 
         $isStepOne = 'current';

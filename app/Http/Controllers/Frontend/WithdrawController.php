@@ -220,9 +220,8 @@ class WithdrawController extends Controller
      */
     public function withdrawNow(Request $request)
     {
-
-        if (! setting('user_withdraw', 'permission') || ! \Auth::user()->withdraw_status) {
-            abort('403', __('Withdraw Disable Now'));
+        if (! setting('user_withdraw', 'permission') || ! Auth::user()->withdraw_status) {
+            abort('403', __('Withdraw Is Disabled Now'));
         }
 
         $withdrawOffDays = WithdrawalSchedule::where('status', 0)->pluck('name')->toArray();
@@ -327,6 +326,10 @@ class WithdrawController extends Controller
      */
     public function withdraw()
     {
+        if (! setting('user_withdraw', 'permission') || ! Auth::user()->withdraw_status) {
+            abort('403', __('Withdraw Is Disabled Now'));
+        }
+
         $accounts = WithdrawAccount::where('user_id', \Auth::id())->get();
         $accounts = $accounts->reject(function ($value, $key) {
             return ! $value->method->status;
