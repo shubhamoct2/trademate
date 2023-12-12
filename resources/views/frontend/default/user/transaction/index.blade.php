@@ -63,10 +63,39 @@
                                                     </i>
                                                 </div>
                                                 <div class="description">
-                                                    <strong>{{$transaction->description}}</strong>@if(!in_array($transaction->approval_cause,['none',""]))
+                                                @php
+                                                    $from = floor($transaction->method / 3);
+                                                    $to = $transaction->method % 3;
+
+                                                    $from_wallet = '';
+                                                    if (1 == $from) {
+                                                        $from_wallet = __('Main Wallet');
+                                                    } else if (2 == $from) {
+                                                        $from_wallet = __('Profit Wallet');
+                                                    } else if (3 == $from) {
+                                                        $from_wallet = __('Trading Wallet');
+                                                    }
+
+                                                    $to_wallet = '';
+                                                    if (1 == $to) {
+                                                        $to_wallet = __('Main Wallet');
+                                                    } else if (2 == $to) {
+                                                        $to_wallet = __('Profit Wallet');
+                                                    } else if (3 == $to) {
+                                                        $to_wallet = __('Trading Wallet');
+                                                    }
+
+                                                    $description = trans('translation.exchange_description', [
+                                                        'from' => $from_wallet,
+                                                        'to' => $to_wallet,
+                                                    ]);
+                                                @endphp
+                                                    <strong>{{$description}}</strong>
+                                                    @if(!in_array($transaction->approval_cause,['none',""]))
                                                         <span class="optional-msg" data-bs-toggle="tooltip" title=""
-                                                              data-bs-original-title="{{ $transaction->approval_cause }}"><i
-                                                                icon-name="mail"></i></span>
+                                                              data-bs-original-title="{{ $transaction->approval_cause }}">
+                                                              <i icon-name="mail"></i>
+                                                        </span>
                                                     @endif
                                                     <div class="date">{{ $transaction->created_at }}</div>
                                                 </div>
@@ -90,11 +119,13 @@
                                                     <div class="site-badge success">{{ __('Success') }}</div>
                                                     @break
                                                 @case('failed')
-                                                    <div class="site-badge primary-bg">{{ __('canceled') }}</div>
+                                                    <div class="site-badge primary-bg">{{ __('Canceled') }}</div>
+                                                    @break
+                                                @case('rejected')
+                                                    <div class="site-badge primary-bg">{{ __('Rejected') }}</div>
                                                     @break
                                             @endswitch
-                                        </td>
-                                        <td><strong>{{ ucfirst($transaction->method) }}</strong></td>
+                                        </td>                                        
                                     </tr>
                                 @endforeach
                                 </tbody>

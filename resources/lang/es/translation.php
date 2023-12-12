@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'key' => 'llave',
+    'exchange_description' => ':from A :to Intercambio',
 ];

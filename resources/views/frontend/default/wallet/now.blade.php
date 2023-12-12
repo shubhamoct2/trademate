@@ -8,9 +8,12 @@
                     <label for="exampleFormControlInput1" class="form-label">{{ __('From Wallet:') }}</label>
                     <div class="input-group">
                         <select name="from_wallet" class="site-nice-select">
-                            <option value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
                             <option selected
-                                    value="2">{{ __('Profit Wallet').' ('. $user->profit_balance.' '.$currency .')' }}</option>
+                                value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
+                            <option 
+                                value="2">{{ __('Profit Wallet').' ('. $user->profit_balance.' '.$currency .')' }}</option>
+                            <option 
+                                value="3">{{ __('Trading Wallet').' ('. $user->trading_balance.' '.$currency .')' }}</option>
                         </select>
                     </div>
                 </div>
@@ -29,10 +32,12 @@
                     <label for="exampleFormControlInput1" class="form-label">{{ __('To Wallet:') }}</label>
                     <div class="input-group">
                         <select name="to_wallet" class="site-nice-select">
+                            <option 
+                                value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
                             <option selected
-                                    value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
-                            <option
                                 value="2">{{ __('Profit Wallet').' ('. $user->profit_balance.' '.$currency .')' }}</option>
+                            <option
+                                value="3">{{ __('Trading Wallet').' ('. $user->trading_balance.' '.$currency .')' }}</option>
                         </select>
                     </div>
 

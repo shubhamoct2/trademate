@@ -51,7 +51,6 @@ class ExchangeController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('status', 'backend.exchange.include.__txn_status')
-                ->editColumn('description', 'backend.exchange.include.__txn_type')
                 ->editColumn('final_amount', 'backend.exchange.include.__txn_amount')
                 ->editColumn('charge', function ($request) {
                     return $request->charge.' '.setting('site_currency', 'global');
@@ -97,20 +96,26 @@ class ExchangeController extends Controller
 
                     if ($input['type'] == "approve") {
                         $transaction->status = TxnStatus::Success;
+                        $to = $transaction->method % 3;
 
-                        if ($transaction->description == "Main to Profit Wallet Exchange") {
-                            $user->increment('profit_balance', $transaction->amount);
-                        } else {
+                        if ($to == 0) {
                             $user->increment('balance', $transaction->amount);
+                        } else if ($to == 1) {
+                            $user->increment('profit_balance', $transaction->amount);
+                        } else if ($to == 2) {
+                            $user->increment('trading_balance', $transaction->amount);
                         }
                         
                     } else {
                         $transaction->status = TxnStatus::Rejected;
+                        $from = floor($transaction->method / 3);
 
-                        if ($transaction->description == "Main to Profit Wallet Exchange") {
-                            $user->increment('balance', $transaction->amount);
-                        } else {
-                            $user->increment('profit_balance', $transaction->amount);
+                        if ($from == 0) {
+                            $user->increment('balance', $transaction->final_amount);
+                        } else if ($from == 1) {
+                            $user->increment('profit_balance', $transaction->final_amount);
+                        } else if ($from == 2) {
+                            $user->increment('trading_balance', $transaction->final_amount);
                         }
                     }
 

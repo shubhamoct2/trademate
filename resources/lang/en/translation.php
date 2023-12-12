@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'key' => 'key',
+    'exchange_description' => ':from To :to Exchange',
 ];

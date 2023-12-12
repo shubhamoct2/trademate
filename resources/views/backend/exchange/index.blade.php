@@ -26,10 +26,9 @@
                                     <tr>
                                         <th>{{ __('Date') }}</th>
                                         <th>{{ __('User') }}</th>
-                                        <th>{{ __('Transaction ID') }}</th>
-                                        <th>{{ __('Type') }}</th>
+                                        <th>{{ __('Tnx') }}</th>
+                                        <th>{{ __('Description') }}</th>
                                         <th>{{ __('Amount') }}</th>
-                                        <th>{{ __('Gateway') }}</th>
                                         <th>{{ __('Status') }}</th>
                                         <th>{{ __('Action') }}</th>
                                     </tr>
@@ -66,7 +65,6 @@
                     {data: 'tnx', name: 'tnx'},
                     {data: 'description', name: 'type'},
                     {data: 'final_amount', name: 'final_amount'},
-                    {data: 'method', name: 'method'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]

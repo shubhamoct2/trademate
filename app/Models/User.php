@@ -41,6 +41,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         'address',
         'balance',
         'profit_balance',
+        'trading_balance',
         'status',
         'kyc',
         'kyc_credential',

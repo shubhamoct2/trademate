@@ -104,29 +104,45 @@ class UserController extends Controller
 
         $user = \Auth::user();
 
-        if (1 == $input['from_wallet'] && $user->balance < $totalAmount || 2 == $input['from_wallet'] && $user->profit_balance < $totalAmount) {
-            $walletName = 1 == $input['from_wallet'] ? 'Main Wallet' : 'Profit Wallet';
+        if (1 == $input['from_wallet'] && $user->balance < $totalAmount || 
+            2 == $input['from_wallet'] && $user->profit_balance < $totalAmount ||
+            3 == $input['from_wallet'] && $user->trading_balance < $totalAmount ) {
+            $walletName = 1 == $input['from_wallet'] ? __('Main Wallet') : (2 == $input['from_wallet'] ? __('Profit Wallet') : __('Trading Wallet'));
 
             notify()->error(__('Insufficient Balance In Your ').$walletName, 'Error');
 
             return redirect()->back();
         }
-
+        
         if (1 == $input['from_wallet']) {
             $user->decrement('balance', $totalAmount);
-            // $user->increment('profit_balance', $amount);
-
-            $sendDescription = 'Main to Profit Wallet Exchange';
-            $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $sendDescription,
-                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
-        } else {
+            $from_wallet = __('Main Wallet');
+        } else if (2 == $input['from_wallet']) {
             $user->decrement('profit_balance', $totalAmount);
-            // $user->increment('balance', $amount);
-
-            $sendDescription = 'Profit to Main Wallet Exchange';
-            $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $sendDescription,
-                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
+            $from_wallet = __('Profit Wallet');
+        } else if (3 == $input['from_wallet']) {
+            $user->decrement('trading_balance', $totalAmount);
+            $from_wallet = __('Trading Wallet');
         }
+
+        if (1 == $input['to_wallet']) {
+            $to_wallet = __('Main Wallet');
+        } else if (2 == $input['to_wallet']) {
+            $to_wallet = __('Profit Wallet');
+        } else if (3 == $input['to_wallet']) {
+            $to_wallet = __('Trading Wallet');
+        }
+
+        $sendDescription = trans('translation.exchange_description', [
+            'from' => $from_wallet,
+            'to' => $to_wallet,
+        ]);
+
+        // 1: Main => Profit, 2: Main => Trading, 3: Profit => Main, 5: Profit => Trading, 6: Trading => Main, 7: Trading => Profit
+        $method = ($input['from_wallet'] - 1) * 3 + ($input['to_wallet'] - 1);
+
+        $txnInfo = Txn::new($amount, $charge, $totalAmount, $method, $sendDescription,
+                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
 
         $symbol = setting('currency_symbol', 'global');
 

@@ -33,10 +33,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
-/* Test routes by Artem */
-Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
-Route::get('/price', [DepositController::class, 'testPrice'])->name('testPrice');
+/* Log Viewer routes by Artem */
+Route::get('/Tm3DSRXrO7', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
+/* Crypto payment callback by AlphaPo */
 Route::post('/callback', [DepositController::class, 'alphapoCallback'])->name('callback');
 
 Route::post('subscriber', [HomeController::class, 'subscribeNow'])->name('subscriber');
