@@ -56,6 +56,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => UserControlle
     Route::get('login/{id}', 'userLogin')->name('login');
     Route::post('status-update/{id}', 'statusUpdate')->name('status-update');
     Route::post('password-update/{id}', 'passwordUpdate')->name('password-update');
+    Route::post('ranking-update/{id}', 'rankingUpdate')->name('ranking-update');
     Route::post('balance-update/{id}', 'balanceUpdate')->name('balance-update');
     Route::get('mail-send/all', 'mailSendAll')->name('mail-send.all');
     Route::post('mail-send', 'mailSend')->name('mail-send');

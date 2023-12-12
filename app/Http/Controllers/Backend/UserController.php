@@ -197,6 +197,38 @@ class UserController extends Controller
     }
 
     /**
+     * @return RedirectResponse
+     */
+    public function rankingUpdate($id, Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'user_ranking' => ['required', 'exists:rankings,id'],
+        ]);
+
+        if ($validator->fails()) {
+            notify()->error($validator->errors()->first(), 'Error');
+
+            return redirect()->back();
+        }
+
+        $input = $validator->validated();
+
+        $new_rankings = [];
+        for ($i = 1; $i <= intval($input['user_ranking']); $i++) {
+            $new_rankings[] = $i;
+        }
+
+        User::find($id)->update([
+            'ranking_id' => $input['user_ranking'],
+            'rankings' => $new_rankings
+        ]);
+        notify()->success('User Ranking Updated Successfully', 'success');
+
+        return redirect()->back();
+    }
+
+    /**
      * @return RedirectResponse|void
      */
     public function balanceUpdate($id, Request $request)

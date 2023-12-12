@@ -53,7 +53,7 @@ class UserController extends Controller
     public function rankingBadge()
     {
         $alreadyRank = json_decode(auth()->user()->rankings, true);
-
+        
         $rankings = Ranking::where('status', true)->get();
 
         return view('frontend::ranking.index', compact('rankings', 'alreadyRank'));

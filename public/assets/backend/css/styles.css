@@ -4962,3 +4962,76 @@ img {
   background: #9f8122;
   color: #ffffff;
 }
+
+/* single-badge */
+.single-badge {
+  text-align: center;
+  border: 2px solid rgba(0, 18, 25, 0.1);
+  border-radius: 50%;
+  padding: 50px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  position: relative;
+  background: rgba(83, 90, 148, 0.3);
+}
+
+.single-badge .badge {
+  margin-bottom: 10px;
+}
+
+.single-badge .badge .img {
+  width: 70px;
+}
+
+.single-badge .content .title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.single-badge .content .description {
+  color: rgba(0, 18, 25, 0.6);
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.single-badge.locked::before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+  content: "";
+  background: #001219;
+  opacity: 0.8;
+  transition: 0.4s;
+}
+
+.single-badge.locked::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "\f023";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 62px;
+  transition: 0.4s;
+}
+
+.single-badge:hover.locked::before {
+  display: none;
+}
+
+.single-badge:hover.locked::after {
+  display: none;
+}

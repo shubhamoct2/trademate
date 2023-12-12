@@ -194,6 +194,22 @@
                                 </li>
                             @endif
 
+                            @can('customer-ranking-manage')
+                                <li class="nav-item" role="presentation">
+                                    <a
+                                        href=""
+                                        class="nav-link"
+                                        id="pills-rankings-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-rankings"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-rankings"
+                                        aria-selected="true"
+                                    ><i icon-name="star"></i>{{ __('Rankings') }}</a>
+                                </li>
+                            @endcan
+
 
                             @canany(['support-ticket-list','support-ticket-action'])
                                 <li class="nav-item" role="presentation">
@@ -239,6 +255,12 @@
                         @if(setting('site_referral','global') == 'level')
                             @include('backend.user.include.__referral_tree')
                         @endif
+
+                        <!-- Rankings -->
+                        @can('customer-ranking-manage')
+                            @include('backend.user.include.__rankings')
+                        @endcan
+
 
                         <!-- ticket -->
                         @canany(['support-ticket-list','support-ticket-action'])
