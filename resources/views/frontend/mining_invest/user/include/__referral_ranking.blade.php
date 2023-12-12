@@ -24,7 +24,7 @@
                             </button>
                         </div>
                         <p class="referral-joined">
-                            {{ $referral->relationships()->count() }} {{ __('peoples are joined by using this URL') }}
+                            {{ $referral->relationships()->count() }} {{ __('peoples have joined through this URL') }}
                         </p>
                     </div>
                 </div>

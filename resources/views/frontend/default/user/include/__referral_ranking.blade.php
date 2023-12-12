@@ -17,14 +17,14 @@
                 <div class="site-card-body">
                     <div class="referral-link">
                         <div class="referral-link-form">
-                            <input type="text" value="{{ $referral->link }}" id="refLink"/>
+                            <input type="text" value="{{ $referral->link }}" id="refLink" disabled />
                             <button type="submit" onclick="copyRef()">
                                 <i class="anticon anticon-copy"></i>
                                 <span id="copy">{{ __('Copy') }}</span>
                             </button>
                         </div>
                         <p class="referral-joined">
-                            {{ $referral->relationships()->count() }} {{ __('peoples are joined by using this URL') }}
+                            {{ $referral->relationships()->count() }} {{ __('peoples have joined through this URL') }}
                         </p>
                     </div>
                 </div>
