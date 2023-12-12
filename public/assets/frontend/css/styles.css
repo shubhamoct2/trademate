@@ -4950,7 +4950,7 @@ li
 }
 
 .cta .btns {
-    width: 50%;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -4984,6 +4984,7 @@ li
 
 .cta .btns a {
     margin-left: 10px;
+    text-align: center;
 }
 
 @media (max-width: 991px) {
