@@ -37,7 +37,9 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/Tm3DSRXrO7', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 /* Crypto payment callback by AlphaPo */
-Route::post('/callback', [DepositController::class, 'alphapoCallback'])->name('callback');
+Route::group(['prefix' => 'alphapo', 'as' => 'alphapo.'], function () {
+    Route::post('/callback', [DepositController::class, 'alphapoCallback'])->name('callback');
+});
 
 Route::post('subscriber', [HomeController::class, 'subscribeNow'])->name('subscriber');
 
