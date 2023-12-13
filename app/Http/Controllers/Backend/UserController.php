@@ -380,10 +380,10 @@ class UserController extends Controller
             
             return Datatables::of($data)
                 ->addIndexColumn()
-                // ->editColumn('status', 'backend.user.include.__txn_status')
-                // ->editColumn('type', 'backend.user.include.__txn_type')
-                // ->editColumn('final_amount', 'backend.user.include.__txn_amount')
-                // ->rawColumns(['status', 'type', 'final_amount'])
+                ->editColumn('status', 'backend.user.include.__txn_status')
+                ->editColumn('type', 'backend.user.include.__txn_type')
+                ->editColumn('final_amount', 'backend.user.include.__txn_amount')
+                ->rawColumns(['status', 'type', 'final_amount'])
                 ->make(true);
         }
     }
