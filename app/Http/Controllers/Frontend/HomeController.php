@@ -57,7 +57,7 @@ class HomeController extends Controller
             'email' => $request->email,
         ]);
 
-        notify()->success(__('Subscribe Successfully'));
+        notify()->success(__('Subscribed Sucessfully'));
 
         return redirect()->back();
     }

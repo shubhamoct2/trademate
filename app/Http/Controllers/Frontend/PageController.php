@@ -92,7 +92,7 @@ class PageController extends Controller
             $this->mailNotify(setting('support_email', 'global'), 'contact_mail', $shortcodes);
 
             $status = 'success';
-            $message = __('Successfully Send Message');
+            $message = __('Successfully Sent Message');
 
         } catch (Exception $e) {
 
