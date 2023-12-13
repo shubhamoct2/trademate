@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Txn;
 
+use DataTables;
+
 use App\DataTables\UsersDataTable;
 use App\DataTables\ActiveUsersDataTable;
 use App\DataTables\DisabledUsersDataTable;
@@ -373,18 +375,15 @@ class UserController extends Controller
      */
     public function transaction($id, Request $request)
     {
-
         if ($request->ajax()) {
             $data = Transaction::where('user_id', $id)->latest();
-
-            return null;
             
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->editColumn('status', 'backend.user.include.__txn_status')
-                ->editColumn('type', 'backend.user.include.__txn_type')
-                ->editColumn('final_amount', null)//'backend.user.include.__txn_amount')
-                ->rawColumns(['status', 'type', 'final_amount'])
+                // ->editColumn('status', 'backend.user.include.__txn_status')
+                // ->editColumn('type', 'backend.user.include.__txn_type')
+                // ->editColumn('final_amount', 'backend.user.include.__txn_amount')
+                // ->rawColumns(['status', 'type', 'final_amount'])
                 ->make(true);
         }
     }
