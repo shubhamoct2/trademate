@@ -64,11 +64,15 @@
                                                 </div>
                                                 <div class="description">
                                                 @php
-                                                    if (!is_numeric($transaction->method)) {
-                                                        $description = $transaction->description;
+                                                    $re = "/^[0-9]+$/";
+
+                                                    if (!preg_match($re, $transaction->method)) {
+                                                        $description = $transaction->method;
                                                     } else {
-                                                        $from = floor($transaction->method / 3);
-                                                        $to = $transaction->method % 3;
+                                                        $method = intval($transaction->method);
+
+                                                        $from = floor($method / 3);
+                                                        $to = $method % 3;
 
                                                         $from_wallet = '';
                                                         if (1 == $from) {
