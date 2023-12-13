@@ -99,7 +99,7 @@ class SendMoneyController extends Controller
             TxnType::SendMoney, TxnStatus::Success, null, null, $fromUser->id, $toUser->id);
 
         $toUser->increment('balance', $amount);
-        $receiveDescription = 'Transfer Money Form '.$fromUser->username;
+        $receiveDescription = 'Transfer Money From '.$fromUser->username;
         $txnInfo = Txn::new($amount, $charge, $totalAmount, 'system', $receiveDescription,
             TxnType::ReceiveMoney, TxnStatus::Success, null, null, $toUser->id, $fromUser->id, 'User', [], $input['note']);
 
