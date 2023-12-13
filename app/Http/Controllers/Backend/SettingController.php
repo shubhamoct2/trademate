@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
@@ -58,6 +59,8 @@ class SettingController extends Controller
 
             return back();
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
+
             notify()->error('SMTP connection test failed: '.$e->getMessage(), 'Error');
 
             return redirect()->back();
