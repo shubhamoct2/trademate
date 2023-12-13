@@ -64,31 +64,35 @@
                                                 </div>
                                                 <div class="description">
                                                 @php
-                                                    $from = floor($transaction->method / 3);
-                                                    $to = $transaction->method % 3;
+                                                    if (!is_numeric($transaction->method)) {
+                                                        $description = $transaction->description;
+                                                    } else {
+                                                        $from = floor($transaction->method / 3);
+                                                        $to = $transaction->method % 3;
 
-                                                    $from_wallet = '';
-                                                    if (1 == $from) {
-                                                        $from_wallet = __('Main Wallet');
-                                                    } else if (2 == $from) {
-                                                        $from_wallet = __('Profit Wallet');
-                                                    } else if (3 == $from) {
-                                                        $from_wallet = __('Trading Wallet');
+                                                        $from_wallet = '';
+                                                        if (1 == $from) {
+                                                            $from_wallet = __('Main Wallet');
+                                                        } else if (2 == $from) {
+                                                            $from_wallet = __('Profit Wallet');
+                                                        } else if (3 == $from) {
+                                                            $from_wallet = __('Trading Wallet');
+                                                        }
+
+                                                        $to_wallet = '';
+                                                        if (1 == $to) {
+                                                            $to_wallet = __('Main Wallet');
+                                                        } else if (2 == $to) {
+                                                            $to_wallet = __('Profit Wallet');
+                                                        } else if (3 == $to) {
+                                                            $to_wallet = __('Trading Wallet');
+                                                        }
+
+                                                        $description = trans('translation.exchange_description', [
+                                                            'from' => $from_wallet,
+                                                            'to' => $to_wallet,
+                                                        ]);
                                                     }
-
-                                                    $to_wallet = '';
-                                                    if (1 == $to) {
-                                                        $to_wallet = __('Main Wallet');
-                                                    } else if (2 == $to) {
-                                                        $to_wallet = __('Profit Wallet');
-                                                    } else if (3 == $to) {
-                                                        $to_wallet = __('Trading Wallet');
-                                                    }
-
-                                                    $description = trans('translation.exchange_description', [
-                                                        'from' => $from_wallet,
-                                                        'to' => $to_wallet,
-                                                    ]);
                                                 @endphp
                                                     <strong>{{$description}}</strong>
                                                     @if(!in_array($transaction->approval_cause,['none',""]))
