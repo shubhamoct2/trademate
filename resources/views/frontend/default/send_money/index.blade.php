@@ -8,12 +8,15 @@
             <div class="site-card">
                 <div class="site-card-header">
                     <h3 class="title">{{ __('Send To') }}</h3>
+                    @if (!$locked)
                     <div class="card-header-links">
                         <a href="{{ route('user.send-money.log') }}"
                            class="card-header-link">{{ __('SEND TO LOG') }}</a>
                     </div>
+                    @endif
                 </div>
                 <div class="site-card-body">
+                    @if (!$locked)
                     <div class="progress-steps">
                         <div class="single-step {{ $isStepOne }}">
                             <div class="number">{{ __('01') }}</div>
@@ -30,6 +33,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @yield('send_money_content')
                 </div>
             </div>

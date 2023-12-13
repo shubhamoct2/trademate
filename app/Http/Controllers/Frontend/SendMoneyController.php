@@ -19,14 +19,16 @@ class SendMoneyController extends Controller
 {
     public function sendMoney()
     {
+        $locked = false;
+
         if (! setting('transfer_status', 'permission') or ! Auth::user()->transfer_status) {
-            abort('403', 'Send To Is Disabled Now');
+            $locked = true;
         }
 
         $isStepOne = 'current';
         $isStepTwo = '';
 
-        return view('frontend::send_money.now', compact('isStepOne', 'isStepTwo'));
+        return view('frontend::send_money.now', compact('locked', 'isStepOne', 'isStepTwo'));
     }
 
     public function sendMoneyNow(Request $request)

@@ -1,6 +1,28 @@
 @extends('frontend::send_money.index')
 @section('send_money_content')
-
+    @if ($locked)
+    <section class="disabled-section w-100">
+            <div class="container">
+                <div class="section-body">
+                    <h2 class="title">
+                        {{ trans('translation.lock_feature', ['feature' => __('Send To') ]) }}
+                    </h2>
+                    <h4 class="description">
+                        {{ __('To Access This Feature, You Must Complete Your KYC & Request It To Be Unlocked & Complete Your KYC.') }}
+                    </h4>
+                    <div class="action">
+                        <form method="POST" action="{{ route('user.unlock') }}">
+                            @csrf
+                            <input type="hidden" id="feature" name="feature" value="{{ __('Send To') }}">
+                            <button type="submit" class="site-btn grad-btn">
+                                {{ __('COMPLETE KYC & UNLOCK') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @else
     <div class="progress-steps-form">
         <form action="{{ route('user.send-money.now') }}" method="post">
             @csrf
@@ -62,7 +84,7 @@
         </form>
 
     </div>
-
+    @endif
 @endsection
 @section('script')
 

@@ -5,16 +5,16 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="site-card">
-                @if (!$locked)
+            <div class="site-card">                
                 <div class="site-card-header">
                     <h3 class="title">{{ __('Add Money') }}</h3>
+                    @if (!$locked)
                     <div class="card-header-links">
                         <a href="{{ route('user.deposit.log') }}"
                            class="card-header-link">{{ __('Deposit History') }}</a>
                     </div>
-                </div>
-                @endif
+                    @endif
+                </div>                
                 <div class="site-card-body">
                     @if (!$locked)
                     <div class="progress-steps">

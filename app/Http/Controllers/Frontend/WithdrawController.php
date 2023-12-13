@@ -326,8 +326,10 @@ class WithdrawController extends Controller
      */
     public function withdraw()
     {
+        $locked = false;
+
         if (! setting('user_withdraw', 'permission') || ! Auth::user()->withdraw_status) {
-            abort('403', __('Withdraw Is Disabled Now'));
+            $locked = true;
         }
 
         $accounts = WithdrawAccount::where('user_id', \Auth::id())->get();
@@ -335,7 +337,7 @@ class WithdrawController extends Controller
             return ! $value->method->status;
         });
 
-        return view('frontend::withdraw.now', compact('accounts'));
+        return view('frontend::withdraw.now', compact('locked', 'accounts'));
     }
 
     public function withdrawLog()
