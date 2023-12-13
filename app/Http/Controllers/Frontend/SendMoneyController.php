@@ -112,7 +112,7 @@ class SendMoneyController extends Controller
         $notify = [
             'card-header' => 'Success Your Send To Process',
             'title' => $symbol.$txnInfo->amount.' Send To Successfully',
-            'p' => 'The Send To has been successfully sent to the'.$toUser->first_name.' '.$toUser->last_name,
+            'p' => 'The Send To has been successfully sent to '.$toUser->first_name.' '.$toUser->last_name,
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
             'action' => route('user.send-money.view'),
             'a' => 'Send To again',
