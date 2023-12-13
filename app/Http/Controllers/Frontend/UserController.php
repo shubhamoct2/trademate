@@ -62,6 +62,7 @@ class UserController extends Controller
             '[[email]]' => $user->email,
             '[[feature]]' => $request->feature,
             '[[site_url]]' => route('home'),
+            '[[site_title]]' => setting('site_title', 'global'),
         ];
 
         $this->mailNotify(setting('support_email', 'global'), 'ask_unlock_feature', $shortcodes);
