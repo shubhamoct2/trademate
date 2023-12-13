@@ -25,15 +25,17 @@ class DepositController extends GatewayController
 
     public function deposit()
     {
+        $locked = false;
+
         if (! setting('user_deposit', 'permission') || ! Auth::user()->deposit_status) {
-            abort('403', 'Deposit Is Disabled Now');
+            $locked = true;
         }
 
         $isStepOne = 'current';
         $isStepTwo = '';
         $gateways = DepositMethod::where('status', 1)->get();
 
-        return view('frontend::deposit.now', compact('isStepOne', 'isStepTwo', 'gateways'));
+        return view('frontend::deposit.now', compact('locked', 'isStepOne', 'isStepTwo', 'gateways'));
     }
 
     public function depositNow(Request $request)

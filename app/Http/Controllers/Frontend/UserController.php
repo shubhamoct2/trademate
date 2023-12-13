@@ -37,6 +37,36 @@ class UserController extends Controller
         return view('frontend::user.change_password');
     }
 
+    public function showLock($feature)
+    {
+        return view('frontend::user.disabled.index', compact('feature'));
+    }
+
+    public function askUnlock(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'feature' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            notify()->error($validator->errors()->first(), 'Error');
+            return redirect()->back();
+        }
+
+        $user = Auth::user();
+        $shortcodes = [
+            '[[full_name]]' => $user->full_name,
+            '[[email]]' => $user->email,
+            '[[feature]]' => $request->feature,
+            '[[site_url]]' => route('home'),
+        ];
+
+        $this->mailNotify(setting('support_email', 'global'), 'ask_unlock_feature', $shortcodes);
+
+        notify()->success('Your request was sent successfully', 'success');
+
+        return redirect()->back();
+    }
+
     public function newPassword(Request $request)
     {
         $request->validate([

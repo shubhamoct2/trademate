@@ -1,79 +1,104 @@
 @extends('frontend::deposit.index')
+
 @section('deposit_content')
-    <div class="progress-steps-form">
-        <form action="{{ route('user.deposit.now') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-xl-6 col-md-12 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">{{ __('Payment Method:') }}</label>
-                    <div class="input-group">
-                        <select name="gateway_code" id="gatewaySelect" class="site-nice-select">
-                            <option selected disabled>--{{ __('Select Gateway') }}--</option>
-                            @foreach($gateways as $gateway)
-                                <option value="{{ $gateway->gateway_code }}">{{ $gateway->name }}</option>
-                            @endforeach
-                        </select>
+    @if ($locked)
+        <section class="disabled-section w-100">
+            <div class="container">
+                <div class="section-body">
+                    <h2 class="title">
+                        {{ trans('translation.lock_feature', ['feature' => __('Deposit') ]) }}
+                    </h2>
+                    <h4 class="description">
+                        {{ __('To Access This Feature, You Must Complete Your KYC & Request It To Be Unlocked & Complete Your KYC.') }}
+                    </h4>
+                    <div class="action">
+                        <form method="POST" action="{{ route('user.unlock') }}">
+                            @csrf
+                            <input type="hidden" id="feature" name="feature" value="{{ __('Deposit') }}">
+                            <button type="submit" class="site-btn grad-btn">
+                                {{ __('COMPLETE KYC & UNLOCK') }}
+                            </button>
+                        </form>
                     </div>
-                    <div class="input-info-text charge"></div>
                 </div>
-                <div class="col-xl-6 col-md-12">
-                    <label for="exampleFormControlInput1" class="form-label">{{ __('Enter Amount:') }}</label>
-                    <div class="input-group">
-                        <input type="text" name="amount" class="form-control"
-                               oninput="this.value = validateDouble(this.value)" aria-label="Amount" id="amount"
-                               aria-describedby="basic-addon1">
-                        <span class="input-group-text" id="basic-addon1">{{ $currency }}</span>
+            </div>
+        </section>
+    @else
+        <div class="progress-steps-form">
+            <form action="{{ route('user.deposit.now') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-xl-6 col-md-12 mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">{{ __('Payment Method:') }}</label>
+                        <div class="input-group">
+                            <select name="gateway_code" id="gatewaySelect" class="site-nice-select">
+                                <option selected disabled>--{{ __('Select Gateway') }}--</option>
+                                @foreach($gateways as $gateway)
+                                    <option value="{{ $gateway->gateway_code }}">{{ $gateway->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="input-info-text charge"></div>
                     </div>
-                    <div class="input-info-text min-max"></div>
+                    <div class="col-xl-6 col-md-12">
+                        <label for="exampleFormControlInput1" class="form-label">{{ __('Enter Amount:') }}</label>
+                        <div class="input-group">
+                            <input type="text" name="amount" class="form-control"
+                                oninput="this.value = validateDouble(this.value)" aria-label="Amount" id="amount"
+                                aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">{{ $currency }}</span>
+                        </div>
+                        <div class="input-info-text min-max"></div>
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div class="row manual-row">
-            </div>
-
-            <div class="transaction-list table-responsive">
-                <div class="user-panel-title">
-                    <h3>{{ __('Review Details:') }}</h3>
+                <div class="row manual-row">
                 </div>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td><strong>{{ __('Amount') }}</strong></td>
-                        <td><span class="amount"></span> <span class="currency"></span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ __('Charge') }}</strong></td>
-                        <td class="charge2"></td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ __('Payment Method') }}</strong></td>
-                        <td id="logo"><img src="" class="payment-method" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ __('Total') }}</strong></td>
-                        <td class="total"></td>
-                    </tr>
-                    <tr class="conversion">
-                        <td><strong>{{ __('Conversion Rate') }}</strong></td>
-                        <td class="conversion-rate"></td>
-                    </tr>
-                    <tr class="conversion">
-                        <td><strong>{{ __('Pay Amount') }}</strong></td>
-                        <td class="pay-amount"></td>
-                    </tr>
+
+                <div class="transaction-list table-responsive">
+                    <div class="user-panel-title">
+                        <h3>{{ __('Review Details:') }}</h3>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ __('Amount') }}</strong></td>
+                            <td><span class="amount"></span> <span class="currency"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ __('Charge') }}</strong></td>
+                            <td class="charge2"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ __('Payment Method') }}</strong></td>
+                            <td id="logo"><img src="" class="payment-method" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ __('Total') }}</strong></td>
+                            <td class="total"></td>
+                        </tr>
+                        <tr class="conversion">
+                            <td><strong>{{ __('Conversion Rate') }}</strong></td>
+                            <td class="conversion-rate"></td>
+                        </tr>
+                        <tr class="conversion">
+                            <td><strong>{{ __('Pay Amount') }}</strong></td>
+                            <td class="pay-amount"></td>
+                        </tr>
 
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="buttons">
-                <button type="submit" class="site-btn blue-btn">
-                    {{ __('Proceed to Payment') }}<i class="anticon anticon-double-right"></i>
-                </button>
-            </div>
-        </form>
-    </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="site-btn blue-btn">
+                        {{ __('Proceed to Payment') }}<i class="anticon anticon-double-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    @endif
 @endsection
 @section('script')
     <script>

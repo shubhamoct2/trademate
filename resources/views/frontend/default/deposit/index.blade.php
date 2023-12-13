@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="site-card">
+                @if (!$locked)
                 <div class="site-card-header">
                     <h3 class="title">{{ __('Add Money') }}</h3>
                     <div class="card-header-links">
@@ -13,7 +14,9 @@
                            class="card-header-link">{{ __('Deposit History') }}</a>
                     </div>
                 </div>
+                @endif
                 <div class="site-card-body">
+                    @if (!$locked)
                     <div class="progress-steps">
                         <div class="single-step {{ $isStepOne }}">
                             <div class="number">{{ __('01') }}</div>
@@ -30,6 +33,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @yield('deposit_content')
                 </div>
             </div>

@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth', '2fa', 'isActive', setting('email_verific
     //dashboard
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+    //lock
+    Route::get('lock/{feature?}', [UserController::class, 'showLock'])->name('lock');
+    Route::post('unlock', [UserController::class, 'askUnlock'])->name('unlock');
+
     //user notify
     Route::get('notify', [UserController::class, 'notifyUser'])->name('notify');
     Route::get('notification/all', [UserController::class, 'allNotification'])->name('notification.all');

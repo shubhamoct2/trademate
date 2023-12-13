@@ -11421,3 +11421,37 @@ i {
     background: #ffc300;
     color: #001219;
 }
+
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* Disabled Page */
+.disabled-section {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.disabled-section .section-body {
+    margin: 0 auto;    
+}
+
+.disabled-section .title {
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.disabled-section .description {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: normal;    
+    line-height: 2rem;
+}
