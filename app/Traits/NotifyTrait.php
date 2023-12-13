@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 trait NotifyTrait
 {
@@ -53,6 +54,8 @@ trait NotifyTrait
                 return Mail::to($email)->send(new MailSend($details));
             }
         } catch (Exception $e) {
+            Log::error($e->getMessage());
+            
             notify()->error('SMTP connection failed', 'Error');
 
             return false;
