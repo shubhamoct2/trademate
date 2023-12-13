@@ -67,7 +67,7 @@
                                                     $re = "/^[0-9]+$/";
 
                                                     if (!preg_match($re, $transaction->method)) {
-                                                        $description = $transaction->method;
+                                                        $description = $transaction->description;
                                                     } else {
                                                         $method = intval($transaction->method);
 
