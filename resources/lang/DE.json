@@ -1025,5 +1025,9 @@
     "Pay": "Zahlen",
     "Notification Not Found": "Benachrichtigung nicht gefunden",
     "Mark All as Read": "Alles als gelesen markieren",
-    "See all Notifications": "Alle Benachrichtigungen anzeigen"
+    "See all Notifications": "Alle Benachrichtigungen anzeigen",
+    "Lock": "Sperren",
+    "This Feature Is Not Enabled": "Diese Funktion ist nicht aktiviert",
+    "To Access This Feature, You Must Complete Your KYC & Request It To Be Unlocked & Complete Your KYC.": "Um auf diese Funktion zugreifen zu können, müssen Sie Ihr KYC ausfüllen und die Freischaltung beantragen und Ihr KYC abschließen.",
+    "COMPLETE KYC & UNLOCK": "KYC ABSCHLIESSEN UND ENTSPERREN"
 }

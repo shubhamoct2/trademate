@@ -1025,5 +1025,9 @@
     "Pay": "Payer",
     "Notification Not Found": "Notification introuvable",
     "Mark All as Read": "Tout marquer comme lu",
-    "See all Notifications": "Voir toutes les notifications"
+    "See all Notifications": "Voir toutes les notifications",
+    "Lock": "Verrouillage",
+    "This Feature Is Not Enabled": "Cette fonctionnalité n'est pas activée",
+    "To Access This Feature, You Must Complete Your KYC & Request It To Be Unlocked & Complete Your KYC.": "Pour accéder à cette fonctionnalité, vous devez compléter votre KYC, demander qu'il soit déverrouillé et compléter votre KYC.",
+    "COMPLETE KYC & UNLOCK": "KYC COMPLET ET DÉVERROUILLAGE"
 }

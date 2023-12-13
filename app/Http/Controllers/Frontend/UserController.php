@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Session;
 use Txn;
 use Validator;
+use Auth;
 
 class UserController extends Controller
 {
