@@ -17,9 +17,12 @@ use Session;
 use Txn;
 use Validator;
 use Auth;
+use App\Traits\NotifyTrait;
 
 class UserController extends Controller
 {
+    use NotifyTrait;
+
     public function userExist($email)
     {
         $user = User::where('email', $email)->first();
