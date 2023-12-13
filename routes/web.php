@@ -46,6 +46,7 @@ Route::get('/{page}', PageController::class)->name('page')->where('page', 'schem
 
 //Dynamic Page
 Route::get('page/{section}', [PageController::class, 'getPage'])->name('dynamic.page');
+Route::get('/thank-you', [PageController::class, 'thankyou'])->name('thankyou');
 
 Route::get('blog/{id}', [PageController::class, 'blogDetails'])->name('blog-details');
 Route::post('mail-send', [PageController::class, 'mailSend'])->name('mail-send');

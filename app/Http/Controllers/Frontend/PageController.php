@@ -43,6 +43,11 @@ class PageController extends Controller
         return view('frontend::pages.dynamic_page', compact('data', 'title'));
     }
 
+    public function thankyou()
+    {
+        return view('frontend::pages.thank-you');
+    }
+
     public function blogDetails($id)
     {
 
@@ -100,9 +105,8 @@ class PageController extends Controller
             $message = __('something is wrong');
         }
 
-        notify()->$status($message, $status);
+        // notify()->$status($message, $status);
 
-        return redirect()->back();
-
+        return redirect()->route('thankyou');
     }
 }
