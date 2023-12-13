@@ -21,7 +21,6 @@
         "hedii/artisan-log-cleaner": "^5.0",
         "jenssegers/agent": "^2.6",
         "joedixon/laravel-translation": "^2.1",
-        "laracraft-tech/laravel-useful-traits": "^3.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/scout": "^10.2",

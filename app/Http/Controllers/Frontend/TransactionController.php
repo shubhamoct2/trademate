@@ -18,8 +18,6 @@ class TransactionController extends Controller
                 });
         })->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
-        $types = TxnType::array();
-
-        return view('frontend::user.transaction.index', compact('transactions', 'types'));
+        return view('frontend::user.transaction.index', compact('transactions'));
     }
 }
