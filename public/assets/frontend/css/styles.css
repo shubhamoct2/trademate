@@ -11455,3 +11455,8 @@ i {
     font-weight: normal;    
     line-height: 2rem;
 }
+
+.single-box .error {
+    color: #e73667 !important;
+    font-size: 12px;
+}

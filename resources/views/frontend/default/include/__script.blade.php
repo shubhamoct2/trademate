@@ -16,6 +16,8 @@
 <script src="{{ asset('frontend/js/main.js?var=5') }}"></script>
 <script src="{{ asset('frontend/js/cookie.js') }}"></script>
 <script src="{{ asset('global/js/custom.js?var=5') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
 @include('global.__t_notify')
 @if(auth()->check())
     <script src="{{ asset('global/js/pusher.min.js') }}"></script>

@@ -43,35 +43,39 @@
                         <h3 class="title">{{ __('Withdraw Money') }}</h3>
                         <div class="card-header-links">
                             <a href="{{ route('user.withdraw.account.index') }}"
-                            class="card-header-link">{{ __('Withdraw Account') }}</a>
+                            class="card-header-link">{{ __('ADD WITHDRAWAL ACCOUNT') }}</a>
                         </div>
                     </div>
                     <div class="site-card-body">
                         <div class="progress-steps-form">
-                            <form action="{{ route('user.withdraw.now') }}" method="post">
+                            <form id="withdraw_form" action="{{ route('user.withdraw.now') }}" method="post">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-xl-6 col-md-12 mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            class="form-label">{{ __('Withdraw Account') }}</label>
-                                        <div class="input-group">
-                                            <select name="withdraw_account" id="withdrawAccountId" class="site-nice-select">
-                                                <option selected disabled>{{ __('Withdraw Method') }}</option>
-                                                @foreach($accounts as $account)
+                                    <div class="col-xl-6 col-md-12 mb-3 ">
+                                        <div class="single-box">
+                                            <label for="withdrawAccountId"
+                                                class="form-label">{{ __('Withdraw Account') }}</label>
+                                            <div class="input-group">
+                                                <select name="withdraw_account" id="withdrawAccountId" class="site-nice-select" required>
+                                                    <option value="">{{ __('Choose...') }}</option>
+                                                    @foreach($accounts as $account)
                                                     <option value="{{ $account->id }}">{{ $account->method_name }}</option>
-                                                @endforeach
-                                            </select>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="input-info-text processing-time"></div>
                                         </div>
-                                        <div class="input-info-text processing-time"></div>
                                     </div>
                                     <div class="col-xl-6 col-md-12">
-                                        <label for="exampleFormControlInput1" class="form-label">{{ __('Amount') }}</label>
-                                        <div class="input-group">
-                                            <input type="text" name="amount"
-                                                oninput="this.value = validateDouble(this.value)"
-                                                class="form-control withdrawAmount" placeholder="Enter Amount">
+                                        <div class="single-box">
+                                            <label for="amount" class="form-label">{{ __('Amount') }}</label>
+                                            <div class="input-group">
+                                                <input type="text" name="amount" id="amount"
+                                                    oninput="this.value = validateDouble(this.value)"
+                                                    class="form-control withdrawAmount" placeholder="Enter Amount" required>
+                                            </div>
+                                            <div class="input-info-text withdrawAmountRange"></div>
                                         </div>
-                                        <div class="input-info-text withdrawAmountRange"></div>
                                     </div>
                                 </div>
                                 <div class="transaction-list table-responsive">
@@ -128,8 +132,6 @@
                     $('.processing-time').text(info.processing_time)
                 })
             }
-
-
         })
 
         $(".withdrawAmount").on('keyup',function (e) {
@@ -143,5 +145,27 @@
             $('.withdrawAmountRange').text(info.range)
             $('.pay-amount').text(amount * info.rate +' '+ info.pay_currency)
         })
+
+        $(document).ready(function() { 
+            jQuery.validator.addMethod('selectcheck', function (value) {
+                return (value != '');
+            }, "Value required");
+            
+            $('#withdraw_form').validate({ 
+                ignore: [],
+                rules: {
+                    withdraw_account: {
+                        selectcheck: true
+                    },
+                    amount: {
+                        required: true
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+        })        
+        
     </script>
 @endsection
