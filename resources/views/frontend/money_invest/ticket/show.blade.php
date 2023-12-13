@@ -11,7 +11,7 @@
                             class="site-badge badge-success">{{ __('Opened') }}</span></h3>
                     <div class="card-header-links">
                         <a href="{{ route('user.ticket.close.now',$ticket->uuid) }}"
-                           class="card-header-link rounded-pill">{{ __('Mark it close') }}</a>
+                           class="card-header-link rounded-pill">{{ __('Mark It Closed') }}</a>
                     </div>
                 </div>
 
