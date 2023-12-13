@@ -11413,8 +11413,8 @@ i {
 }
 
 .yellow-btn {
-    color: #ffc300;
-    background: #e73667;
+    color: #ffc300 !important;
+    background: #e73667 !important;
 }
 
 .yellow-btn:hover {
@@ -11459,4 +11459,14 @@ i {
 .single-box .error {
     color: #e73667 !important;
     font-size: 12px;
+}
+
+.reset-btn {
+    background: #ffc300 !important;
+    color: #000 !important;
+}
+
+.reset-btn:hover {
+    background: #535a94 !important;
+    color: #fff !important;
 }

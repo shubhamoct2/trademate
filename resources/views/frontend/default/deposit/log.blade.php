@@ -13,7 +13,7 @@
                     <div class="site-table">
                         <div class="table-filter">
                             <div class="filter">
-                                <form action="{{ route('user.deposit.log') }}" method="get">
+                                <form id="log_filter" action="{{ route('user.deposit.log') }}" method="get">
                                     <div class="search">
                                         <input type="text" id="search" placeholder="Search"
                                                value="{{ request('query') }}"
@@ -21,6 +21,8 @@
                                         <input type="date" name="date" value="{{ request()->get('date') }}"/>
                                         <button type="submit" class="apply-btn"><i
                                                 icon-name="search"></i>{{ __('Search') }}</button>
+                                        <button type="button" class="apply-btn reset-btn ml-2"><i
+                                                icon-name="eraser"></i>{{ __('Reset') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -145,5 +147,15 @@
 
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $(".reset-btn").on('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('form').find("input[type=text], input[type=date]").val("");
+            $(this).closest('form').submit();
+        });
+    </script>
 @endsection
 
