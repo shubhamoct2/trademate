@@ -10,8 +10,7 @@
                     <h3 class="title">{{ __('Withdraw') }}</h3>
                     @if (!$locked)
                     <div class="card-header-links">
-                        <a href="{{ route('user.deposit.log') }}"
-                           class="card-header-link">{{ __('Deposit History') }}</a>
+                        
                     </div>
                     @endif
                 </div>      
