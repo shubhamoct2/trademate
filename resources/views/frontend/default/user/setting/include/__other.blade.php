@@ -74,7 +74,7 @@
                                 id="withdrawal_address"
                                 type="text"
                                 class="form-control"
-                                value="@if($address) $address->address @endif"
+                                value="@if($address) {{ $address->address }} @endif"
                                 placeholder="Address"
                                 required
                             />
