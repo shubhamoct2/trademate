@@ -8,6 +8,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PragmaRX\Google2FALaravel\Support\Authenticator;
+use Auth;
 
 class SettingController extends Controller
 {
@@ -16,6 +17,39 @@ class SettingController extends Controller
     public function settings()
     {
         return view('frontend::user.setting.index');
+    }
+
+    public function withdrawalUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'currency' => 'required|string',
+            'blockchain' => 'string',
+            'address' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            notify()->error($validator->errors()->first(), 'Error');
+
+            return redirect()->back();
+        }
+
+        $input = $request->all();
+
+        $withdrawal_address = [
+            'currency' => $input['currency'],
+            'address' => $input['address']
+        ];
+
+        if ($input['currency'] == 'usdt') {
+            $withdrawal_address['blockchain'] = $input['blockchain'];
+        }
+
+        $user = Auth::user();
+        $user->withdrawal_address = json_encode($withdrawal_address);
+        $user->update();
+
+        notify()->success('Your Withdrawal Address Is Updated successfully');
+
+        return redirect()->route('user.setting.show');
     }
 
     public function profileUpdate(Request $request)

@@ -11456,7 +11456,8 @@ i {
     line-height: 2rem;
 }
 
-.single-box .error {
+form .error {
+    padding-left: 20px;
     color: #e73667 !important;
     font-size: 12px;
 }
@@ -11469,4 +11470,66 @@ i {
 .reset-btn:hover {
     background: #535a94 !important;
     color: #fff !important;
+}
+
+
+/* Switch Field */
+.switch-field {
+  display: flex;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.switch-field input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.switch-field input:checked + label {
+  background-color: #2a9d8f;
+  box-shadow: none;
+  color: #ffffff;
+}
+
+.switch-field input:checked + label:last-of-type {
+  background: #ef476f;
+}
+
+.switch-field label {
+  background-color: rgba(94, 63, 201, 0.1);
+  color: rgba(16, 25, 53, 0.6);
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid rgba(16, 25, 53, 0.2);
+  transition: all 0.1s ease-in-out;
+  font-weight: 700;
+  width: 50%;
+}
+
+.switch-field label:hover {
+  cursor: pointer;
+}
+
+.switch-field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
+
+.switch-field.same-type input:checked + label:last-of-type {
+  background: #5e3fc9;
+}
+
+.switch-field.same-type label {
+  padding: 13px 16px;
+  border: 2px solid rgba(16, 25, 53, 0.2);
 }

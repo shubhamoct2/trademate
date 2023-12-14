@@ -24,6 +24,71 @@
 
         <div class="site-card">
             <div class="site-card-header">
+                <h3 class="title">{{ __('Withdrawal Address') }}</h3>
+            </div>
+            <div class="site-card-body">
+                @php
+                    $address = json_decode($user->withdrawal_address);
+                @endphp
+                <form action="{{ route('user.setting.withdrawal-update') }}" method="post" name="withdraw_update" id="withdraw_update" class="progress-steps-form">
+                    @csrf
+                    <div class="row">
+                        <label for="withdrwal_currency" class="form-label">{{ __('Currency') }}</label>
+                        <div class="input-group">
+                            <select name="currency" id="withdrwal_currency" class="nice-select site-nice-select" required>
+                                <option value="">{{ __('Choose...') }}</option>
+                                <option value="btc" @if($address->currency == "btc") selected @endif>BTC</option>
+                                <option value="eth" @if($address->currency == "eth") selected @endif>ETH</option>
+                                <option value="usdt" @if($address->currency == "usdt") selected @endif>USDT</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="select_blockchain" class="row site-input-groups my-3 @if(!isset($address->blockchain)) hidden @endif">
+                        <label class="box-input-label" for="">{{ __('Blockchain') }}</label>
+                        <div class="switch-field same-type">
+                            <input
+                                type="radio"
+                                id="radio-five"
+                                name="blockchain"
+                                value="eth"
+                                @if(isset($address->blockchain) && $address->blockchain == "eth") checked 
+                                @elseif(!isset($address->blockchain)) checked
+                                @endif
+                            />
+                            <label for="radio-five">{{ 'ETH' }}</label>
+                            <input
+                                type="radio"
+                                id="radio-six"
+                                name="blockchain"
+                                value="bsc"
+                                @if(isset($address->blockchain) && $address->blockchain == "bsc") checked @endif
+                            />
+                            <label for="radio-six">{{ 'BSC' }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="withdrawal_address" class="form-label">{{ __('Address') }}</label>
+                        <div class="input-group">
+                            <input
+                                name="address"
+                                id="withdrawal_address"
+                                type="text"
+                                class="form-control"
+                                value="{{ $address->address }}"
+                                placeholder="Address"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div class="buttons mt-2">
+                        <button type="submit" class="site-btn blue-btn">{{ __('Update') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="site-card">
+            <div class="site-card-header">
                 <h3 class="title">{{ __('Change Password') }}</h3>
             </div>
             <div class="site-card-body">
@@ -32,3 +97,38 @@
         </div>
     </div>
 </div>
+@section('script')
+    <script>
+        $(document).ready(function() { 
+            jQuery.validator.addMethod('selectcheck', function (value) {
+                return (value != '');
+            }, "Value required");
+            
+            $('#withdraw_update').validate({ 
+                ignore: [],
+                rules: {
+                    currency: {
+                        selectcheck: true
+                    },
+                    address: {
+                        required: true
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+
+            $('#withdrwal_currency').on('change', function () {
+                var selectVal = $("#withdrwal_currency option:selected").val();
+
+                if (selectVal == "usdt") {
+                    $('#select_blockchain').show();
+                } else {
+                    $('#select_blockchain').hide();
+                }
+            });
+        })        
+        
+    </script>
+@endsection

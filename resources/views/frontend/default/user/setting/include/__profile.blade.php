@@ -77,7 +77,7 @@
                             <div class="col-xl-6 col-md-12">
                                 <label for="exampleFormControlInput1" class="form-label">{{ __('Gender') }}</label>
                                 <div class="input-group">
-                                    <select disabled name="gender" id="kycTypeSelect" class="nice-select site-nice-select"
+                                    <select name="gender" id="kycTypeSelect" class="nice-select site-nice-select"
                                             required>
                                         @foreach(['male','female','other'] as $gender)
                                             <option @if($user->gender == $gender) selected
