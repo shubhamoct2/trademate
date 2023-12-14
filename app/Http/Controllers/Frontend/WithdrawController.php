@@ -295,8 +295,6 @@ class WithdrawController extends Controller
             $alphaPo = new AlphaPo;
             $totalPrice = $totalAmount * $alphaPo->getCryptoPrice($currencySetting['currency']);
 
-            Log::info('Requested withdrawal amount => ' .$totalPrice);
-
             // Check user balance with the total amount
             if (floatval($totalPrice) > Auth::user()->balance) {
                 $message = __('Insufficient Balance In Your Wallet');
@@ -317,8 +315,6 @@ class WithdrawController extends Controller
                 return redirect()->back();
             }
 
-            Log::info('Merchant Balance => ' .$merchant_balance);
-
             $alphaPo = new AlphaPo;
             $apiResponse = $alphaPo->createWithdrawRequest([
                 'currency' => $currencySetting['currency'],
@@ -326,8 +322,6 @@ class WithdrawController extends Controller
                 'address' => $address->address,
                 'amount' => $totalAmount,
             ]);
-
-            Log::info('Response from API => ' .json_encode($apiResponse));
 
             if (!isset($apiResponse['data'])) {
                 $message = 'Cannot call payment gateway API functions. Please try again.';

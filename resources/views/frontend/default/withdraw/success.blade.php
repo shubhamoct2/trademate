@@ -9,8 +9,8 @@
                 <div class="site-card-header">
                     <h3 class="title">{{ $notify['card-header'] }}</h3>
                     <div class="card-header-links">
-                        <a href="{{ route('user.withdraw.view') }}"
-                           class="card-header-link">{{ __('Withdraw request') }}</a>
+                        <a href="{{ route('user.withdraw.log') }}"
+                           class="card-header-link">{{ __('Withdraw History') }}</a>
                     </div>
                 </div>
                 <div class="site-card-body">
