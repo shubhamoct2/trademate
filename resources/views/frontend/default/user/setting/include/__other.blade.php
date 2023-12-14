@@ -37,9 +37,9 @@
                         <div class="input-group">
                             <select name="currency" id="withdrwal_currency" class="nice-select site-nice-select" required>
                                 <option value="">{{ __('Choose...') }}</option>
-                                <option value="btc" @if($address->currency == "btc") selected @endif>BTC</option>
-                                <option value="eth" @if($address->currency == "eth") selected @endif>ETH</option>
-                                <option value="usdt" @if($address->currency == "usdt") selected @endif>USDT</option>
+                                <option value="btc" @if($address && $address->currency == "btc") selected @endif>BTC</option>
+                                <option value="eth" @if($address && $address->currency == "eth") selected @endif>ETH</option>
+                                <option value="usdt" @if($address && $address->currency == "usdt") selected @endif>USDT</option>
                             </select>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                 id="radio-five"
                                 name="blockchain"
                                 value="eth"
-                                @if(isset($address->blockchain) && $address->blockchain == "eth") checked 
+                                @if($address && isset($address->blockchain) && $address->blockchain == "eth") checked 
                                 @elseif(!isset($address->blockchain)) checked
                                 @endif
                             />
@@ -61,7 +61,7 @@
                                 id="radio-six"
                                 name="blockchain"
                                 value="bsc"
-                                @if(isset($address->blockchain) && $address->blockchain == "bsc") checked @endif
+                                @if($address && isset($address->blockchain) && $address->blockchain == "bsc") checked @endif
                             />
                             <label for="radio-six">{{ 'BSC' }}</label>
                         </div>
@@ -74,7 +74,7 @@
                                 id="withdrawal_address"
                                 type="text"
                                 class="form-control"
-                                value="{{ $address->address }}"
+                                value="@if($address) $address->address @endif"
                                 placeholder="Address"
                                 required
                             />
