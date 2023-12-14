@@ -84,7 +84,7 @@ class Txn
         $final_amount = null, 
         $pay_amount = null, 
         $txID = null,
-        $type = 0 // 0: deposit, 1: withdrawal
+        $address = null,
     )
     {
         $transaction = Transaction::tnx($tnx);
@@ -93,19 +93,27 @@ class Txn
 
         if ($final_amount && $pay_amount && $txID) {
             if ($status == TxnStatus::Success && $transaction->type == TxnType::Deposit) {
-                if ($type == 0)
-                    $user->increment('balance', floatval($pay_amount));
-                else
-                    $user->decrement('balance', floatval($pay_amount));
-            }
+                $user->increment('balance', floatval($pay_amount));
 
-            $data = [
-                'status' => $status,
-                'approval_cause' => $approvalCause,
-                'final_amount' => $final_amount,
-                'pay_amount' => $pay_amount,
-                'txID' => $txID,
-            ];
+                $data = [
+                    'status' => $status,
+                    'approval_cause' => $approvalCause,
+                    'final_amount' => $final_amount,
+                    'pay_amount' => $pay_amount,
+                    'txID' => $txID,
+                ];
+            } else if ($status == TxnStatus::Success && $transaction->type == TxnType::Withdraw) {
+                $user->decrement('balance', floatval($pay_amount));
+
+                $data = [
+                    'status' => $status,
+                    'approval_cause' => $approvalCause,
+                    'final_amount' => $final_amount,
+                    'pay_amount' => $pay_amount,
+                    'txID' => $txID,
+                    'address' => $address,
+                ];
+            }
         } else {
             if ($status == TxnStatus::Success && ($transaction->type == TxnType::Deposit || $transaction->type == TxnType::ManualDeposit)) {
                 $amount = $transaction->amount;

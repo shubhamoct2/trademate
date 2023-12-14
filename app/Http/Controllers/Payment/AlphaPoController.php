@@ -29,10 +29,11 @@ class AlphaPoController extends Controller
                 $currency = $request['currency_sent']['currency'];
                 $amount = $request['currency_sent']['amount'];
                 $txID = $request['transactions'][0]['txid'];
+                $address = $request['crypto_address']['address'];
 
                 $transaction = Transaction::where('address', $index)->first();
 
-                if ($transaction->status !== 'success') {
+                if ($transaction && $transaction->status !== TxnStatus::Success) {
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
                     $pay_amount = $amount * $price;
@@ -45,7 +46,7 @@ class AlphaPoController extends Controller
                         $amount, 
                         $pay_amount, 
                         $txID,
-                        1
+                        $address
                     );
                 }
             } else { // Deposit
@@ -56,7 +57,7 @@ class AlphaPoController extends Controller
 
                 $transaction = Transaction::where('address', $address)->first();
 
-                if ($transaction->status !== 'success') {
+                if ($transaction && $transaction->status !== TxnStatus::Success) {
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
                     $pay_amount = $amount * $price;
