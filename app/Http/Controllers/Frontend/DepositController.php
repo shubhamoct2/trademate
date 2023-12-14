@@ -41,7 +41,7 @@ class DepositController extends GatewayController
     public function depositNow(Request $request)
     {
         if (! setting('user_deposit', 'permission') || ! Auth::user()->deposit_status) {
-            abort('403', 'Deposit Disable Now');
+            abort('403', trans('translation.lock_feature', ['feature' => __('Deposit')]));
         }
 
         if ($request['gateway_code'] == 'alphapo') {
@@ -134,7 +134,24 @@ class DepositController extends GatewayController
         }
 
         if ($request['gateway_code'] == 'alphapo') {
-            $txnInfo = Txn::new($input['amount'], $charge, $finalAmount, $gatewayInfo->gateway_code, 'Deposit With '.$gatewayInfo->name, $depositType, TxnStatus::Pending, $input['crypto_currency'], $payAmount, auth()->id(), null, 'User', $manualData ?? [],  'none', null, null, null, $apiResponse['data']['address']);
+            $txnInfo = Txn::new(
+                $input['amount'], 
+                $charge, 
+                $finalAmount, 
+                $gatewayInfo->gateway_code, 
+                'Deposit With '.$gatewayInfo->name, 
+                $depositType, 
+                TxnStatus::Pending, 
+                $input['crypto_currency'], 
+                $payAmount, 
+                auth()->id(), 
+                null, 
+                'User', 
+                $manualData ?? [],  'none', 
+                null, 
+                null, 
+                null, 
+                $apiResponse['data']['address']);
         } else {
             $txnInfo = Txn::new($input['amount'], $charge, $finalAmount, $gatewayInfo->gateway_code, 'Deposit With '.$gatewayInfo->name, $depositType, TxnStatus::Pending, $gatewayInfo->currency, $payAmount, auth()->id(), null, 'User', $manualData ?? []);
         }
@@ -153,63 +170,5 @@ class DepositController extends GatewayController
         })->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         return view('frontend::deposit.log', compact('deposits'));
-    }
-
-    public function alphapoCallback(Request $request) {
-        // Log::info("Callback detected: " . json_encode($request->all()));
-
-        if (isset($request['status']) && $request['status'] === 'confirmed') {
-            $address = $request['crypto_address']['address'];
-            $currency = $request['currency_received']['currency'];
-            $amount = $request['currency_received']['amount'];
-            $txID = $request['transactions'][0]['txid'];
-            $userID = intval($request['crypto_address']['foreign_id']);
-
-            $transaction = Transaction::where('address', $address)->first();
-
-            if ($transaction->status !== 'success') {
-                $alphaPo = new AlphaPo;
-                $price = $alphaPo->getCryptoPrice($currency);
-                $pay_amount = $amount * $price;
-                
-                Txn::update($transaction->tnx, TxnStatus::Success, $userID, 'none', $amount, $pay_amount, $txID);
-            }
-        }
-    }
-
-    public function getMinDeposit($code)
-    {
-        if (config('app.env') === 'production') {
-            $alphapoSetting = config('alphapo.prod');
-        } else {
-            $alphapoSetting = config('alphapo.sandbox');
-        }
-
-        foreach ($alphapoSetting['currencies'] as $currency) {
-            if ($currency['currency'] == $code) {
-                return $currency['minimum_amount'];
-            }
-        }
-
-        return null;
-    }
-
-    public function testPrice() {
-        // $user = User::find(10);
-        // $user->increment('balance', floatval(3.835461));
-
-        $address = '2MsfwD76rDycKUoDgjUwyYjqBB5xDvGuL6j';
-        $currency = 'BTC';
-        $amount = 0.00014243;
-        $txID = '7e76f87312ad74bf433e21dff49cd4c1299b6806b72b683e7ffc45cd2fbd893c';
-        $userID = 10;
-
-        $transaction = Transaction::where('address', $address)->first();
-
-        $alphaPo = new AlphaPo;
-        $price = $alphaPo->getCryptoPrice($currency);
-        $pay_amount = $amount * $price;
-
-        Txn::update($transaction->tnx, TxnStatus::Success, $userID, 'none', $amount, $pay_amount, $txID);
     }
 }

@@ -10,7 +10,8 @@
                     <h3 class="title">{{ __('Withdraw') }}</h3>
                     @if (!$locked)
                     <div class="card-header-links">
-                        
+                    <a href="{{ route('user.withdraw.log') }}"
+                           class="card-header-link">{{ __('Withdraw History') }}</a>
                     </div>
                     @endif
                 </div>      
@@ -40,25 +41,28 @@
                     @else
                     <div class="site-card-header">
                         <h3 class="title">{{ __('Withdraw Money') }}</h3>
+                        @if (!isset($address['currency']) || !isset($address['address']))
                         <div class="card-header-links">
-                            <a href="{{ route('user.withdraw.account.index') }}"
+                            <a href="{{ route('user.setting.show') }}"
                             class="card-header-link">{{ __('ADD WITHDRAWAL ACCOUNT') }}</a>
                         </div>
+                        @endif
                     </div>
                     <div class="site-card-body">
+                        @if (isset($address['currency']) && isset($address['address']))
                         <div class="progress-steps-form">
                             <form id="withdraw_form" action="{{ route('user.withdraw.now') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-6 col-md-12 mb-3 ">
                                         <div class="single-box">
-                                            <label for="withdrawAccountId"
-                                                class="form-label">{{ __('Withdraw Account') }}</label>
+                                            <label for="gatewaySelect"
+                                                class="form-label">{{ __('Payment Method:') }}</label>
                                             <div class="input-group">
-                                                <select name="withdraw_account" id="withdrawAccountId" class="site-nice-select" required>
-                                                    <option value="">{{ __('Choose...') }}</option>
-                                                    @foreach($accounts as $account)
-                                                    <option value="{{ $account->id }}">{{ $account->method_name }}</option>
+                                                <select name="gateway" id="gatewaySelect" class="site-nice-select" required>
+                                                    <option value="">--{{ __('Select Gateway') }}--</option>
+                                                    @foreach($gateways as $gateway)
+                                                        <option value="{{ $gateway->gateway_code }}">{{ $gateway->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -83,11 +87,40 @@
                                     </div>
                                     <table class="table">
                                         <tbody class="selectDetailsTbody">
-                                        <tr class="detailsCol">
-                                            <td><strong>{{ __('Withdraw Amount') }}</strong></td>
-                                            <td><span class="withdrawAmount"></span> {{$currency}}</td>
-                                        </tr>
-
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Balance') }}</strong></td>
+                                                <td><span class=""></span>{{ $user->balance }}</td>
+                                            </tr>
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Payment Method') }}</strong></td>
+                                                <td id="logo"><img src="" class="payment-method" alt=""></td>
+                                            </tr>
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Currency') }}</strong></td>
+                                                <td><span class=""></span>@if($address) {{ $address['currency'] }} @endif</td>
+                                            </tr>
+                                            @if(isset($address['blockchain']))
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Network') }}</strong></td>
+                                                <td><span class=""></span>{{ $address['blockchain'] }}</td>
+                                            </tr>
+                                            @endif
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Address') }}</strong></td>
+                                                <td><span class=""></span>@if($address) {{ $address['address'] }} @endif</td>
+                                            </tr>
+                                            <tr class="detailsCol">
+                                                <td><strong>{{ __('Amount') }}</strong></td>
+                                                <td><span class="amount"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{{ __('Charge') }}</strong></td>
+                                                <td class="charge"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{{ __('Total') }}</strong></td>
+                                                <td class="total"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -98,8 +131,8 @@
                                     </button>
                                 </div>
                             </form>
-
                         </div>
+                        @endif
                     </div>
                     @endif
                 </div>
@@ -111,38 +144,35 @@
 @section('script')
     <script>
         "use strict";
-        var info = [];
-        $("#withdrawAccountId").on('change',function (e) {
+
+        var globalData = [];
+
+        $("#gatewaySelect").on('change',function (e) {
             e.preventDefault();
 
-            $('.selectDetailsTbody').children().not(':first', ':second').remove();
-            var accountId = $(this).val()
-            var amount = $('.withdrawAmount').val();
-
-            if (!isNaN(accountId)) {
-                var url = '{{ route("user.withdraw.details",['accountId' => ':accountId', 'amount' => ':amount']) }}';
-                url = url.replace(':accountId', accountId,);
-                url = url.replace(':amount', amount);
-
+            var code = $(this).val();
+            if (code != undefined) {
+                var url = '{{ route("user.withdraw.gateway",":code") }}';
+                url = url.replace(':code', code);
                 $.get(url, function (data) {
-                    $(data.html).insertAfter(".detailsCol");
-                    info = data.info;
-                    $('.withdrawAmountRange').text(info.range)
-                    $('.processing-time').text(info.processing_time)
+                    $('label.error').hide();
+
+                    globalData = data;
+                    $('#logo').html(`<img class="payment-method" src='${data.icon}'>`);
+                    $('.withdrawAmountRange').text(data.range)
                 })
             }
         })
 
-        $(".withdrawAmount").on('keyup',function (e) {
+        $('#amount').on('keyup', function (e) {
             "use strict"
-            e.preventDefault();
-            var amount = $(this).val()
-            var charge = info.charge_type === 'percentage' ? calPercentage(amount, info.charge) : info.charge
-            $('.withdrawAmount').text(amount)
-            $('.withdrawFee').text(charge)
-            $('.processing-time').text(info.processing_time)
-            $('.withdrawAmountRange').text(info.range)
-            $('.pay-amount').text(amount * info.rate +' '+ info.pay_currency)
+
+            var amount = $(this).val();
+            $('.amount').text((Number(amount)));
+            var charge = globalData.charge_type === 'percentage' ? calPercentage(amount, globalData.charge) : globalData.charge;
+            $('.charge').text(charge);
+            var total = (Number(amount) + Number(charge)) * Number(globalData.price);
+            $('.total').text(total);
         })
 
         $(document).ready(function() { 
@@ -153,7 +183,7 @@
             $('#withdraw_form').validate({ 
                 ignore: [],
                 rules: {
-                    withdraw_account: {
+                    gateway: {
                         selectcheck: true
                     },
                     amount: {

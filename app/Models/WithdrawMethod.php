@@ -15,4 +15,9 @@ class WithdrawMethod extends Model
     {
         return $this->belongsTo(Gateway::class, 'gateway_id');
     }
+
+    public function scopeCode($query, $code)
+    {
+        return $query->where('gateway_code', $code);
+    }
 }

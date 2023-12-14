@@ -22,6 +22,8 @@
                                             <input type="date" name="date" value="{{ request()->get('date') }}"/>
                                             <button type="submit" class="apply-btn"><i
                                                     icon-name="search"></i>{{ __('Search') }}</button>
+                                            <button type="button" class="apply-btn reset-btn ml-2"><i
+                                                icon-name="eraser"></i>{{ __('Reset') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -57,8 +59,15 @@
                                                 </div>
                                             </td>
                                             <td><strong>{{ $raw->tnx }}</strong></td>
-                                            <td><strong class="red-color">-{{$raw->amount.' '.$currency }}</strong>
-                                            </td>
+                                            @if ($raw->method == 'Alphapo')
+                                                @if ($raw->txID)
+                                                    <td><strong class="green-color">-{{$raw->final_amount.' '.$raw->pay_currency }}</strong>
+                                                @else 
+                                                    <td><strong class="green-color">-{{$raw->amount.' '.$raw->pay_currency }}</strong>
+                                                @endif
+                                            @else
+                                            <td><strong class="green-color">-{{$raw->amount.' '.$currency }}</strong>
+                                            @endif
                                             <td><strong class="red-color">-{{ $raw->charge }} {{ $currency }}</strong>
                                             </td>
                                             <td>
@@ -141,4 +150,14 @@
         @endif
     </div>
 
+@endsection
+@section('script')
+    <script>
+        $(".reset-btn").on('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('form').find("input[type=text], input[type=date]").val("");
+            $(this).closest('form').submit();
+        });
+    </script>
 @endsection

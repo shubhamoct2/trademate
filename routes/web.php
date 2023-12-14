@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\TicketController;
 use App\Http\Controllers\Frontend\TransactionController;
 use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Frontend\WithdrawController;
+use App\Http\Controllers\Payment\AlphaPoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,9 @@ Route::get('/Tm3DSRXrO7', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::cl
 
 /* Crypto payment callback by AlphaPo */
 Route::group(['prefix' => 'alphapo', 'as' => 'alphapo.'], function () {
-    Route::post('/callback', [DepositController::class, 'alphapoCallback'])->name('callback');
+    Route::post('/callback', [AlphaPoController::class, 'alphapoCallback'])->name('callback');
+    Route::get('/test', [AlphaPoController::class, 'testWithdraw'])->name('test');
+    Route::get('/balance', [AlphaPoController::class, 'testGetBalance'])->name('balance');
 });
 
 Route::post('subscriber', [HomeController::class, 'subscribeNow'])->name('subscriber');
@@ -91,7 +94,7 @@ Route::group(['middleware' => ['auth', '2fa', 'isActive', setting('email_verific
         Route::get('gateway/{code}', [GatewayController::class, 'gateway'])->name('gateway');
         Route::post('now', [DepositController::class, 'depositNow'])->name('now');
         Route::get('log', [DepositController::class, 'depositLog'])->name('log');   
-        Route::get('min/{code}', [DepositController::class, 'getMinDeposit'])->name('min');     
+        Route::get('min/{code}', [AlphaPoController::class, 'getMinDeposit'])->name('min');     
     });
     //Send Money
     Route::group(['prefix' => 'send-money', 'as' => 'send-money.', 'controller' => SendMoneyController::class], function () {
@@ -115,6 +118,7 @@ Route::group(['middleware' => ['auth', '2fa', 'isActive', setting('email_verific
         Route::get('method/{id}', 'withdrawMethod')->name('method');
         Route::post('now', 'withdrawNow')->name('now');
         Route::get('log', 'withdrawLog')->name('log');
+        Route::get('/gateway/{code}', [GatewayController::class, 'withdrawalGateway'])->name('gateway');
 
     });
     //email check

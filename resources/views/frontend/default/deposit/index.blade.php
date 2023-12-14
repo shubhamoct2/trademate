@@ -2,6 +2,9 @@
 @section('title')
     {{ __('Deposit') }}
 @endsection
+@php
+$locked = isset($locked) ? $locked : false;
+@endphp
 @section('content')
     <div class="row">
         <div class="col-xl-12">

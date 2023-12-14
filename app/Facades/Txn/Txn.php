@@ -19,7 +19,25 @@ class Txn
      * @param  string  $fromModel
      * @param  array  $manualDepositData
      */
-    public function new($amount, $charge, $final_amount, $method, $description, string|TxnType $type, string|TxnStatus $status = TxnStatus::Pending, $payCurrency = null, $payAmount = null, $userID = null, $relatedUserID = null, $relatedModel = 'User', array $manualFieldData = [], string $approvalCause = 'none', $targetId = null, $targetType = null, $isLevel = false, $address = null): Transaction
+    public function new(
+        $amount, 
+        $charge, 
+        $final_amount, 
+        $method, 
+        $description, 
+        string|TxnType $type, 
+        string|TxnStatus $status = TxnStatus::Pending, 
+        $payCurrency = null, 
+        $payAmount = null, 
+        $userID = null, 
+        $relatedUserID = null, 
+        $relatedModel = 'User', 
+        array $manualFieldData = [], 
+        string $approvalCause = 'none', 
+        $targetId = null, 
+        $targetType = null, 
+        $isLevel = false, 
+        $address = null): Transaction
     {
         if ($type == 'withdraw') {
             self::withdrawBalance($amount);
@@ -58,17 +76,27 @@ class Txn
         User::find(auth()->user()->id)->removeMoney($amount);
     }
 
-    public function update($tnx, $status, $userId = null, $approvalCause = 'none', $final_amount = null, $pay_amount = null, $txID = null)
+    public function update(
+        $tnx, 
+        $status, 
+        $userId,
+        $approvalCause = 'none', 
+        $final_amount = null, 
+        $pay_amount = null, 
+        $txID = null,
+        $type = 0 // 0: deposit, 1: withdrawal
+    )
     {
         $transaction = Transaction::tnx($tnx);
 
-        $uId = is_null($userId) ? auth()->user()->id : $userId;
-
-        $user = User::find($uId);
+        $user = $transaction->user;
 
         if ($final_amount && $pay_amount && $txID) {
             if ($status == TxnStatus::Success && $transaction->type == TxnType::Deposit) {
-                $user->increment('balance', floatval($pay_amount));
+                if ($type == 0)
+                    $user->increment('balance', floatval($pay_amount));
+                else
+                    $user->decrement('balance', floatval($pay_amount));
             }
 
             $data = [

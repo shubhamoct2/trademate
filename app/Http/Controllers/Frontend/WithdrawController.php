@@ -23,6 +23,9 @@ use Session;
 use Txn;
 use Validator;
 
+use App\Libraries\AlphaPo;
+use Illuminate\Support\Facades\Log;
+
 class WithdrawController extends Controller
 {
     use ImageUpload, NotifyTrait, Payment;
@@ -221,8 +224,10 @@ class WithdrawController extends Controller
     public function withdrawNow(Request $request)
     {
         if (! setting('user_withdraw', 'permission') || ! Auth::user()->withdraw_status) {
-            abort('403', __('Withdraw Is Disabled Now'));
+            abort('403', trans('translation.lock_feature', ['feature' => __('Withdraw')]));
         }
+
+        $user = Auth::user();
 
         $withdrawOffDays = WithdrawalSchedule::where('status', 0)->pluck('name')->toArray();
         $date = Carbon::now();
@@ -233,13 +238,12 @@ class WithdrawController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'amount' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
-            'withdraw_account' => 'required',
+            'amount' => 'required',
+            'gateway' => 'required',
         ]);
 
         if ($validator->fails()) {
             notify()->error($validator->errors()->first(), 'Error');
-
             return redirect()->back();
         }
 
@@ -248,56 +252,122 @@ class WithdrawController extends Controller
         $dayLimit = (float) Setting('withdraw_day_limit', 'fee');
         if ($todayTransaction >= $dayLimit) {
             notify()->error(__('Today Withdraw limit has been reached'), 'Error');
-
             return redirect()->back();
         }
 
         $input = $request->all();
         $amount = (float) $input['amount'];
+        $address = json_decode($user->withdrawal_address);
 
-        $withdrawAccount = WithdrawAccount::find($input['withdraw_account']);
-        $withdrawMethod = $withdrawAccount->method;
-
-        if ($amount < $withdrawMethod->min_withdraw || $amount > $withdrawMethod->max_withdraw) {
-            $currencySymbol = setting('currency_symbol', 'global');
-            $message = 'Please Withdraw the Amount within the range '.$currencySymbol.$withdrawMethod->min_withdraw.' to '.$currencySymbol.$withdrawMethod->max_withdraw;
+        if (is_null($address)) {
+            $message = 'You have to specify withdrawal address.';
             notify()->error($message, 'Error');
-
             return redirect()->back();
+        }
+
+        $withdrawMethod = withdrawMethod::where('gateway_code', $input['gateway'])->first();
+
+        if ($request['gateway'] == 'alphapo') {
+            if (config('app.env') === 'production') {
+                $alphapoSetting = config('alphapo.prod');
+            } else {
+                $alphapoSetting = config('alphapo.sandbox');
+            }
+
+            $currencySetting = null;
+            foreach($alphapoSetting['currencies'] as $currency) {
+                if ($currency['currency'] == strtoupper($address->currency)) {
+                    $currencySetting = $currency;
+                    break;
+                }
+            }
+
+            if (floatval($amount) < floatval($currencySetting['minimum_withdraw_amount'])) {
+                $message = 'Please define the Amount much more than '. $currencySetting['minimum_amount'] . ' ' . $currencySetting['currency'];
+                notify()->error($message, 'Error');
+                return redirect()->back();
+            }
+
+            $charge = $withdrawMethod->charge_type == 'percentage' ? (($withdrawMethod->charge / 100) * $amount) : $withdrawMethod->charge;
+            $totalAmount = $amount + (float) $charge;
+
+            // Get price of the currency
+            $alphaPo = new AlphaPo;
+            $totalPrice = $totalAmount * $alphaPo->getCryptoPrice($currencySetting['currency']);
+
+            Log::info('Requested withdrawal amount => ' .$totalPrice);
+
+            // Check user balance with the total amount
+            if (floatval($totalPrice) > Auth::user()->balance) {
+                $message = __('Insufficient Balance In Your Wallet');
+                notify()->error($message, 'Error');
+
+                return redirect()->back();
+            }
+
+            // Check merchant balance for the currency
+            $alphaPo = new AlphaPo;
+            $merchant_balance = $alphaPo->getBalance([
+                'currency' => $currencySetting['currency']
+            ]);
+            if (floatval($totalAmount) > $merchant_balance) {
+                $message = __('Insufficient Balance In Merchant Wallet');
+                notify()->error($message, 'Error');
+
+                return redirect()->back();
+            }
+
+            Log::info('Merchant Balance => ' .$merchant_balance);
+
+            $alphaPo = new AlphaPo;
+            $apiResponse = $alphaPo->createWithdrawRequest([
+                'currency' => $currencySetting['currency'],
+                'foreign_id' => Auth::user()->id,
+                'address' => $address->address,
+                'amount' => $totalAmount,
+            ]);
+
+            Log::info('Response from API => ' .json_encode($apiResponse));
+
+            if (!isset($apiResponse['data'])) {
+                $message = 'Cannot call payment gateway API functions. Please try again.';
+                notify()->error($message, 'Error');
+
+                return redirect()->back();
+            }
         }
 
         $charge = $withdrawMethod->charge_type == 'percentage' ? (($withdrawMethod->charge / 100) * $amount) : $withdrawMethod->charge;
-        $totalAmount = $amount + (float) $charge;
+        $finalAmount = (float) $amount + (float) $charge;
+        $payAmount = $finalAmount * $withdrawMethod->rate;
+        $type = TxnType::Withdraw;
 
-        $user = Auth::user();
-        if ($user->balance < $totalAmount) {
-            notify()->error(__('Insufficient Balance In Your Wallet'), 'Error');
+        $txnInfo = Txn::new(
+            $input['amount'], 
+            $charge, 
+            $finalAmount, 
+            $withdrawMethod->gateway_code, 
+            'Withdraw With '.$withdrawMethod->name, 
+            $type, 
+            TxnStatus::Pending, 
+            $currencySetting['currency'],
+            $payAmount, 
+            auth()->id(), 
+            null, 
+            'User', 
+            [],
+            'none',
+            null, 
+            null, 
+            null, 
+            $apiResponse['data']['id']
+        );
 
-            return redirect()->back();
-        }
-
-        $user->decrement('balance', $totalAmount);
-
-        $payAmount = $amount * $withdrawMethod->rate;
-
-        $type = $withdrawMethod->type == 'auto' ? TxnType::WithdrawAuto : TxnType::Withdraw;
-
-        $txnInfo = Txn::new($input['amount'], $charge, $totalAmount, $withdrawMethod->name,
-            'Withdraw With '.$withdrawAccount->method_name, $type,
-            TxnStatus::Pending, $withdrawMethod->currency, $payAmount, $user->id, null, 'User', json_decode($withdrawAccount->credentials, true));
-
-        if ($withdrawMethod->type == 'auto') {
-            $gatewayCode = $withdrawMethod->gateway->gateway_code;
-
-            return self::withdrawAutoGateway($gatewayCode, $txnInfo);
-
-        }
-
-        $symbol = setting('currency_symbol', 'global');
+        $symbol = $currencySetting['currency'];
         $notify = [
             'card-header' => 'Withdraw Money',
-            'title' => $symbol.$txnInfo->amount.' Withdraw Request Successful',
-            'p' => 'The Withdraw Request has been successfully sent',
+            'title' => $symbol.$txnInfo->amount.' Withdrawal Requested Successfully',
+            'p' => 'The Withdraw Request has been successfully sent.',
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
             'action' => route('user.withdraw.view'),
             'a' => 'WITHDRAW REQUEST AGAIN',
@@ -337,7 +407,28 @@ class WithdrawController extends Controller
             return ! $value->method->status;
         });
 
-        return view('frontend::withdraw.now', compact('locked', 'accounts'));
+        $gateways = withdrawMethod::where('status', 1)->get();
+        $address = [];
+
+        $user = Auth::user();
+        if ($user->withdrawal_address) {
+            $withdrawal_address = json_decode($user->withdrawal_address);
+
+            if (config('app.env') === 'production') {
+                $alphapoSetting = config('alphapo.prod');
+            } else {
+                $alphapoSetting = config('alphapo.sandbox');
+            }
+            
+            if (isset($withdrawal_address->currency) && isset($withdrawal_address->address)) {
+                $address['currency'] = $alphapoSetting['withdrawal']['currencies'][$withdrawal_address->currency];
+                if (isset($withdrawal_address->blockchain))
+                    $address['blockchain'] = $alphapoSetting['withdrawal']['blockchain'][$withdrawal_address->blockchain];
+                $address['address'] = $withdrawal_address->address;
+            } 
+        }
+        
+        return view('frontend::withdraw.now', compact('locked', 'accounts', 'gateways', 'address'));
     }
 
     public function withdrawLog()

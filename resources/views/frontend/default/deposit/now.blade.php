@@ -150,6 +150,8 @@
                 }
 
                 if (data.credentials !== undefined) {
+                    console.log(data.credentials);
+                    
                     $('.manual-row').append(data.credentials)
                     imagePreview()
 
@@ -178,7 +180,6 @@
 
                 var amount = $(this).val()
                 $('.amount').text((Number(amount)))
-                // $('.currency').text(currency)
 
                 var charge = globalData.charge_type === 'percentage' ? calPercentage(amount, globalData.charge) : globalData.charge
                 $('.charge2').text(charge)
