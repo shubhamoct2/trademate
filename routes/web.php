@@ -35,13 +35,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 /* Log Viewer routes by Artem */
-Route::get('/Tm3DSRXrO7', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::get('/R3C96taXP8uoQFaCqjJdbyGHxND4j2JK', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 /* Crypto payment callback by AlphaPo */
 Route::group(['prefix' => 'alphapo', 'as' => 'alphapo.'], function () {
     Route::post('/callback', [AlphaPoController::class, 'alphapoCallback'])->name('callback');
-    Route::get('/test', [AlphaPoController::class, 'testWithdraw'])->name('test');
-    Route::get('/balance', [AlphaPoController::class, 'testGetBalance'])->name('balance');
 });
 
 Route::post('subscriber', [HomeController::class, 'subscribeNow'])->name('subscriber');

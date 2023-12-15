@@ -213,7 +213,6 @@ return [
         App\Providers\PluginServiceProvider::class,
         App\Providers\ThemeServiceProvider::class,
 
-        Barryvdh\Debugbar\ServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         \Devaslanphp\AutoTranslate\AutoTranslateProvider::class,
 
