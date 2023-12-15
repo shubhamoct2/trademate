@@ -1035,5 +1035,6 @@
     "Reset": "Zurücksetzen",
     "Network": "Netzwerk",
     "unlimited": "unbegrenzt",
-    "Closed Ticket": "Geschlossenes Ticket"
+    "Pending Client": "Ausstehender Kunde",
+    "Pending Support": "Ausstehender Support"
 }

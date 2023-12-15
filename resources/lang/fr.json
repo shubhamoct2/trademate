@@ -1035,5 +1035,6 @@
     "Reset": "Réinitialiser",
     "Network": "Réseau",
     "unlimited": "illimité",
-    "Closed Ticket": "Billet fermé"
+    "Pending Client": "Client en attente",
+    "Pending Support": "En attente de support"
 }

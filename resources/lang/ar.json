@@ -1035,5 +1035,6 @@
     "Reset": "إعادة ضبط",
     "Network": "شبكة",
     "unlimited": "غير محدود",
-    "Closed Ticket": "تذكرة مغلقة"
+    "Pending Client": "في انتظار العميل",
+    "Pending Support": "في انتظار الدعم"
 }
