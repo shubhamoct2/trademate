@@ -25,24 +25,14 @@
 @section('script')
     <script>
         function copyRef() {
-            /* Get the text field */
-            var textToCopy = $('#refLink').val();
-            // Create a temporary input element
-            var tempInput = $('<input>');
-            $('body').append(tempInput);
-            tempInput.val(textToCopy).select();
-            // Copy the text from the temporary input
-            document.execCommand('copy');
-            // Remove the temporary input element
-            tempInput.remove();
-            $('#copy').text('Copied'); var copyApi = document.getElementById("refLink");
-            /* Select the text field */
-            copyApi.select();
-            copyApi.setSelectionRange(0, 999999999); /* For mobile devices */
-            /* Copy the text inside the text field */
-            document.execCommand('copy');
-            $('#copy').text('Copied')
+            var dummy = document.createElement("textarea");
+            dummy.value = document.getElementById("refLink").value;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
 
+            $('#copy').text($('#copied').val());
         }
 
         // Load More

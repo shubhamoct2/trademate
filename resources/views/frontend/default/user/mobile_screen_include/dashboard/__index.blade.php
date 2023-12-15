@@ -60,8 +60,9 @@
                 <div class="title">{{ __('Referral URL') }}</div>
                 <div class="mobile-referral-link-form">
                     <input type="text" value="{{ $referral->link }}" id="refLink"/>
-                    <button type="submit" onclick="copyRef()">
+                    <button type="button" onclick="copyRef()">
                         <span id="copy">{{ __('Copy') }}</span>
+                        <input id="copied" hidden value="{{ __('Copied') }}">
                     </button>
                 </div>
                 <p class="referral-joined">

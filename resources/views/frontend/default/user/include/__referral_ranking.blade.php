@@ -18,9 +18,10 @@
                     <div class="referral-link">
                         <div class="referral-link-form">
                             <input type="text" value="{{ $referral->link }}" id="refLink" disabled />
-                            <button type="submit" onclick="copyRef()">
+                            <button type="button" onclick="copyRef()">
                                 <i class="anticon anticon-copy"></i>
                                 <span id="copy">{{ __('Copy') }}</span>
+                                <input id="copied" hidden value="{{ __('Copied') }}">
                             </button>
                         </div>
                         <p class="referral-joined">

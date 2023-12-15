@@ -15,7 +15,7 @@
                     <div class="referral-link">
                         <div class="referral-link-form">
                             <input type="text" value="{{ $getReferral->link }}" id="refLink" disabled />
-                            <button type="submit" onclick="copyRef()">
+                            <button type="button" onclick="copyRef()">
                                 <i class="anticon anticon-copy"></i>
                                 <span id="copy">{{ __('Copy Url') }}</span>
                                 <input id="copied" hidden value="{{ __('Copied') }}">
@@ -334,14 +334,14 @@
 @section('script')
     <script>
         function copyRef() {
-            /* Get the text field */
-            var copyApi = document.getElementById("refLink");
-            /* Select the text field */
-            copyApi.select();
-            copyApi.setSelectionRange(0, 999999999); /* For mobile devices */
-            /* Copy the text inside the text field */
-            document.execCommand('copy');
-            $('#copy').text($('#copied').val())
+            var dummy = document.createElement("textarea");
+            dummy.value = document.getElementById("refLink").value;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            $('#copy').text($('#copied').val());
         }
     </script>
 @endsection

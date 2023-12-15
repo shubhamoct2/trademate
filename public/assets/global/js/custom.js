@@ -152,12 +152,12 @@ function sumArrayValues(arr) {
 }
 
 function copyRef(idName) {
-    /* Get the text field */
-    var copyApi = document.getElementById(idName);
-    /* Select the text field */
-    copyApi.select();
-    copyApi.setSelectionRange(0, 999999999); /* For mobile devices */
-    /* Copy the text inside the text field */
-    document.execCommand('copy');
-    $('#copy').text($('#copied').val())
+    var dummy = document.createElement("textarea");
+    dummy.value = document.getElementById(idName).value;
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+
+    $('#copy').text($('#copied').val());
 }
