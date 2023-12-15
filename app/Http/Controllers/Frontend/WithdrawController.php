@@ -360,7 +360,7 @@ class WithdrawController extends Controller
         $symbol = $currencySetting['currency'];
         $notify = [
             'card-header' => 'Withdraw Money',
-            'title' => $symbol.$txnInfo->amount.' Withdrawal Requested Successfully',
+            'title' => $symbol. ' ' . $txnInfo->amount.' Withdrawal Requested Successfully',
             'p' => 'The Withdraw Request has been successfully sent.',
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
             'action' => route('user.withdraw.view'),
