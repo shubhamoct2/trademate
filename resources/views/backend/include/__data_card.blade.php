@@ -146,4 +146,30 @@
         </div>
     </div>
 
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+        <div class="data-card">
+            <div class="icon">
+                <i icon-name="help-circle"></i>
+            </div>
+            <div class="content">
+                <h4 class="count">{{ $data['pending_client'] }}</h4>
+                <p>{{ __('Pending Client') }}</p>
+            </div>
+            <a class="link" href="{{ route('admin.ticket.index') }}"><i icon-name="external-link"></i></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+        <div class="data-card">
+            <div class="icon">
+                <i icon-name="help-circle"></i>
+            </div>
+            <div class="content">
+                <h4 class="count">{{ $data['pending_support'] }}</h4>
+                <p>{{ __('Pending Support') }}</p>
+            </div>
+            <a class="link" href="{{ route('admin.ticket.index') }}"><i icon-name="external-link"></i></a>
+        </div>
+    </div>
+
 </div>

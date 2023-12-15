@@ -109,6 +109,21 @@ class DashboardController extends Controller
 
         $symbol = setting('currency_symbol','global');
 
+        /* Get pending ticket count */
+        $open_tickets = Ticket::where('status', 'open')->get();
+
+        $pending_client = 0;
+        $pending_support = 0;
+
+        foreach ($open_tickets as $ticket) {
+            $last_message = $ticket->messages()->orderByDesc('created_at')->first();            
+            if ($last_message->model == 'admin') {
+                $pending_client += 1;
+            } else {
+                $pending_support += 1;
+            }
+        }
+
         $data = [
             'withdraw_count' => $withdrawCount,
             'kyc_count' => $kycCount,
@@ -140,7 +155,9 @@ class DashboardController extends Controller
             'deposit_bonus' => $transaction->totalDepositBonus(),
             'investment_bonus' => $transaction->totalInvestBonus(),
             'total_gateway' => $totalGateway,
-            'total_ticket' => Ticket::count(),
+            'total_ticket' => count($open_tickets),
+            'pending_client' => $pending_client,
+            'pending_support' => $pending_support,
 
             'browser' => $browser,
             'platform' => $platform,
