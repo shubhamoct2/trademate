@@ -44,8 +44,8 @@ return [
                 'usdt' => 'USDT',
             ],
             'blockchain' => [
-                'eth' => 'ERC-20',
-                'bsc' => 'BEP-20',
+                'erc20' => 'ERC-20',
+                'trc20' => 'TRC-20',
             ]      
         ]
     ]

@@ -50,20 +50,20 @@
                                 type="radio"
                                 id="radio-five"
                                 name="blockchain"
-                                value="eth"
-                                @if($address && isset($address->blockchain) && $address->blockchain == "eth") checked 
+                                value="erc20"
+                                @if($address && isset($address->blockchain) && $address->blockchain == "erc20") checked 
                                 @elseif(!isset($address->blockchain)) checked
                                 @endif
                             />
-                            <label for="radio-five">{{ 'ETH' }}</label>
+                            <label for="radio-five">{{ 'ERC20' }}</label>
                             <input
                                 type="radio"
                                 id="radio-six"
                                 name="blockchain"
-                                value="bsc"
-                                @if($address && isset($address->blockchain) && $address->blockchain == "bsc") checked @endif
+                                value="trc20"
+                                @if($address && isset($address->blockchain) && $address->blockchain == "trc20") checked @endif
                             />
-                            <label for="radio-six">{{ 'BSC' }}</label>
+                            <label for="radio-six">{{ 'TRC20' }}</label>
                         </div>
                     </div>
                     <div class="row">
