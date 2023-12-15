@@ -35,12 +35,12 @@ return [
                 'deposit_fee_percent' => '0.008000',
                 'withdrawal_fee_percent' => '0.000000',
                 'precision' => 8
-            ]
+            ],
         ],
         'withdrawal' => [
             'currencies' => [
-                'btc' => 'Bitcoin',
-                'eth' => 'Ethereum',
+                'btc' => 'BTC',
+                'eth' => 'ETH',
                 'usdt' => 'USDT',
             ],
             'blockchain' => [

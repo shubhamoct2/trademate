@@ -66,7 +66,7 @@ class GatewayController extends Controller
             $gateway['icon'] = env('APP_URL') . '/assets/' . $gateway['icon'];
             $gateway['range'] = trans('translation.gateway_payment_range', [
                 'min' => $currencySetting['minimum_withdraw_amount'],
-                'max' => __('Unlimited'),
+                'max' => __('unlimited'),
             ]);
 
             $alphaPo = new AlphaPo;

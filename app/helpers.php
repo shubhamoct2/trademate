@@ -153,18 +153,27 @@ if (! function_exists('getLocation')) {
     {
         $clientIp = request()->ip();
         $ip = $clientIp == '127.0.0.1' ||  $clientIp == '::1' ? '185.108.128.54' : $clientIp;
-
         $location = json_decode(curl_get_file_contents('http://ip-api.com/json/'.$ip), true);
-        $currentCountry = collect(getCountries())->first(function ($value, $key) use ($location) {
-            return $value['code'] == $location['countryCode'];
-        });
 
-        $location = [
-            'country_code' => $currentCountry['code'],
-            'name' => $currentCountry['name'],
-            'dial_code' => $currentCountry['dial_code'],
-            'ip' => $location['query'] ?? [],
-        ];
+        if (!is_null($location)) {
+            $currentCountry = collect(getCountries())->first(function ($value, $key) use ($location) {
+                return $value['code'] == $location['countryCode'];
+            });
+
+            $location = [
+                'country_code' => $currentCountry['code'],
+                'name' => $currentCountry['name'],
+                'dial_code' => $currentCountry['dial_code'],
+                'ip' => $location['query'] ?? [],
+            ];
+        } else {
+            $location = [
+                'country_code' => '',
+                'name' => '',
+                'dial_code' => '',
+                'ip' => [],
+            ];
+        }
 
         return new \Illuminate\Support\Fluent($location);
     }

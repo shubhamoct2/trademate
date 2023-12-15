@@ -56,6 +56,7 @@ class RegisteredUserController extends Controller
         $input = $request->all();
 
         $location = getLocation();
+
         $phone = $isPhone ? ($isCountry ? explode(':', $input['country'])[1] : $location->dial_code).' '.$input['phone'] : $location->dial_code.' ';
         $country = $isCountry ? explode(':', $input['country'])[0] : $location->name;
 

@@ -97,17 +97,19 @@
                                             </tr>
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Currency') }}</strong></td>
-                                                <td><span class=""></span>@if($address) {{ $address['currency'] }} @endif</td>
+                                                <td>
+                                                    @if($address) 
+                                                        <span class="">{{ $address['currency'] }}</span>
+                                                    @endif
+                                                    @if(isset($address['blockchain']))
+                                                        <span class="">({{ $address['blockchain'] }})</span>
+                                                    @endif
+                                                </td>
                                             </tr>
-                                            @if(isset($address['blockchain']))
-                                            <tr class="detailsCol">
-                                                <td><strong>{{ __('Network') }}</strong></td>
-                                                <td><span class=""></span>{{ $address['blockchain'] }}</td>
-                                            </tr>
-                                            @endif
+                                            
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Address') }}</strong></td>
-                                                <td><span class=""></span>@if($address) {{ $address['address'] }} @endif</td>
+                                                <td><span class="">@if($address) {{ $address['address'] }} @endif</span></td>
                                             </tr>
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Amount') }}</strong></td>
