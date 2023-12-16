@@ -102,6 +102,16 @@ class AlphaPo {
         $url = 'https://bitpay.com/api/rates';
         $json = json_decode(file_get_contents($url));
 
+        if (is_null($json)) {
+            Log::error('Cannot fetch json file for crypto coin price list, will try again');
+            $json = json_decode(file_get_contents($url));
+
+            if (is_null($json)) {
+                Log::error('Cannot fetch json file for crypto coin price list, quit');
+                return null;
+            }
+        }
+
         $usd = 1;
         $btc = 0;
         $price = 0;

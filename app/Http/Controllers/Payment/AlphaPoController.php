@@ -36,18 +36,21 @@ class AlphaPoController extends Controller
                 if ($transaction && $transaction->status !== TxnStatus::Success) {
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
-                    $pay_amount = $amount * $price;
+
+                    if (!is_null($price)) {
+                        $pay_amount = floatval($amount) * floatval($price);
                     
-                    Txn::update(
-                        $transaction->tnx, 
-                        TxnStatus::Success, 
-                        $transaction->user_id,
-                        'none', 
-                        $amount, 
-                        $pay_amount, 
-                        $txID,
-                        $address
-                    );
+                        Txn::update(
+                            $transaction->tnx, 
+                            TxnStatus::Success, 
+                            $transaction->user_id,
+                            'none', 
+                            $amount, 
+                            $pay_amount, 
+                            $txID,
+                            $address
+                        );
+                    }
                 }
             } else { // Deposit
                 $address = $request['crypto_address']['address'];
@@ -60,17 +63,20 @@ class AlphaPoController extends Controller
                 if ($transaction && $transaction->status !== TxnStatus::Success) {
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
-                    $pay_amount = $amount * $price;
-                    
-                    Txn::update(
-                        $transaction->tnx, 
-                        TxnStatus::Success, 
-                        $transaction->user_id,
-                        'none', 
-                        $amount, 
-                        $pay_amount, 
-                        $txID
-                    );
+
+                    if (!is_null($price)) {
+                        $pay_amount = floatval($amount) * floatval($price);
+                        
+                        Txn::update(
+                            $transaction->tnx, 
+                            TxnStatus::Success, 
+                            $transaction->user_id,
+                            'none', 
+                            $amount, 
+                            $pay_amount, 
+                            $txID
+                        );
+                    }
                 }
             }
         }
