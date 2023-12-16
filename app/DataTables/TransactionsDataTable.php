@@ -33,6 +33,39 @@ class TransactionsDataTable extends DataTable
             ->addColumn('last_name', function ($transaction) {
                 return ($transaction->user->last_name);
             })
+            ->addColumn('method', function ($transaction) {
+                if (!preg_match('/^[0-9]+$/', $transaction->method)) {
+                    return $transaction->method;
+                } else {
+                    $method = intval($transaction->method);
+
+                    $from = floor($method / 3);
+                    $to = $method % 3;
+
+                    $from_wallet = '';
+                    if (1 == $from) {
+                        $from_wallet = __('Main Wallet');
+                    } else if (2 == $from) {
+                        $from_wallet = __('Profit Wallet');
+                    } else if (3 == $from) {
+                        $from_wallet = __('Trading Wallet');
+                    }
+
+                    $to_wallet = '';
+                    if (1 == $to) {
+                        $to_wallet = __('Main Wallet');
+                    } else if (2 == $to) {
+                        $to_wallet = __('Profit Wallet');
+                    } else if (3 == $to) {
+                        $to_wallet = __('Trading Wallet');
+                    }
+
+                    return trans('translation.exchange_description', [
+                        'from' => $from_wallet,
+                        'to' => $to_wallet,
+                    ]);
+                }
+            })
             ->rawColumns(['status', 'type', 'username', 'final_amount']);
     }
 
