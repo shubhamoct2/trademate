@@ -371,8 +371,8 @@ class WithdrawController extends Controller
         $shortcodes = [
             '[[full_name]]' => $txnInfo->user->full_name,
             '[[txn]]' => $txnInfo->tnx,
-            '[[method_name]]' => $withdrawMethod->name,
-            '[[withdraw_amount]]' => $txnInfo->amount.setting('site_currency', 'global'),
+            '[[method_name]]' => strtoupper($withdrawMethod->gateway_code),
+            '[[withdraw_amount]]' => $symbol. ' ' . $txnInfo->amount,
             '[[site_title]]' => setting('site_title', 'global'),
             '[[site_url]]' => route('home'),
         ];

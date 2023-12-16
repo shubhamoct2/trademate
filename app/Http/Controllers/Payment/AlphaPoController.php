@@ -56,7 +56,7 @@ class AlphaPoController extends Controller
                         $shortcodes = [
                             '[[full_name]]' => $transaction->user->full_name,
                             '[[txn]]' => $transaction->tnx,
-                            '[[method_name]]' => $transaction->method,
+                            '[[method_name]]' => strtoupper($transaction->method),
                             '[[withdraw_amount]]' => $transaction->pay_currency . ' ' . $transaction->final_amount,
                             '[[site_title]]' => setting('site_title', 'global'),
                             '[[site_url]]' => route('home'),
@@ -97,7 +97,7 @@ class AlphaPoController extends Controller
                         $shortcodes = [
                             '[[full_name]]' => $transaction->user->full_name,
                             '[[txn]]' => $transaction->tnx,
-                            '[[gateway_name]]' => $transaction->method,
+                            '[[gateway_name]]' => strtoupper($transaction->method),
                             '[[deposit_amount]]' => $transaction->pay_currency . ' ' . $transaction->final_amount,
                             '[[site_title]]' => setting('site_title', 'global'),
                             '[[site_url]]' => route('home'),
