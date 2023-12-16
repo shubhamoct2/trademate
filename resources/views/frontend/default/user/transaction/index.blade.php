@@ -75,20 +75,20 @@
                                                         $to = $method % 3;
 
                                                         $from_wallet = '';
-                                                        if (1 == $from) {
+                                                        if (0 == $from) {
                                                             $from_wallet = __('Main Wallet');
-                                                        } else if (2 == $from) {
+                                                        } else if (1 == $from) {
                                                             $from_wallet = __('Profit Wallet');
-                                                        } else if (3 == $from) {
+                                                        } else if (2 == $from) {
                                                             $from_wallet = __('Trading Wallet');
                                                         }
 
                                                         $to_wallet = '';
-                                                        if (1 == $to) {
+                                                        if (0 == $to) {
                                                             $to_wallet = __('Main Wallet');
-                                                        } else if (2 == $to) {
+                                                        } else if (1 == $to) {
                                                             $to_wallet = __('Profit Wallet');
-                                                        } else if (3 == $to) {
+                                                        } else if (2 == $to) {
                                                             $to_wallet = __('Trading Wallet');
                                                         }
 
