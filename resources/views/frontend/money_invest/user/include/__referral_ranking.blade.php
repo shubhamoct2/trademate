@@ -24,7 +24,11 @@
                             </button>
                         </div>
                         <p class="referral-joined">
-                            {{ $referral->relationships()->count() }} {{ __('people have joined through this URL') }}
+                            @if ($referral->relationships()->count() == 1)
+                                {{ $referral->relationships()->count() }} {{ __('person has joined through this url') }}
+                            @else
+                                {{ $referral->relationships()->count() }} {{ __('people have joined through this url') }}
+                            @endif
                         </p>
                     </div>
                 </div>
