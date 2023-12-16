@@ -1038,5 +1038,6 @@
     "unlimited": "unbegrenzt",
     "Pending Client": "Ausstehender Kunde",
     "Pending Support": "Ausstehender Support",
-    "Invalid wallet address": "Ungültige Wallet-Adresse"
+    "Invalid wallet address": "Ungültige Wallet-Adresse",
+    "Invalid deposit method": "Ungültige Einzahlungsmethode"
 }

@@ -50,6 +50,21 @@ class AlphaPoController extends Controller
                             $txID,
                             $address
                         );
+
+                        $shortcodes = [
+                            '[[full_name]]' => $transaction->user->full_name,
+                            '[[txn]]' => $transaction->tnx,
+                            '[[method_name]]' => $transaction->method,
+                            '[[withdraw_amount]]' => $transaction->pay_currency . ' ' . $transaction->final_amount,
+                            '[[site_title]]' => setting('site_title', 'global'),
+                            '[[site_url]]' => route('home'),
+                            '[[message]]' => '', //$transaction->approval_cause,
+                            '[[status]]' => 'approved',
+                        ];
+                
+                        $this->mailNotify($transaction->user->email, 'withdraw_request_user', $shortcodes);
+                        $this->pushNotify('withdraw_request_user', $shortcodes, route('user.withdraw.log'), $transaction->user->id);
+                        $this->smsNotify('withdraw_request_user', $shortcodes, $transaction->user->phone);
                     }
                 }
             } else { // Deposit
@@ -76,6 +91,22 @@ class AlphaPoController extends Controller
                             $pay_amount, 
                             $txID
                         );
+
+                        $shortcodes = [
+                            '[[full_name]]' => $transaction->user->full_name,
+                            '[[txn]]' => $transaction->tnx,
+                            '[[gateway_name]]' => $transaction->method,
+                            '[[deposit_amount]]' => $transaction->pay_currency . ' ' . $transaction->final_amount,
+                            '[[site_title]]' => setting('site_title', 'global'),
+                            '[[site_url]]' => route('home'),
+                            '[[message]]' => '', //$transaction->approval_cause,
+                            '[[status]]' => 'approved',
+                        ];
+                
+                        $this->mailNotify($transaction->user->email, 'user_manual_deposit_request', $shortcodes);
+                        $this->pushNotify('user_manual_deposit_request', $shortcodes, route('user.deposit.log'), $transaction->user->id);
+                        $this->smsNotify('user_manual_deposit_request', $shortcodes, $transaction->user->phone);
+                
                     }
                 }
             }

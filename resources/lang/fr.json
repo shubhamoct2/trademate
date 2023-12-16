@@ -1038,5 +1038,6 @@
     "unlimited": "illimité",
     "Pending Client": "Client en attente",
     "Pending Support": "En attente de support",
-    "Invalid wallet address": "Adresse de portefeuille invalide"
+    "Invalid wallet address": "Adresse de portefeuille invalide",
+    "Invalid deposit method": "Méthode de dépôt invalide"
 }

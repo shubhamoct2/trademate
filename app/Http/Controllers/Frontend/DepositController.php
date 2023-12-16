@@ -10,8 +10,10 @@ use App\Traits\ImageUpload;
 use App\Traits\NotifyTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Session;
 use Txn;
 use Validator;
+use App\Traits\Payment;
 
 use App\Libraries\AlphaPo;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DepositController extends GatewayController
 {
-    use ImageUpload, NotifyTrait;
+    use ImageUpload, NotifyTrait, Payment;
 
     public function deposit()
     {
@@ -106,6 +108,10 @@ class DepositController extends GatewayController
                 return redirect()->back();
             }
         } else {
+            notify()->error($message, __('Invalid deposit method'));
+
+            return redirect()->back();
+
             if ($amount < $gatewayInfo->minimum_deposit || $amount > $gatewayInfo->maximum_deposit) {
                 $currencySymbol = setting('currency_symbol', 'global');
                 $message = 'Please Deposit the Amount within the range '.$currencySymbol.$gatewayInfo->minimum_deposit.' to '.$currencySymbol.$gatewayInfo->maximum_deposit;
@@ -120,19 +126,16 @@ class DepositController extends GatewayController
         $payAmount = $finalAmount * $gatewayInfo->rate;
         $depositType = TxnType::Deposit;
 
-        if (isset($input['manual_data'])) {
+        // if (isset($input['manual_data'])) {
+        //     $depositType = TxnType::ManualDeposit;
+        //     $manualData = $input['manual_data'];
 
-            $depositType = TxnType::ManualDeposit;
-            $manualData = $input['manual_data'];
-
-            foreach ($manualData as $key => $value) {
-
-                if (is_file($value)) {
-                    $manualData[$key] = self::imageUploadTrait($value);
-                }
-            }
-
-        }
+        //     foreach ($manualData as $key => $value) {
+        //         if (is_file($value)) {
+        //             $manualData[$key] = self::imageUploadTrait($value);
+        //         }
+        //     }
+        // }
 
         if ($request['gateway_code'] == 'alphapo') {
             $txnInfo = Txn::new(
@@ -157,7 +160,34 @@ class DepositController extends GatewayController
             $txnInfo = Txn::new($input['amount'], $charge, $finalAmount, $gatewayInfo->gateway_code, 'Deposit With '.$gatewayInfo->name, $depositType, TxnStatus::Pending, $gatewayInfo->currency, $payAmount, auth()->id(), null, 'User', $manualData ?? []);
         }
 
-        return self::depositAutoGateway($gatewayInfo->gateway_code, $txnInfo, $apiResponse);
+        $symbol = $currencySetting['currency'];
+        $notify = [
+            'card-header' => 'Deposit Money',
+            'title' => $symbol. ' ' . $txnInfo->amount.' Deposit Requested Successfully',
+            'p' => 'The Deposit Request has been successfully sent.',
+            'strong' => 'Transaction ID: '.$txnInfo->tnx,
+            'action' => route('user.deposit.now'),
+            'a' => 'DEPOSIT REQUEST AGAIN',
+            'data' => $apiResponse['data'],
+            'view_name' => 'deposit',
+        ];
+        Session::put('user_notify', $notify);
+        $shortcodes = [
+            '[[full_name]]' => $txnInfo->user->full_name,
+            '[[txn]]' => $txnInfo->tnx,
+            '[[gateway_name]]' => $gatewayInfo->name,
+            '[[deposit_amount]]' => $symbol. ' ' .$txnInfo->amount,
+            '[[site_title]]' => setting('site_title', 'global'),
+            '[[site_url]]' => route('home'),
+        ];
+
+        $this->mailNotify(setting('site_email', 'global'), 'manual_deposit_request', $shortcodes);
+        $this->pushNotify('manual_deposit_request', $shortcodes, route('admin.deposit.manual.pending'), $txnInfo->user->id);
+        $this->smsNotify('manual_deposit_request', $shortcodes, $txnInfo->user->phone);
+
+        return redirect()->route('user.notify');
+
+        // return self::depositAutoGateway($gatewayInfo->gateway_code, $txnInfo, $apiResponse);
     }
 
     public function depositLog()

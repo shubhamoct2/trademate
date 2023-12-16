@@ -1038,5 +1038,6 @@
     "unlimited": "غير محدود",
     "Pending Client": "في انتظار العميل",
     "Pending Support": "في انتظار الدعم",
-    "Invalid wallet address": "عنوان المحفظة غير صالح"
+    "Invalid wallet address": "عنوان المحفظة غير صالح",
+    "Invalid deposit method": "طريقة الإيداع غير صالحة"
 }
