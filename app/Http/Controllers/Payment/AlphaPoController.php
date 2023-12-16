@@ -10,7 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Txn;
 use Validator;
-
+use App\Traits\NotifyTrait;
 use App\Libraries\AlphaPo;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AlphaPoController extends Controller
 {
+    use NotifyTrait;
+
     public function alphapoCallback(Request $request) {
         Log::info("Callback detected: " . json_encode($request->all()));
 
