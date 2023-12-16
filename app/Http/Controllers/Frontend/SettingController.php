@@ -43,6 +43,27 @@ class SettingController extends Controller
             $withdrawal_address['blockchain'] = $input['blockchain'];
         }
 
+        /* validation for wallet address */
+        $validFlag = false;
+        if ($withdrawal_address['currency'] == 'btc') {
+            // $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $withdrawal_address['address']); //mainet
+            $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $withdrawal_address['address']);
+        } else if ($withdrawal_address['currency'] == 'eth') {
+            $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $withdrawal_address['address']);
+        } else if ($withdrawal_address['currency'] == 'usdt') {
+            if ($withdrawal_address['blockchain'] == 'erc20') {
+                $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $withdrawal_address['address']);
+            } else if ($withdrawal_address['blockchain'] == 'trc20') {
+                $validFlag = preg_match('/^T[a-zA-Z0-9]{33}$/', $withdrawal_address['address']);
+            }
+        }   
+
+        if ($validFlag == false) {
+            notify()->error(__('Invalid wallet address'), 'Error');
+
+            return redirect()->back();
+        }
+
         $user = Auth::user();
         $user->withdrawal_address = json_encode($withdrawal_address);
         $user->update();

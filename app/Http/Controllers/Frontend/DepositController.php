@@ -100,6 +100,7 @@ class DepositController extends GatewayController
 
             if (!isset($apiResponse['data'])) {
                 $message = 'Cannot call payment gateway API functions. Please try again.';
+                Log::error(json_encode($apiResponse));
                 notify()->error($message, 'Error');
 
                 return redirect()->back();

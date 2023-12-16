@@ -884,7 +884,7 @@
     "Copy Url": "Copier le lien",
     "Copied": "Copié",
     "peoples have joined through this URL": "des personnes ont rejoint via cette URL",
-    "people have joined through this URL": "des personnes ont rejoint via cette URL",
+    "people have joined through this url": "des personnes ont rejoint via cette URL",
     "person has joined through this url": "la personne a rejoint via cette URL",
     "All Referral Logs": "Tous les journaux de référence",
     "Referral Profit:": "Bénéfice de parrainage :",
@@ -1037,5 +1037,6 @@
     "Network": "Réseau",
     "unlimited": "illimité",
     "Pending Client": "Client en attente",
-    "Pending Support": "En attente de support"
+    "Pending Support": "En attente de support",
+    "Invalid wallet address": "Adresse de portefeuille invalide"
 }
