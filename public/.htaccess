@@ -18,4 +18,7 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    RewriteCond %{HTTP_HOST} ^www\.trademate\.one$
+    RewriteRule ^/(.*)$ https://trademate.one/$1 [R=301,L]
 </IfModule>
