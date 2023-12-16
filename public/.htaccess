@@ -19,6 +19,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
-    RewriteCond %{HTTP_HOST} ^www\.trademate\.one$
-    RewriteRule ^/(.*)$ https://trademate.one/$1 [R=301,L]
+    # Redirect www subdomain to main domain
+    RewriteCond %{HTTP_HOST} ^www\.trademate\.one [NC]
+    RewriteRule ^ https://trademate.one%{REQUEST_URI} [L,R=301]
 </IfModule>
