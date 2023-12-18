@@ -15,7 +15,7 @@
                             <th>{{ __('Amount') }}</th>
                             <th>{{ __('Fee') }}</th>
                             <th>{{ __('Status') }}</th>
-                            <th>{{ __('Gateway') }}</th>
+                            <th>{{ __('Method') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,7 +80,42 @@
                                         <div class="site-badge primary-bg">{{ __('canceled') }}</div>
                                     @endif
                                 </td>
-                                <td><strong>{{ $transaction->method }}</strong></td>
+                                @php
+                                    $re = "/^[0-9]+$/";
+
+                                    if (!preg_match($re, $transaction->method)) {
+                                        $method = $transaction->method;
+                                    } else {
+                                        $method = intval($transaction->method);
+
+                                        $from = floor($method / 3);
+                                        $to = $method % 3;
+
+                                        $from_wallet = '';
+                                        if (0 == $from) {
+                                            $from_wallet = __('Main Wallet');
+                                        } else if (1 == $from) {
+                                            $from_wallet = __('Profit Wallet');
+                                        } else if (2 == $from) {
+                                            $from_wallet = __('Trading Wallet');
+                                        }
+
+                                        $to_wallet = '';
+                                        if (0 == $to) {
+                                            $to_wallet = __('Main Wallet');
+                                        } else if (1 == $to) {
+                                            $to_wallet = __('Profit Wallet');
+                                        } else if (2 == $to) {
+                                            $to_wallet = __('Trading Wallet');
+                                        }
+
+                                        $method = trans('translation.exchange_description', [
+                                            'from' => $from_wallet,
+                                            'to' => $to_wallet,
+                                        ]);
+                                    }
+                                @endphp
+                                <td><strong>{{ $method }}</strong></td>
                             </tr>
                         @endforeach
 
