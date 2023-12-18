@@ -27,8 +27,17 @@
                     @endif
 
 
-                    <div id="referral_tree"></div>
-
+                    <div id="referral_tree" class="referral_tree"></div>                    
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 referral-btn-container">
+                            <button 
+                                id="save_referral_tree"
+                                type="button" 
+                                class="site-btn-sm primary-btn w-100 centered save-referral">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,6 +56,7 @@
             $.ajax({
                 url: url,
                 type: 'POST',
+                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                 success: function(json) {
                     createJSTree(json);
                 },
@@ -63,11 +73,49 @@
                         "animation" : 0,
                         "themes" : { "variant" : "large" },
                     },
+                    "types" : {
+                        "#" : {
+                            "max_children" : 1,
+                            "max_depth" : 4,
+                                "valid_children" : ["root"]
+                        },
+                        "root" : {
+                            "icon" : "/static/3.3.16/assets/images/tree_icon.png",
+                            "valid_children" : ["default"]
+                        },
+                        "default" : {
+                            "valid_children" : ["default","file"]
+                        },
+                        "file" : {
+                            "icon" : "glyphicon glyphicon-file",
+                            "valid_children" : []
+                        }
+                    },
                     "plugins" : [
                         "dnd", "state", "types", "wholerow"
                     ]
                 });
             }
+
+            $('#save_referral_tree').on("click", function () {
+                var data = $('#referral_tree').data().jstree.get_json();
+                
+                var url = '{{ route("admin.user.save-referral-tree", ":id") }}';
+                url = url.replace(':id', id);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                    data: { 'data': data },
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
         })(jQuery);
     </script>
 @endpush

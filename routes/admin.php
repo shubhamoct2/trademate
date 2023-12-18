@@ -62,6 +62,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => UserControlle
     Route::post('mail-send', 'mailSend')->name('mail-send');
     Route::get('transaction/{id}', 'transaction')->name('transaction');
     Route::post('referral-tree/{id}', 'getReferralTreeJson')->name('referral-tree');
+    Route::post('save-referral-tree/{id}', 'saveReferralTree')->name('save-referral-tree');
 });
 
 Route::resource('kyc-form', KycController::class);

@@ -27,6 +27,8 @@ use App\DataTables\UsersDataTable;
 use App\DataTables\ActiveUsersDataTable;
 use App\DataTables\DisabledUsersDataTable;
 
+use Illuminate\Support\Facades\Log;
+
 class UserController extends Controller
 {
     use NotifyTrait;
@@ -404,7 +406,7 @@ class UserController extends Controller
         if ($level > $depth) {
             $item = [
                 'id' => $levelUser->id,
-                'text' => $levelUser->full_name,
+                'text' => $levelUser->full_name . '<span class="ml-2">(' . $levelUser->email . ')</span>',
                 'children' => []
             ];
 
@@ -430,5 +432,26 @@ class UserController extends Controller
         }
 
         return response()->json([$tree_json]);
+    }
+
+    private function updateReferral($parent_id, $children) {
+        foreach ($children as $child) {
+            $childUser = User::find($child['id']);
+            
+            $childUser->ref_id = $parent_id;
+            $childUser->save();
+
+            if (isset($child['children'])) {
+                $this->updateReferral($child['id'], $child['children']);    
+            }
+        }        
+    }
+
+    public function saveReferralTree($id, Request $request)  {
+        Log::info(json_encode($request['data']));
+
+        $top_children = $request['data'][0]['children'];
+
+        $this->updateReferral($id, $top_children);                
     }
 }

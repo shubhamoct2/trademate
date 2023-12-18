@@ -5040,3 +5040,22 @@ img {
 .single-badge:hover.locked::after {
   display: none;
 }
+
+.referral_tree {
+  font-size: 18px;
+  padding: 20px;
+}
+
+.referral-btn-container {
+  margin-left: auto;
+}
+
+.save-referral {
+  margin-top: 24px;
+}
+
+.jstree-anchor span {
+  font-size: 12px !important;
+  font-weight: 100;
+  color: #888888;
+}
