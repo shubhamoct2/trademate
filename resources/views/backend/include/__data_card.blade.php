@@ -82,43 +82,6 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div class="data-card">
-            <div class="icon">
-                <i icon-name="droplet"></i>
-            </div>
-            <div class="content">
-                <h4>{{ $currencySymbol }}<span class="count">{{ round($data['total_investment'],2) }}</span></h4>
-                <p>{{ __('Total Investment') }}</p>
-            </div>
-            <a class="link" href="{{ route('admin.investments') }}"><i icon-name="external-link"></i></a>
-        </div>
-    </div>
-
-
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div class="data-card">
-            <div class="icon">
-                <i icon-name="package-plus"></i>
-            </div>
-            <div class="content">
-                <h4>{{ $currencySymbol }}<span class="count">{{ round($data['deposit_bonus'],2) }}</span></h4>
-                <p>{{ __('Deposit Bonus') }}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div class="data-card">
-            <div class="icon">
-                <i icon-name="sprout"></i>
-            </div>
-            <div class="content">
-                <h4>  {{ $currencySymbol }}<span class="count">{{ round($data['investment_bonus'],2) }}</span></h4>
-                <p>{{ __('Investment Bonus') }}</p>
-            </div>
-        </div>
-    </div>
 
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div class="data-card">
