@@ -80,7 +80,6 @@
                                 "valid_children" : ["root"]
                         },
                         "root" : {
-                            "icon" : "/static/3.3.16/assets/images/tree_icon.png",
                             "valid_children" : ["default"]
                         },
                         "default" : {

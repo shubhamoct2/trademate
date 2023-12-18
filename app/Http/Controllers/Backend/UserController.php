@@ -448,8 +448,6 @@ class UserController extends Controller
     }
 
     public function saveReferralTree($id, Request $request)  {
-        Log::info(json_encode($request['data']));
-
         $top_children = $request['data'][0]['children'];
 
         $this->updateReferral($id, $top_children);                
