@@ -76,7 +76,7 @@
                         "themes" : { "variant" : "large" },
                     },                    
                     "plugins" : [
-                        "dnd", "state", "types", "wholerow"
+                        "dnd", "state", "wholerow"
                     ]
                 });
             }
