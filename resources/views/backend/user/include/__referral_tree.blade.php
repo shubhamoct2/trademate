@@ -74,24 +74,7 @@
                         "check_callback" : true,
                         "animation" : 0,
                         "themes" : { "variant" : "large" },
-                    },
-                    "types" : {
-                        "#" : {
-                            "max_children" : 1,
-                            "max_depth" : 5,
-                                "valid_children" : ["root"]
-                        },
-                        "root" : {
-                            "valid_children" : ["default"]
-                        },
-                        "default" : {
-                            "valid_children" : ["default","file"]
-                        },
-                        "file" : {
-                            "icon" : "glyphicon glyphicon-file",
-                            "valid_children" : []
-                        }
-                    },
+                    },                    
                     "plugins" : [
                         "dnd", "state", "types", "wholerow"
                     ]
