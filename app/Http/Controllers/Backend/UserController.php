@@ -412,7 +412,10 @@ class UserController extends Controller
             ];
 
             foreach ($levelUser->referrals as $user) {
-                $item['children'][] = $this->getRefferral($user, $level, $depth + 1);
+                $child = $this->getRefferral($user, $level, $depth + 1);
+                if (!is_null($child)) {
+                    $item['children'][] = $child;
+                }
             }
 
             return $item;
