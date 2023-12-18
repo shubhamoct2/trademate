@@ -39,8 +39,12 @@ class AlphaPoController extends Controller
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
 
+                    Log::info("Price of " . $currency . " => " $price);
+
                     if (!is_null($price)) {
                         $pay_amount = floatval($amount) * floatval($price);
+
+                        Log::info("Total withrawal amount => " . $pay_amount);
                     
                         Txn::update(
                             $transaction->tnx, 
@@ -81,8 +85,12 @@ class AlphaPoController extends Controller
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
 
+                    Log::info("Price of " . $currency . " => " $price);
+
                     if (!is_null($price)) {
                         $pay_amount = floatval($amount) * floatval($price);
+
+                        Log::info("Total withrawal amount => " . $pay_amount);
                         
                         Txn::update(
                             $transaction->tnx, 
