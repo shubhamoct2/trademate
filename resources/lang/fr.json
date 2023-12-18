@@ -1039,5 +1039,6 @@
     "Pending Client": "Client en attente",
     "Pending Support": "En attente de support",
     "Invalid wallet address": "Adresse de portefeuille invalide",
-    "Invalid deposit method": "Méthode de dépôt invalide"
+    "Invalid deposit method": "Méthode de dépôt invalide",
+    "Total commission": "Commission totale"
 }

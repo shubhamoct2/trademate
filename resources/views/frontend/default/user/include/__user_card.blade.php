@@ -59,7 +59,7 @@
             <div class="content">
                 <h4><b>{{ $currencySymbol }}</b><span class="count">{{ $dataCount['total_referral_profit'] }}</span>
                 </h4>
-                <p>{{ __('Referral Bonus') }}</p>
+                <p>{{ __('Total commission') }}</p>
             </div>
         </div>
     </div>

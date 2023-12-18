@@ -1039,5 +1039,6 @@
     "Pending Client": "Ausstehender Kunde",
     "Pending Support": "Ausstehender Support",
     "Invalid wallet address": "Ungültige Wallet-Adresse",
-    "Invalid deposit method": "Ungültige Einzahlungsmethode"
+    "Invalid deposit method": "Ungültige Einzahlungsmethode",
+    "Total commission": "Gesamtprovision"
 }
