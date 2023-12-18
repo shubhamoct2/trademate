@@ -86,8 +86,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $level = LevelReferral::where('type', 'investment')->max('the_order') + 1;
 
+        // $level = LevelReferral::where('type', 'investment')->max('the_order') + 1;
+        $level = LevelReferral::max('the_order');
+        
         return view('backend.user.edit', compact('user', 'level'));
     }
 
