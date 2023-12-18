@@ -97,6 +97,23 @@
                                                     class="balance">{{ setting('currency_symbol','global') . $user->profit_balance }}</div>
                                             </div>
                                         </div>
+                                        <div class="admin-user-balance-card">
+                                            <div class="wallet-name">
+                                                <div class="name">{{ __('Trading Wallet') }}</div>
+                                                <div class="chip-icon">
+                                                    <img
+                                                        class="chip"
+                                                        src="{{asset('backend/materials/chip.png')}}"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="wallet-info">
+                                                <div class="wallet-id">{{ setting('site_currency','global') }}</div>
+                                                <div
+                                                    class="balance">{{ setting('currency_symbol','global') . $user->trading_balance }}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
