@@ -407,6 +407,7 @@ class UserController extends Controller
             $item = [
                 'id' => $levelUser->id,
                 'text' => $levelUser->full_name . '<span class="ml-2">(' . $levelUser->email . ')</span>',
+                'icon' => '',
                 'children' => []
             ];
 
