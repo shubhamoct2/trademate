@@ -58,7 +58,9 @@
                 type: 'POST',
                 headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                 success: function(json) {
-                    createJSTree(json);
+                    if(Object.keys(json).length > 0) {
+                        createJSTree(json);
+                    }
                 },
                 error: function(error) {
                     console.log(error);
@@ -76,7 +78,7 @@
                     "types" : {
                         "#" : {
                             "max_children" : 1,
-                            "max_depth" : 4,
+                            "max_depth" : 5,
                                 "valid_children" : ["root"]
                         },
                         "root" : {
