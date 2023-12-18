@@ -39,7 +39,7 @@ class AlphaPoController extends Controller
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
 
-                    Log::info("Price of " . $currency . " => " $price);
+                    Log::info("Price of " . $currency . " => " . $price);
 
                     if (!is_null($price)) {
                         $pay_amount = floatval($amount) * floatval($price);
@@ -85,7 +85,7 @@ class AlphaPoController extends Controller
                     $alphaPo = new AlphaPo;
                     $price = $alphaPo->getCryptoPrice($currency);
 
-                    Log::info("Price of " . $currency . " => " $price);
+                    Log::info("Price of " . $currency . " => " . $price);
 
                     if (!is_null($price)) {
                         $pay_amount = floatval($amount) * floatval($price);
