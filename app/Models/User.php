@@ -208,7 +208,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         $sum = $this->transaction()->where('status', TxnStatus::Success)->where(function ($query) {
             $query->where('type', TxnType::Withdraw)
                 ->orWhere('type', TxnType::WithdrawAuto);
-        })->sum('amount');
+        })->sum('pay_amount');
 
         return round($sum, 2);
     }
