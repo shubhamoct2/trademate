@@ -26,9 +26,51 @@
                         <p>{{ __('No Referral user found') }}</p>
                     @endif
 
+
+                    <div id="referral_tree"></div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('single-script')
+    <script>
+        (function ($) {
+            "use strict";
+
+            var id = <?php echo $user->id ?>;
+            var url = '{{ route("admin.user.referral-tree", ":id") }}';
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function(json) {
+                    createJSTree(json);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+            function createJSTree(jsonData) {
+                $('#referral_tree').jstree({
+                    "core" : {
+                        'data': jsonData,
+                        "check_callback" : true,
+                        "animation" : 0,
+                        "themes" : { "variant" : "large" },
+                    },
+                    "plugins" : [
+                        "dnd", "state", "types", "wholerow"
+                    ]
+                });
+            }
+        })(jQuery);
+    </script>
+@endpush
+
+
 

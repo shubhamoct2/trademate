@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('global/css/select2.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/custom.css?var=2.2') }}"/>
     <link rel="stylesheet" href="{{ asset('backend/css/styles.css?var=2.2') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     @yield('style')
 
     <title>{{ setting('site_title', 'global') }} - @yield('title')</title>

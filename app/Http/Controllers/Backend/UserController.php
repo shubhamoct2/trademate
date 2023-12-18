@@ -89,7 +89,7 @@ class UserController extends Controller
 
         // $level = LevelReferral::where('type', 'investment')->max('the_order') + 1;
         $level = LevelReferral::max('the_order');
-        
+
         return view('backend.user.edit', compact('user', 'level'));
     }
 
@@ -398,5 +398,37 @@ class UserController extends Controller
         Auth::guard('web')->loginUsingId($id);
 
         return redirect()->route('user.dashboard');
+    }
+
+    private function getRefferral(User $levelUser, $level, $depth) {
+        if ($level > $depth) {
+            $item = [
+                'id' => $levelUser->id,
+                'text' => $levelUser->full_name,
+                'children' => []
+            ];
+
+            foreach ($levelUser->referrals as $user) {
+                $item['children'][] = $this->getRefferral($user, $level, $depth + 1);
+            }
+
+            return $item;
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getReferralTreeJson($id)
+    {
+        $user = User::find($id);
+        $level = LevelReferral::max('the_order');
+
+        $tree_json = [];
+        if(setting('site_referral','global') == 'level' && $user->referrals->count() > 0) {
+            $tree_json = $this->getRefferral($user, $level, 1);
+        }
+
+        return response()->json([$tree_json]);
     }
 }

@@ -20,6 +20,7 @@
 <script src="{{ asset('backend/js/main.js?var=5') }}"></script>
 <script src="{{ asset('global/js/pusher.min.js') }}"></script>
 <script src="{{ asset('global/js/custom.js?var=6') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 @include('global.__notification_script',['for'=>'admin','userId' => ''])
 @notifyJs
