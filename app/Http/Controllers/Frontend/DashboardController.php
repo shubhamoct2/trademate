@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'total_transfer' => $user->totalTransfer(),
             'total_referral_profit' => $user->totalReferralProfit(),
             'total_referral' => $referral->relationships()->count(),
-
+            'total_commission' => $user->totalCommission(),
             'deposit_bonus' => $user->totalDepositBonus(),
             'investment_bonus' => $user->totalInvestBonus(),
             'rank_achieved' => $user->rankAchieved(),

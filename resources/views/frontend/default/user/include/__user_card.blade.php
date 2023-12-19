@@ -57,7 +57,7 @@
         <div class="single">
             <div class="icon"><i class="anticon anticon-gift"></i></div>
             <div class="content">
-                <h4><b>{{ $currencySymbol }}</b><span class="count">{{ $dataCount['total_referral_profit'] }}</span>
+                <h4><b>{{ $currencySymbol }}</b><span class="count">{{ $dataCount['total_commission'] }}</span>
                 </h4>
                 <p>{{ __('Total commission') }}</p>
             </div>

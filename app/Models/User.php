@@ -172,6 +172,15 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         return round($sum, 2);
     }
 
+    public function totalCommission()
+    {
+        $sum = $this->transaction()->where('status', TxnStatus::Success)->where(function ($query) {
+            $query->where('type', TxnType::SendCommission);
+        })->sum('pay_amount');
+
+        return round($sum, 2);
+    }
+
     public function totalInvestment()
     {
         $sum = $this->transaction()->where('status', TxnStatus::Success)->where(function ($query) {
