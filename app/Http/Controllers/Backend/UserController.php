@@ -403,7 +403,7 @@ class UserController extends Controller
     }
 
     private function getRefferral(User $levelUser, $level, $depth) {
-        if ($level > $depth) {
+        if ($level >= $depth) {
             $item = [
                 'id' => $levelUser->id,
                 'text' => $levelUser->full_name . '<span class="ml-2">(' . $levelUser->email . ')</span>',

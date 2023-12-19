@@ -74,7 +74,7 @@
                         "check_callback" : true,
                         "animation" : 0,
                         "themes" : { "variant" : "large" },
-                    },                    
+                    },             
                     "plugins" : [
                         "dnd", "state", "wholerow"
                     ]
