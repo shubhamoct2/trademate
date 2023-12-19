@@ -95,7 +95,7 @@ class UsersDataTable extends DataTable
                 ->orderable(true),
             Column::computed('shares')
                 ->title('Shares (%)')
-                ->orderable(true),
+                ->orderable(false),
             Column::computed('kyc'),
             Column::computed('status'),
             Column::computed('action')
