@@ -456,4 +456,45 @@ class UserController extends Controller
 
         $this->updateReferral($id, $top_children);                
     }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function sendCommission($id, Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'commission' => 'required|regex:/^\d*(\.\d{2})?$/',
+        ]);
+
+        if ($validator->fails()) {
+            notify()->error($validator->errors()->first(), 'Error');
+            return redirect()->back();
+        }
+
+        $user = User::find($id);
+        $amount = floatval($input['commission']);
+
+        $user->increment('commission_balance', $amount);
+
+        Txn::new(
+            $amount, 
+            0, 
+            $amount, 
+            'system', 
+            __('Money added in Commission Wallet from Admin Manually'),
+            TxnType::SendCommission, 
+            TxnStatus::Success, 
+            null, 
+            null, 
+            $id, 
+            \Auth::user()->id,
+            'Admin');
+
+        notify()->success('Sent Commission Successfully', 'success');
+
+        return redirect()->back();
+    }
+
 }

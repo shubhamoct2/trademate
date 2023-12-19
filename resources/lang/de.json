@@ -1040,5 +1040,6 @@
     "Pending Support": "Ausstehender Support",
     "Invalid wallet address": "Ungültige Wallet-Adresse",
     "Invalid deposit method": "Ungültige Einzahlungsmethode",
-    "Total commission": "Gesamtprovision"
+    "Total commission": "Gesamtprovision",
+    "Commission Wallet": "Provisionsgeldbörse"
 }

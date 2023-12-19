@@ -114,6 +114,23 @@
                                                     class="balance">{{ setting('currency_symbol','global') . $user->trading_balance }}</div>
                                             </div>
                                         </div>
+                                        <div class="admin-user-balance-card">
+                                            <div class="wallet-name">
+                                                <div class="name">{{ __('Commission Wallet') }}</div>
+                                                <div class="chip-icon">
+                                                    <img
+                                                        class="chip"
+                                                        src="{{asset('backend/materials/chip.png')}}"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="wallet-info">
+                                                <div class="wallet-id">{{ setting('site_currency','global') }}</div>
+                                                <div
+                                                    class="balance">{{ setting('currency_symbol','global') . $user->commission_balance }}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -243,6 +260,23 @@
                                     ><i icon-name="wrench"></i>{{ __('Ticket') }}</a>
                                 </li>
                             @endcanany
+
+                            @can('customer-commission-manage')
+                                <li class="nav-item" role="presentation">
+                                    <a
+                                        href=""
+                                        class="nav-link"
+                                        id="pills-commission-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-commission"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-commission"
+                                        aria-selected="true"
+                                    ><i icon-name="receipt"></i>{{ __('Commission Wallet') }}</a>
+                                </li>
+                            @endcan
+
                         </ul>
                     </div>
 
@@ -282,6 +316,11 @@
                         <!-- ticket -->
                         @canany(['support-ticket-list','support-ticket-action'])
                             @include('backend.user.include.__ticket')
+                        @endcan
+                        
+                        <!-- Commission Wallet -->
+                        @can('customer-commission-manage')
+                            @include('backend.user.include.__commission_send')
                         @endcan
                     </div>
 

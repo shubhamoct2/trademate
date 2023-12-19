@@ -17,6 +17,10 @@
                 <div class="wallet-id"><i icon-name="globe"></i>{{ __('Trading Wallet') }}</div>
                 <div class="balance">{{ setting('currency_symbol','global').$user->trading_balance }}</div>
             </div>
+            <div class="wallet-info">
+                <div class="wallet-id"><i icon-name="receipt"></i>{{ __('Commission Wallet') }}</div>
+                <div class="balance">{{ setting('currency_symbol','global').$user->commission_balance }}</div>
+            </div>
         </div>
         <div class="actions">
             <a href="{{ route('user.deposit.amount') }}" class="user-sidebar-btn"><i

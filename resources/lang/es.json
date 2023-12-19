@@ -1040,5 +1040,6 @@
     "Pending Support": "Soporte pendiente",
     "Invalid wallet address": "Dirección de billetera no válida",
     "Invalid deposit method": "Método de depósito no válido",
-    "Total commission": "comisión total"
+    "Total commission": "comisión total",
+    "Commission Wallet": "Cartera de comisiones"
 }

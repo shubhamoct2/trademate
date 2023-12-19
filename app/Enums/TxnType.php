@@ -18,4 +18,5 @@ enum TxnType: string
     case Investment = 'investment';
     case Interest = 'interest';
     case Refund = 'refund';
+    case SendCommission = 'send_commission';
 }
