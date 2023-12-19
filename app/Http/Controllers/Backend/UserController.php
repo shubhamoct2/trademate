@@ -478,7 +478,7 @@ class UserController extends Controller
 
         $user->increment('commission_balance', $amount);
 
-        Txn::new(
+        $transaction = Txn::new(
             $amount, 
             0, 
             $amount, 
@@ -491,6 +491,19 @@ class UserController extends Controller
             $id, 
             \Auth::user()->id,
             'Admin');
+
+        $shortcodes = [
+            '[[full_name]]' => $transaction->user->full_name,
+            '[[txn]]' => $transaction->tnx,
+            '[[method_name]]' => strtoupper($transaction->method),
+            '[[commission_amount]]' =>  $transaction->final_amount . setting('site_currency', 'global'),
+            '[[site_title]]' => setting('site_title', 'global'),
+            '[[site_url]]' => route('home'),
+            '[[message]]' => '', //$transaction->approval_cause,
+            '[[status]]' => 'approved',
+        ];
+    
+        $this->pushNotify('received_commission', $shortcodes, route('user.transactions'), $transaction->user->id);
 
         notify()->success('Sent Commission Successfully', 'success');
 
