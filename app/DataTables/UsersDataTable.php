@@ -22,12 +22,18 @@ class UsersDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
+        // total trading wallet balance
+        $total_trading = User::where('status', 1)->sum('trading_balance');
+
         return (new EloquentDataTable($query))
             ->addColumn('select_users', '<input type="checkbox" name="selected_users[]" value="{{ $id }}" >')
             ->addColumn('avatar', 'backend.user.include.__avatar')
             ->addColumn('kyc', 'backend.user.include.__kyc')
             ->addColumn('status', 'backend.user.include.__status')
             ->addColumn('action', 'backend.user.include.__action')
+            ->editColumn('shares', function ($user) use ($total_trading) {
+                return number_format((floatval($user->trading_balance) * 100.00) / floatval($total_trading), 2);
+            })
             ->rawColumns(['select_users', 'avatar', 'kyc', 'status', 'action']);
     }
 
@@ -86,6 +92,9 @@ class UsersDataTable extends DataTable
                 ->orderable(true),
             Column::computed('total_profit')
                 ->title('Total Profit (' . setting('site_currency')  .')')
+                ->orderable(true),
+            Column::computed('shares')
+                ->title('Shares (%)')
                 ->orderable(true),
             Column::computed('kyc'),
             Column::computed('status'),

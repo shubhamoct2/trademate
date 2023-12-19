@@ -1042,5 +1042,6 @@
     "Invalid deposit method": "Método de depósito no válido",
     "Total commission": "comisión total",
     "Commission Wallet": "Cartera de comisiones",
-    "Send Commission": "Enviar comisión"
+    "Send Commission": "Enviar comisión",
+    "TRADING WALLET MASTER": "MAESTRO DE MONEDERO COMERCIAL"
 }

@@ -62,6 +62,18 @@
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div class="data-card">
             <div class="icon">
+                <i icon-name="receipt"></i>
+            </div>
+            <div class="content">
+                <h4>{{ $currencySymbol }}<span class="count">{{ round($data['total_trading'],2) }}</span></h4>
+                <p>{{ __('TRADING WALLET MASTER') }}</p>
+            </div>
+            <a class="link" href="{{ route('admin.user.index') }}"><i icon-name="external-link"></i></a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+        <div class="data-card">
+            <div class="icon">
                 <i icon-name="link"></i>
             </div>
             <div class="content">

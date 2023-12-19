@@ -124,6 +124,9 @@ class DashboardController extends Controller
             }
         }
 
+        // total trading wallet balance
+        $total_trading = User::where('status', 1)->sum('trading_balance');
+        
         $data = [
             'withdraw_count' => $withdrawCount,
             'kyc_count' => $kycCount,
@@ -141,6 +144,7 @@ class DashboardController extends Controller
             'total_investment' => $transaction->totalInvestment()->sum('amount'),
             'total_withdraw' => $transaction->totalWithdraw()->sum('amount'),
             'total_referral' => $totalReferral,
+            'total_trading' => $total_trading,
 
             'date_label' => $dateArray,
             'deposit_statistics' => $depositStatistics,
