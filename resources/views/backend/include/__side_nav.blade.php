@@ -148,6 +148,12 @@
                                 icon-name="credit-card"></i><span>{{ __('User Profits') }}</span></a>
                     </li>
                 @endcan
+                @can('customer-commission-manage')
+                    <li class="side-nav-item {{ isActive('admin.commission.list') }}">
+                        <a href="{{ route('admin.commission.list') }}"><i
+                            icon-name="door-open"></i><span>{{ __('Send Commission') }}</span></a>
+                    </li>
+                @endcan
             @endcanany
 
             {{-- *************************************************************  Essentials *********************************************************--}}

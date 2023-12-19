@@ -16,9 +16,6 @@
                 ></button>
                 <div class="popup-body-text">
                     <h3 class="title mb-4"> {{ __('Review Exchange Transaction') }} <span id="name">{{ $name ?? ''}}</span></h3>
-                    <form action="{{route('admin.exchange.update')}}" method="post" id="review_transaction_form">
-                        @csrf
-
                         <input type="hidden" name="review_tnx" value="" id="review_tnx">
                         <input type="hidden" name="review_type" value="approve" id="review_type">
 
@@ -43,14 +40,6 @@
                         </div>
 
                         <div class="action-btns">
-                            <button id="approve" type="submit" class="site-btn-sm primary-btn me-2">
-                                <i icon-name="check"></i>
-                                {{ __('Approve') }}
-                            </button>
-                            <button id="reject" type="submit" class="site-btn-sm yellow-btn me-2">
-                                <i icon-name="ban"></i>
-                                {{ __('Reject') }}
-                            </button>
                             <a
                                 href="#"
                                 class="site-btn-sm red-btn"
@@ -61,7 +50,6 @@
                                 {{ __('Close') }}
                             </a>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

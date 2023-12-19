@@ -1041,5 +1041,6 @@
     "Invalid wallet address": "عنوان المحفظة غير صالح",
     "Invalid deposit method": "طريقة الإيداع غير صالحة",
     "Total commission": "إجمالي العمولة",
-    "Commission Wallet": "محفظة العمولة"
+    "Commission Wallet": "محفظة العمولة",
+    "Send Commission": "إرسال العمولة"
 }

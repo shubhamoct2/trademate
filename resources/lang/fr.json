@@ -1041,5 +1041,6 @@
     "Invalid wallet address": "Adresse de portefeuille invalide",
     "Invalid deposit method": "Méthode de dépôt invalide",
     "Total commission": "Commission totale",
-    "Commission Wallet": "Portefeuille de commissions"
+    "Commission Wallet": "Portefeuille de commissions",
+    "Send Commission": "Envoyer une commission"
 }

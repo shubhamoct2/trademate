@@ -32,6 +32,7 @@ use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\WithdrawController;
 use App\Http\Controllers\Backend\ExchangeController;
+use App\Http\Controllers\Backend\CommissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +91,10 @@ Route::get('investments/{id?}', [InvestmentController::class, 'investments'])->n
 Route::get('all-profits/{id?}', [ProfitController::class, 'allProfits'])->name('all-profits');
 
 //===============================  Essentials ==================================
+
+Route::group(['prefix' => 'commission', 'as' => 'commission.', 'controller' => CommissionController::class], function () {
+    Route::get('/', 'index')->name('list');
+});
 
 Route::group(['prefix' => 'exchange', 'as' => 'exchange.', 'controller' => ExchangeController::class], function () {
     Route::get('/', 'index')->name('list');

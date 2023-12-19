@@ -1041,5 +1041,6 @@
     "Invalid wallet address": "Ungültige Wallet-Adresse",
     "Invalid deposit method": "Ungültige Einzahlungsmethode",
     "Total commission": "Gesamtprovision",
-    "Commission Wallet": "Provisionsgeldbörse"
+    "Commission Wallet": "Provisionsgeldbörse",
+    "Send Commission": "Provision senden"
 }
