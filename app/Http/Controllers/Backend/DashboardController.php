@@ -116,11 +116,13 @@ class DashboardController extends Controller
         $pending_support = 0;
 
         foreach ($open_tickets as $ticket) {
-            $last_message = $ticket->messages()->orderByDesc('created_at')->first();            
-            if ($last_message->model == 'admin') {
-                $pending_client += 1;
-            } else {
-                $pending_support += 1;
+            $last_message = $ticket->messages()->orderByDesc('created_at')->first();    
+            if ($last_message) {
+                if ($last_message->model == 'admin') {
+                    $pending_client += 1;
+                } else {
+                    $pending_support += 1;
+                }
             }
         }
 
