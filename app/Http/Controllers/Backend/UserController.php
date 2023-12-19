@@ -465,7 +465,7 @@ class UserController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'commission' => 'required|regex:/^\d*(\.\d{2})?$/',
+            'commission' => 'required|regex:/^[+-]?\d*(\.\d{2})?$/',
         ]);
 
         if ($validator->fails()) {
@@ -483,11 +483,11 @@ class UserController extends Controller
             0, 
             $amount, 
             'system', 
-            __('Money added in Commission Wallet from Admin Manually'),
+            $amount > 0 ? __('Money added in Commission Wallet from Admin Manually') : __('Money subtracted in Commission Wallet from Admin Manually'),
             TxnType::SendCommission, 
             TxnStatus::Success, 
             null, 
-            null, 
+            $amount,
             $id, 
             \Auth::user()->id,
             'Admin');

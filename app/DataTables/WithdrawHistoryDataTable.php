@@ -87,6 +87,7 @@ class WithdrawHistoryDataTable extends DataTable
             Column::computed('last_name'),
             Column::make('tnx'),
             Column::computed('type'),
+            Column::computed('final_amount'),
             Column::make('method'),
             Column::computed('status')
         ];

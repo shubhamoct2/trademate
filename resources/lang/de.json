@@ -1043,5 +1043,6 @@
     "Total commission": "Gesamtprovision",
     "Commission Wallet": "Provisionsgeldbörse",
     "Send Commission": "Provision senden",
-    "TRADING WALLET MASTER": "TRADING WALLET MASTER"
+    "TRADING WALLET MASTER": "TRADING WALLET MASTER",
+    "Money subtracted in Commission Wallet from Admin Manually": "Geld, das vom Administrator manuell vom Provisionskonto abgezogen wurde"
 }

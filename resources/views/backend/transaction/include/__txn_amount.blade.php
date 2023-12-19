@@ -1,9 +1,5 @@
-@if ($method == 'Alphapo')
-    @if ($txID)
-    <strong class="{{ $type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? 'green-color': 'red-color'}}">{{ ($type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? '+': '-' ).$final_amount.' '.$pay_currency }}</strong>
-    @else
-    <strong class="{{ $type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? 'green-color': 'red-color'}}">{{ ($type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? '+': '-' ).$amount.' '.$pay_currency }}</strong>
-    @endif
+@if ($type == 'send_commission')
+    <strong class="{{ $amount > 0 ? 'green-color': 'red-color'}}">{{ ($amount > 0 ? '+': '' ).$amount.' '.$currency }}</strong>
 @else
-<strong class="{{ $type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? 'green-color': 'red-color'}}">{{ ($type !== 'subtract' && $type !== 'investment' && $type !==  'withdraw' && $type !==  'send_money' ? '+': '-' ).$amount.' '.$currency }}</strong>
-@endif
+    <strong class="{{ txn_type($type, ['green-color','red-color']) }}">{{ txn_type($type, ['+', '-']) . $amount . ' ' . ($pay_currency ? $pay_currency : $currency) }}</strong>
+@endif  

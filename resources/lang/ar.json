@@ -1043,5 +1043,6 @@
     "Total commission": "إجمالي العمولة",
     "Commission Wallet": "محفظة العمولة",
     "Send Commission": "إرسال العمولة",
-    "TRADING WALLET MASTER": "سيد محفظة التداول"
+    "TRADING WALLET MASTER": "سيد محفظة التداول",
+    "Money subtracted in Commission Wallet from Admin Manually": "يتم خصم الأموال في محفظة العمولة من المشرف يدويًا"
 }

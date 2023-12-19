@@ -35,28 +35,5 @@ class TransactionController extends Controller
     public function transactions(TransactionsDataTable $dataTable)
     {
         return $dataTable->render('backend.transaction.index');
-
-        // if ($request->ajax()) {
-
-        //     if ($id) {
-        //         $data = Transaction::where('user_id', $id)->latest();
-        //     } else {
-        //         $data = Transaction::query()->latest();
-        //     }
-
-        //     return Datatables::of($data)
-        //         ->addIndexColumn()
-        //         ->editColumn('status', 'backend.transaction.include.__txn_status')
-        //         ->editColumn('type', 'backend.transaction.include.__txn_type')
-        //         ->editColumn('final_amount', 'backend.transaction.include.__txn_amount')
-        //         ->editColumn('charge', function ($request) {
-        //             return $request->charge.' '.setting('site_currency', 'global');
-        //         })
-        //         ->addColumn('username', 'backend.transaction.include.__user')
-        //         ->rawColumns(['status', 'type', 'final_amount', 'username'])
-        //         ->make(true);
-        // }
-
-        // return view('backend.transaction.index');
     }
 }

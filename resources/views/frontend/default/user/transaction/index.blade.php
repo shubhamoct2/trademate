@@ -114,8 +114,19 @@
                                             <div
                                                 class="site-badge primary-bg">{{ str_replace('_',' ',$transaction->type->value) }}</div>
                                         </td>
-                                        <td><strong
-                                                class="{{$transaction->type !== 'subtract' && $transaction->type !== 'investment' && $transaction->type !== 'send_money' && $transaction->type !== 'withdraw' ? 'green-color': 'red-color'}}">{{ ($transaction->type !== 'subtract' && $transaction->type !== 'investment' && $transaction->type !== 'send_money' && $transaction->type !== 'withdraw' ? '+': '-' ).$transaction->amount.' '.$transaction->currency }}</strong>
+                                        <td>
+                                            @if ($transaction->type->value == 'send_commission')
+                                            <strong class="{{ $transaction->amount > 0 ? 'green-color': 'red-color'}}">{{ ($transaction->amount > 0 ? '+': '' ).$transaction->amount.' '.$currency }}</strong>
+                                            @else
+                                            <strong class="{{ $transaction->type->value !== 'subtract' 
+                                                && $transaction->type->value !== 'investment' 
+                                                && $transaction->type->value !== 'send_money' 
+                                                && $transaction->type->value !== 'withdraw' ? 'green-color': 'red-color'}}">
+                                                {{ ($transaction->type->value !== 'subtract'
+                                                    && $transaction->type->value !== 'investment' 
+                                                    && $transaction->type->value !== 'send_money'
+                                                    && $transaction->type->value !== 'withdraw' ? '+': '-' ) . $transaction->amount. ' ' . ($transaction->pay_currency ? $transaction->pay_currency : $currency ) }}</strong>
+                                            @endif
                                         </td>
                                         <td><strong>{{ $transaction->charge }} {{ $currency }}</strong></td>
                                         <td>

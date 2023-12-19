@@ -57,16 +57,15 @@
                                     <div
                                         class="site-badge primary-bg">{{  ucfirst(str_replace('_',' ',$transaction->type->value ))  }}</div>
                                 </td>
-                                @if ($transaction->method == 'Alphapo')
-                                    @if ($transaction->txID)
-                                        <td><strong class="{{ txn_type($transaction->type->value,['green-color','red-color']) }}">{{ txn_type($transaction->type->value,['+','-']) .$transaction->final_amount.' '.$transaction->pay_currency }}</strong>
-                                    @else 
-                                        <td><strong class="{{ txn_type($transaction->type->value,['green-color','red-color']) }}">{{ txn_type($transaction->type->value,['+','-']) .$transaction->amount.' '.$transaction->pay_currency }}</strong>
-                                    @endif
+                                <td>
+                                @if ($transaction->type->value == 'send_commission')
+                                    <strong class="{{ $transaction->amount > 0 ? 'green-color': 'red-color'}}">{{ ($transaction->amount > 0 ? '+': '' ).$transaction->amount.' '.$currency }}</strong>
                                 @else
-                                <td><strong class="{{ txn_type($transaction->type->value,['green-color','red-color']) }}">{{ txn_type($transaction->type->value,['+','-']) .$transaction->amount.' '.$currency }}</strong>
-                                @endif
-                                
+                                    <strong class="{{ txn_type($transaction->type->value, ['green-color','red-color']) }}">
+                                            {{ txn_type($transaction->type->value,['+','-']) .$transaction->final_amount.' '. ($transaction->pay_currency ? $transaction->pay_currency : $currency) }}
+                                        </strong>
+                                    </td>
+                                @endif                                
                                 </td>
                                 <td><strong>{{ $transaction->charge.' '. $currency }}</strong></td>
                                 <td>

@@ -50,7 +50,7 @@ class CommissionController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('status', 'backend.commission.include.__txn_status')
-                ->editColumn('final_amount', 'backend.exchange.include.__txn_amount')
+                ->editColumn('final_amount', 'backend.commission.include.__txn_amount')
                 ->editColumn('charge', function ($request) {
                     return $request->charge.' '.setting('site_currency', 'global');
                 })

@@ -1043,5 +1043,6 @@
     "Total commission": "Commission totale",
     "Commission Wallet": "Portefeuille de commissions",
     "Send Commission": "Envoyer une commission",
-    "TRADING WALLET MASTER": "MAÎTRE DU PORTEFEUILLE DE TRADING"
+    "TRADING WALLET MASTER": "MAÎTRE DU PORTEFEUILLE DE TRADING",
+    "Money subtracted in Commission Wallet from Admin Manually": "Argent soustrait manuellement dans le portefeuille de commissions de l'administrateur"
 }
