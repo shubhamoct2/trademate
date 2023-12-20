@@ -1044,5 +1044,13 @@
     "Commission Wallet": "محفظة العمولة",
     "Send Commission": "إرسال العمولة",
     "TRADING WALLET MASTER": "سيد محفظة التداول",
-    "Money subtracted in Commission Wallet from Admin Manually": "يتم خصم الأموال في محفظة العمولة من المشرف يدويًا"
+    "Money subtracted in Commission Wallet from Admin Manually": "يتم خصم الأموال في محفظة العمولة من المشرف يدويًا",
+    "Profit Wallet Admin": "مدير محفظة الربح",
+    "Commission": "عمولة",
+    "Daily Profit Distribution": "توزيع الأرباح اليومية",
+    "Send Profit:": "إرسال الربح:",
+    "Send": "يرسل",
+    "Please Input Daily Profit": "الرجاء إدخال الربح اليومي",
+    "Profit Wallet Master History": "التاريخ الرئيسي لمحفظة الربح",
+    "All Profit Wallet Master History": "كل التاريخ الرئيسي لمحفظة الربح"
 }

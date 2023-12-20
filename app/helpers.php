@@ -279,6 +279,7 @@ if (! function_exists('txn_type')) {
             case TxnType::Exchange->value:
             case TxnType::Referral->value:
             case TxnType::SendCommission->value:
+            case TxnType::ProfitShare->value:
                 $result = ['green-color', '+'];
                 break;
             case TxnType::SendMoney->value:

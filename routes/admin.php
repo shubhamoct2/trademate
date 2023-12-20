@@ -123,6 +123,14 @@ Route::group(['prefix' => 'deposit', 'as' => 'deposit.', 'controller' => Deposit
     Route::get('action/{id}', 'depositAction')->name('action');
     Route::post('action-now', 'actionNow')->name('action.now');
 });
+
+//=============================== Profit Wallet Admin ================================
+Route::group(['prefix' => 'profit', 'as' => 'profit.', 'controller' => ProfitController::class], function () {
+    Route::get('index', 'index')->name('index');
+    Route::post('push', 'push')->name('push');
+    Route::get('push', 'list')->name('list');
+});
+
 Route::group(['prefix' => 'withdraw', 'as' => 'withdraw.', 'controller' => WithdrawController::class], function () {
     //=============================== withdraw Method ================================
 

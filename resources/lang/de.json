@@ -1044,5 +1044,13 @@
     "Commission Wallet": "Provisionsgeldbörse",
     "Send Commission": "Provision senden",
     "TRADING WALLET MASTER": "TRADING WALLET MASTER",
-    "Money subtracted in Commission Wallet from Admin Manually": "Geld, das vom Administrator manuell vom Provisionskonto abgezogen wurde"
+    "Money subtracted in Commission Wallet from Admin Manually": "Geld, das vom Administrator manuell vom Provisionskonto abgezogen wurde",
+    "Profit Wallet Admin": "Profit Wallet-Administrator",
+    "Commission": "Kommission",
+    "Daily Profit Distribution": "Tägliche Gewinnausschüttung",
+    "Send Profit:": "Gewinn senden:",
+    "Send": "Schicken",
+    "Please Input Daily Profit": "Bitte geben Sie den Tagesgewinn ein",
+    "Profit Wallet Master History": "Profit-Wallet-Stammverlauf",
+    "All Profit Wallet Master History": "Alle Profit-Wallet-Master-Historie"
 }

@@ -1044,5 +1044,13 @@
     "Commission Wallet": "Cartera de comisiones",
     "Send Commission": "Enviar comisión",
     "TRADING WALLET MASTER": "MAESTRO DE MONEDERO COMERCIAL",
-    "Money subtracted in Commission Wallet from Admin Manually": "Dinero restado en la Cartera de comisiones del administrador manualmente"
+    "Money subtracted in Commission Wallet from Admin Manually": "Dinero restado en la Cartera de comisiones del administrador manualmente",
+    "Profit Wallet Admin": "Administrador de billetera de ganancias",
+    "Commission": "Comisión",
+    "Daily Profit Distribution": "Distribución de ganancias diarias",
+    "Send Profit:": "Enviar beneficio:",
+    "Send": "Enviar",
+    "Please Input Daily Profit": "Por favor ingrese la ganancia diaria",
+    "Profit Wallet Master History": "Historial maestro de billetera de ganancias",
+    "All Profit Wallet Master History": "Historia maestra de All Profit Wallet"
 }

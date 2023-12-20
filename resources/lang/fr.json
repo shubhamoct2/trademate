@@ -1044,5 +1044,13 @@
     "Commission Wallet": "Portefeuille de commissions",
     "Send Commission": "Envoyer une commission",
     "TRADING WALLET MASTER": "MAÎTRE DU PORTEFEUILLE DE TRADING",
-    "Money subtracted in Commission Wallet from Admin Manually": "Argent soustrait manuellement dans le portefeuille de commissions de l'administrateur"
+    "Money subtracted in Commission Wallet from Admin Manually": "Argent soustrait manuellement dans le portefeuille de commissions de l'administrateur",
+    "Profit Wallet Admin": "Administrateur du portefeuille de bénéfices",
+    "Commission": "Commission",
+    "Daily Profit Distribution": "Distribution des bénéfices quotidiens",
+    "Send Profit:": "Envoyer des bénéfices :",
+    "Send": "Envoyer",
+    "Please Input Daily Profit": "Veuillez saisir le bénéfice quotidien",
+    "Profit Wallet Master History": "Historique principal du portefeuille de bénéfices",
+    "All Profit Wallet Master History": "Historique principal du portefeuille de tous les bénéfices"
 }

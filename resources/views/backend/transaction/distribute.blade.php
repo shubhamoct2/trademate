@@ -1,6 +1,6 @@
 @extends('backend.layouts.datatable')
 @section('title')
-    {{ __('All Profits') }}
+    {{ __('Profit Wallet Master History') }}
 @endsection
 @section('content')
     <div class="main-content">
@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="title-content">
-                            <h2 class="title">{{ __('All Profits') }}</h2>
+                            <h2 class="title">{{ __('All Profit Wallet Master History') }}</h2>
                         </div>
                     </div>
                 </div>

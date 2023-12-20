@@ -90,7 +90,7 @@ class UsersDataTable extends DataTable
             Column::make('balance')
                 ->title('Balance (' . setting('site_currency')  .')')
                 ->orderable(true),
-            Column::computed('total_profit')
+            Column::make('profit_balance')
                 ->title('Total Profit (' . setting('site_currency')  .')')
                 ->orderable(true),
             Column::computed('shares')

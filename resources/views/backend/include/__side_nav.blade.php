@@ -126,7 +126,7 @@
             @endcanany
 
             {{-- *************************************************************  Transactions *********************************************************--}}
-            @canany(['transaction-list','investment-list','profit-list'])
+            @canany(['transaction-list','investment-list','profit-list', 'profit-wallet-manage'])
                 <li class="side-nav-item category-title">
                     <span>{{ __('Transactions') }}</span>
                 </li>
@@ -151,15 +151,23 @@
                 @can('customer-commission-manage')
                     <li class="side-nav-item {{ isActive('admin.commission.list') }}">
                         <a href="{{ route('admin.commission.list') }}"><i
-                            icon-name="door-open"></i><span>{{ __('Send Commission') }}</span></a>
+                            icon-name="door-open"></i><span>{{ __('Commission') }}</span></a>
                     </li>
                 @endcan
+
+                @canany(['profit-wallet-manage']) 
+                    <li class="side-nav-item {{ isActive('admin.profit.list') }}">
+                        <a href="{{ route('admin.profit.list') }}">
+                            <i icon-name="compass"></i><span>{{ __('Profit Wallet Master History') }}</span>
+                        </a>
+                    </li>
+                @endcanany
             @endcanany
 
             {{-- *************************************************************  Essentials *********************************************************--}}
             @canany(['automatic-gateway-manage','manual-gateway-manage','deposit-list','deposit-action',
             'withdraw-list','withdraw-method-manage','withdraw-action','target-manage','referral-create',
-            'referral-list','referral-edit','referral-delete','ranking-list','ranking-create','ranking-edit'])
+            'referral-list','referral-edit','referral-delete','ranking-list','ranking-create','ranking-edit','profit-wallet-manage'])
 
                 <li class="side-nav-item category-title">
                     <span>{{ __('Essentials') }}</span>
@@ -199,6 +207,7 @@
                                         href="{{ route('admin.deposit.history') }}"><i
                                             icon-name="clipboard-check"></i>{{ __('Deposit History') }}</a></li>
                             @endcanany
+                            
                         </ul>
                     </li>
                 @endcanany
@@ -276,6 +285,14 @@
                                 icon-name="medal"></i><span>{{ __('User Rankings') }}</span></a>
                     </li>
                 @endcan
+
+                @canany(['profit-wallet-manage']) 
+                    <li class="side-nav-item {{ isActive('admin.profit.index') }}">
+                        <a href="{{ route('admin.profit.index') }}">
+                            <i icon-name="compass"></i><span>{{ __('Profit Wallet Admin') }}</span>
+                        </a>
+                    </li>
+                @endcanany
 
             @endcanany
 
