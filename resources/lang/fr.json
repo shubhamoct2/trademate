@@ -1052,5 +1052,7 @@
     "Send": "Envoyer",
     "Please Input Daily Profit": "Veuillez saisir le bénéfice quotidien",
     "Profit Wallet Master History": "Historique principal du portefeuille de bénéfices",
-    "All Profit Wallet Master History": "Historique principal du portefeuille de tous les bénéfices"
+    "All Profit Wallet Master History": "Historique principal du portefeuille de tous les bénéfices",
+    "6 PM (Daily)": "18h00 (tous les jours)",
+    "Now": "Maintenant"
 }

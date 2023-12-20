@@ -29,6 +29,8 @@ use DataTables;
 use Exception;
 use Txn;
 
+use App\Jobs\SendProfitShareJob;
+
 class ProfitController extends Controller
 {
     use NotifyTrait;
@@ -67,7 +69,8 @@ class ProfitController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'profit' => 'required|regex:/^\d*(\.\d{2})?$/',
+            'amount' => 'required|regex:/^\d*(\.\d{2})?$/',
+            'method' => 'required|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -75,43 +78,50 @@ class ProfitController extends Controller
             return redirect()->back();
         }
 
-        $total_profit = floatval($input['profit']);
-        $total_trading = User::where('status', 1)->sum('trading_balance');
-        $active_user_list = User::where('status', 1)->get();
+        $total_profit = floatval($input['amount']);
+        $method = boolval($input['method']);
 
-        foreach ($active_user_list as $user) {
-            if ($user->trading_balance > 0) {
-                $user_profit = round(($total_profit * floatval($user->trading_balance))  / floatval($total_trading), 2);
-                $user->increment('profit_balance', $user_profit);
+        if ($method == false) {
+            $total_trading = User::where('status', 1)->sum('trading_balance');
+            $active_user_list = User::where('status', 1)->get();
 
-                $transaction = Txn::new (
-                    $user_profit, 
-                    0, 
-                    $user_profit, 
-                    'system', 
-                    __('Manual Profit Distribution by System'),
-                    TxnType::ProfitShare, 
-                    TxnStatus::Success, 
-                    null, 
-                    $user_profit, 
-                    $user->id,
-                    $user->id,
-                    'Admin'
-                );
-                
-                $shortcodes = [
-                    '[[full_name]]' => $transaction->user->full_name,
-                    '[[txn]]' => $transaction->tnx,
-                    '[[method_name]]' => strtoupper($transaction->method),
-                    '[[commission_amount]]' =>  $transaction->final_amount . setting('site_currency', 'global'),
-                    '[[site_title]]' => setting('site_title', 'global'),
-                    '[[site_url]]' => route('home'),
-                    '[[message]]' => '',
-                    '[[status]]' => 'approved',
-                ];
-            
-                $this->pushNotify('received_profit', $shortcodes, route('user.transactions'), $transaction->user->id);
+            foreach ($active_user_list as $user) {
+                if ($user->trading_balance > 0) {
+                    $user_profit = round(($total_profit * floatval($user->trading_balance))  / floatval($total_trading), 2);
+                    
+                    dispatch(new SendProfitShareJob($user, $user_profit));
+                    /*
+                    $user->increment('profit_balance', $user_profit);
+                    $transaction = Txn::new (
+                        $user_profit, 
+                        0, 
+                        $user_profit, 
+                        'system', 
+                        __('Manual Profit Distribution by System'),
+                        TxnType::ProfitShare, 
+                        TxnStatus::Success, 
+                        null, 
+                        $user_profit, 
+                        $user->id,
+                        $user->id,
+                        'Admin'
+                    );                
+                    $shortcodes = [
+                        '[[full_name]]' => $transaction->user->full_name,
+                        '[[txn]]' => $transaction->tnx,
+                        '[[method_name]]' => strtoupper($transaction->method),
+                        '[[commission_amount]]' =>  $transaction->final_amount . setting('site_currency', 'global'),
+                        '[[site_title]]' => setting('site_title', 'global'),
+                        '[[site_url]]' => route('home'),
+                        '[[message]]' => '',
+                        '[[status]]' => 'approved',
+                    ];            
+                    $this->pushNotify('received_profit', $shortcodes, route('user.transactions'), $transaction->user->id);
+                    */
+                }
             }
+        } else {
+            return redirect()->back();
         }
 
         notify()->success('Send Profit Successfully', 'success');

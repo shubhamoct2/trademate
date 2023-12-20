@@ -29,7 +29,32 @@
                                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-auto">
                                     <div class="site-input-groups">
                                         <label for="send_profit" class="box-input-label">{{ __('Please Input Daily Profit') }}</label>
-                                        <input id="send_profit" name="profit" type="text" class="box-input" value="" />
+                                        <input id="send_profit" name="amount" type="text" class="box-input" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-auto">
+                                    <div class="site-input-groups mb-0">
+                                        <label class="box-input-label"
+                                            for="">{{ __('Method:') }}</label>
+                                        <div class="switch-field same-type">
+                                            <input
+                                                type="radio"
+                                                id="distribute-daily"
+                                                name="method"
+                                                value="1"
+                                                checked
+                                            />
+                                            <label for="distribute-daily">{{ __('6 PM (Daily)') }}</label>
+                                            <input
+                                                type="radio"
+                                                id="distribute-now"
+                                                name="method"
+                                                value="0"
+                                            />
+                                            <label for="distribute-now">{{ __('Now') }}</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
