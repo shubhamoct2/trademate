@@ -87,32 +87,60 @@ class ProfitController extends Controller
         $method = boolval($input['method']);
 
         
-        if ($method == true) {
-            $send_method = 'auto';
-            $send_datetime = Carbon::createFromTimeString('18:00')->timezone('Europe/Berlin');
+        if ($method == true) { 
+            $completedTaskList = AutoTask::where('type', AutoTaskType::ProfitShare)
+                ->whereDate('created_at', Carbon::today())
+                ->where('status', TxnStatus::Success)
+                ->get();
+
+            foreach ($completedTaskList as $task) {
+                $details = json_decode($task->data);
+
+                if ($details->method == 'auto') {
+                    notify()->error('Automatic Profit Sharing was already executed on Today', 'Error');
+                    return redirect()->back();
+                }
+            }
+
+            $data = [
+                'type' => AutoTaskType::ProfitShare,
+                'status' => TxnStatus::Pending,
+                'data' => json_encode([
+                    'amount' => $total_profit,
+                    'method' => 'auto',
+                    'datetime' => Carbon::createFromTimeString('18:00')->timezone('Europe/Berlin'),                  
+                ])
+            ];
+
+            $pendingTaskList = AutoTask::where('type', AutoTaskType::ProfitShare)
+                ->whereDate('created_at', Carbon::today())
+                ->where('status', TxnStatus::Pending)
+                ->get();
+
+            foreach ($pendingTaskList as $task) {
+                $details = json_decode($task->data);
+
+                if ($details->method == 'auto') {
+                    $task->update($data);
+                    notify()->success('Profit Sharing Setting is Updated Successfully', 'success');
+                    return redirect()->back();
+                }
+            }
+
+            $autoTask = AutoTask::create($data);
+            notify()->success('Profit Sharing Setting is Created Successfully', 'success');
+
         } else {
-            $send_method = 'manual';
-            $send_datetime = null;
-        }
+            $data = [
+                'type' => AutoTaskType::ProfitShare,
+                'status' => TxnStatus::Pending,
+                'data' => json_encode([
+                    'amount' => $total_profit,
+                    'method' => 'manual',
+                    'datetime' => null,                  
+                ])
+            ];
 
-        $data = [
-            'type' => AutoTaskType::ProfitShare,
-            'status' => TxnStatus::Pending,
-            'data' => json_encode([
-                'amount' => $total_profit,
-                'method' => $send_method,
-                'datetime' => $send_datetime,                  
-            ])
-        ];
-
-        $autoTask = AutoTask::where('type', AutoTaskType::ProfitShare)
-            ->whereDate('created_at', Carbon::today())
-            ->first();
-
-        if ($autoTask) {
-            $autoTask->update($data);
-            notify()->success('Profit Sharing Setting is Updated Successfully', 'success');
-        } else {
             $autoTask = AutoTask::create($data);
             notify()->success('Profit Sharing Setting is Created Successfully', 'success');
         }
@@ -122,7 +150,7 @@ class ProfitController extends Controller
 
     public function todayList(Request $request) {
         if ($request->ajax()) {
-            $data = AutoTask::where('type', AutoTaskType::ProfitShare)->get();
+            $data = AutoTask::where('type', AutoTaskType::ProfitShare)->orderBy('id', 'desc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()

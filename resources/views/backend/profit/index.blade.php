@@ -109,7 +109,8 @@
                     {data: 'amount', name: 'amount'},
                     {data: 'method', name: 'method'},
                     {data: 'status', name: 'status'},
-                ]
+                ],
+                order: [[0, 'desc']]
             });
 
         })(jQuery);
