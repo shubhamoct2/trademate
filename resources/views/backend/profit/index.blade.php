@@ -66,7 +66,52 @@
                         </form>
                     </div>
                 </div>
+                <div class="site-card">
+                    <div class="site-card-header">
+                        <h4 class="title">{{ __('Today Scheduled Profit Distribution') }}</h4>
+                        <div>{{ __('Current') . ': ' . $current_datetime }}</div>
+                    </div>
+                    <div class="site-card-body table-responsive">
+                        <div class="site-datatable">
+                            <table id="dataTable" class="display data-table">
+                                <thead>
+                                <tr>
+                                    <th>{{ __('Date') }}</th>
+                                    <th>{{ __('Type') }}</th>
+                                    <th>{{ __('Amount') }}</th>
+                                    <th>{{ __('Method') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        (function ($) {
+            "use strict";
+
+            var table = $('#dataTable').DataTable({
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                ajax: "{{ route('admin.profit.today-list') }}",
+                columns: [
+                    {data: 'datetime', name: 'created_at'},
+                    {data: 'type', name: 'type'},
+                    {data: 'amount', name: 'amount'},
+                    {data: 'method', name: 'method'},
+                    {data: 'status', name: 'status'},
+                ]
+            });
+
+        })(jQuery);
+    </script>
 @endsection

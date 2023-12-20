@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,6 +18,7 @@ use App\Enums\TxnStatus;
 use App\Traits\NotifyTrait;
 
 use Txn;
+use Illuminate\Support\Facades\Log;
 
 class SendProfitShareJob implements ShouldQueue
 {

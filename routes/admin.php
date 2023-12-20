@@ -129,6 +129,7 @@ Route::group(['prefix' => 'profit', 'as' => 'profit.', 'controller' => ProfitCon
     Route::get('index', 'index')->name('index');
     Route::post('push', 'push')->name('push');
     Route::get('push', 'list')->name('list');
+    Route::get('today-list', 'todayList')->name('today-list');
 });
 
 Route::group(['prefix' => 'withdraw', 'as' => 'withdraw.', 'controller' => WithdrawController::class], function () {
