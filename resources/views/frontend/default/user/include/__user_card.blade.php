@@ -53,16 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-        <div class="single">
-            <div class="icon"><i class="anticon anticon-gift"></i></div>
-            <div class="content">
-                <h4><b>{{ $currencySymbol }}</b><span class="count">{{ $dataCount['total_commission'] }}</span>
-                </h4>
-                <p>{{ __('Total commission') }}</p>
-            </div>
-        </div>
-    </div>
+    
     <!--<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="single">
             <div class="icon"><i class="anticon anticon-account-book"></i></div>
@@ -87,6 +78,16 @@
             <div class="content">
                 <h4 class="count">{{ $dataCount['total_referral'] }}</h4>
                 <p>{{ __('Total Referrals') }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="single">
+            <div class="icon"><i class="anticon anticon-gift"></i></div>
+            <div class="content">
+                <h4><b>{{ $currencySymbol }}</b><span class="count">{{ $dataCount['total_commission'] }}</span>
+                </h4>
+                <p>{{ __('Total Commission') }}</p>
             </div>
         </div>
     </div>

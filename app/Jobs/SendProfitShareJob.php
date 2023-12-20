@@ -45,6 +45,8 @@ class SendProfitShareJob implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('User id='.$this->user->id.' sent profit $'.$this->amount);
+
         $this->user->increment('profit_balance', $this->amount);
 
         $transaction = Txn::new (
