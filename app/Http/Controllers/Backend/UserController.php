@@ -432,7 +432,7 @@ class UserController extends Controller
 
         $tree_json = [];
         if(setting('site_referral','global') == 'level' && $user->referrals->count() > 0) {
-            $tree_json = $this->getRefferral($user, $level, 1);
+            $tree_json = $this->getRefferral($user, 10000, 1);
         }
 
         return response()->json([$tree_json]);

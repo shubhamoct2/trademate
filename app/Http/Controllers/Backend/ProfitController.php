@@ -89,7 +89,7 @@ class ProfitController extends Controller
         
         if ($method == true) {
             $send_method = 'auto';
-            $send_datetime = Carbon::createFromTimeString('07:40')->timezone('Europe/Berlin');
+            $send_datetime = Carbon::createFromTimeString('18:00')->timezone('Europe/Berlin');
         } else {
             $send_method = 'manual';
             $send_datetime = null;

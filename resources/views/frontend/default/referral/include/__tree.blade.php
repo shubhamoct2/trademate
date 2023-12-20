@@ -23,16 +23,13 @@
         </div>
     </div>
 
-
-
     @if($depth && $level > $depth && $levelUser->referrals->count() > 0)
-
         <div class="hv-item-children">
 
             @foreach($levelUser->referrals as $levelUser)
                 <div class="hv-item-child">
                     <!-- Key component -->
-                    @include('frontend::referral.include.__tree',['levelUser' => $levelUser,'level' => $level,'depth' => $depth + 1,'me' => false])
+                    @include('frontend::referral.include.__tree',['levelUser' => $levelUser,'level' => 100000,'depth' => $depth + 1,'me' => false])
                 </div>
             @endforeach
 
