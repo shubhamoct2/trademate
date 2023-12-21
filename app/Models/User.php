@@ -124,7 +124,8 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
             $query->where('type', TxnType::Referral)
                 ->orWhere('type', TxnType::SignupBonus)
                 ->orWhere('type', TxnType::Interest)
-                ->orWhere('type', TxnType::Bonus);
+                ->orWhere('type', TxnType::Bonus)
+                ->orWhere('type', TxnType::ProfitShare);
 
         });
 
