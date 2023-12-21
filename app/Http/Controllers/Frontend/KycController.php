@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Enums\KycStatus;
 
-use App\Models\Kyc;
+use App\Models\KycInfo;
 
 use App\Traits\ImageUpload;
 use App\Traits\NotifyTrait;
@@ -24,9 +24,9 @@ class KycController extends Controller
         $user = Auth::user();
 
         $kycStatus = $user->kycInfo ? $user->kycInfo->status->name : null;
-
-        $step = 0;
         $max_step = 5;
+
+        $step = $user->kycInfo ? $user->kycInfo->data['step'] : 0;
 
         return view('frontend::user.kyc.index', compact(
             'step',
@@ -43,6 +43,7 @@ class KycController extends Controller
     }
 
     public function submit(Request $request) {
+        $user = Auth::user();
         $input = $request->all();
 
         $validator = Validator::make($input, [
@@ -55,8 +56,35 @@ class KycController extends Controller
             return redirect()->back();
         }
 
-        $input['step'] = intval($input['step']);
-        $input['direction'] = intval($input['direction']);
+        $step = intval($input['step']);
+        $direction = intval($input['direction']);
+
+        if ($direction) {
+            if ($step == 0) {
+                $validator = Validator::make($input, [
+                    'kyc_type' => 'required|string',
+                ]);
+
+                if ($validator->fails()) {
+                    notify()->error($validator->errors()->first(), 'Error');
+                    return redirect()->back();
+                }
+
+                $kycInfo = KycInfo::create([
+                    'status' => KycStatus::Draft,
+                    'data' => [
+                        'step' => $step + 1,
+                        'kyc_type' => $input['kyc_type'],
+                    ]
+                ]);
+
+                $user->update([
+                    'kyc_info_id' => $kycInfo->id,
+                ]);
+            }
+        }
+
+        return redirect()->back();
     }
 
     /*

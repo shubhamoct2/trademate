@@ -21,14 +21,14 @@
                             <div class="col-xl-12 col-md-12">
                                 <div class="progress-steps-form">                                    
                                     <div class="row w-100">                                        
-                                        <input type="hidden" name="direction"  value="true" />
+                                        <input type="hidden" name="direction"  value="{{ true }}" />
                                         @if ($step == 0)         
                                         <div class="col-12">
                                             <h2 class="step-title">{{ __('What best describes you?') }}</h2>
                                         </div>                               
                                         <div class="col-md-4 col-12">
                                             <div class="radio-item">
-                                                <input type="radio" name="kyc_type" id="kyc_type_company" />
+                                                <input type="radio" name="kyc_type" id="kyc_type_company" value="company" />
                                                 <label for="kyc_type_company">
                                                     <i icon-name="globe"></i>
                                                     <h5>{{ __('Company') }}</h5>
@@ -37,7 +37,7 @@
                                         </div>
                                         <div class="col-md-4 col-12">
                                             <div class="radio-item">
-                                                <input type="radio" name="kyc_type" id="kyc_type_individual" />
+                                                <input type="radio" name="kyc_type" id="kyc_type_individual" value="individual" />
                                                 <label for="kyc_type_individual">
                                                     <i icon-name="user"></i>
                                                     <h5>{{ __('Private Individual') }}</h5>
@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="col-md-4 col-12">
                                             <div class="radio-item">
-                                                <input type="radio" name="kyc_type" id="kyc_type_ubo" />
+                                                <input type="radio" name="kyc_type" id="kyc_type_ubo" value="ubo" />
                                                 <label for="kyc_type_ubo">
                                                     <i icon-name="landmark"></i>
                                                     <h5>{{ __('Corporate UBO') }}</h5>
@@ -57,12 +57,12 @@
                                     </div>
                                     <div class="field-step-btn">
                                         @if ($step > 1)
-                                        <button type="button" class="site-btn blue-btn">{{ __('Back') }}</button>
+                                        <button type="submit" class="site-btn blue-btn">{{ __('Back') }}</button>
                                         @endif
                                         @if ($step < $max_step)
-                                        <button type="button" class="site-btn blue-btn">{{ __('Next') }}</button>
+                                        <button type="submit" class="site-btn blue-btn">{{ __('Next') }}</button>
                                         @elseif ($step == $max_step)
-                                        <button type="button" class="site-btn blue-btn">{{ __('Complete') }}</button>
+                                        <button type="submit" class="site-btn blue-btn">{{ __('Complete') }}</button>
                                         @endif
                                     </div>
                                 </div>

@@ -75,7 +75,6 @@ class Kernel extends HttpKernel
         '2fa' => \App\Http\Middleware\TwoFaCheck::class,
         'isActive' => \App\Http\Middleware\CheckDeactivate::class,
         'translate' => \App\Http\Middleware\Localization::class,
-        'isDemo' => \App\Http\Middleware\DemoMode::class,
-
+        'isDemo' => \App\Http\Middleware\DemoMode::class
     ];
 }
