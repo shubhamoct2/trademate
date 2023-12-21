@@ -128,7 +128,7 @@ Route::group(['prefix' => 'deposit', 'as' => 'deposit.', 'controller' => Deposit
 Route::group(['prefix' => 'profit', 'as' => 'profit.', 'controller' => ProfitController::class], function () {
     Route::get('index', 'index')->name('index');
     Route::post('push', 'push')->name('push');
-    Route::get('push', 'list')->name('list');
+    Route::get('history', 'list')->name('list');
     Route::get('today-list', 'todayList')->name('today-list');
 });
 
