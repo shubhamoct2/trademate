@@ -34,6 +34,9 @@ class UsersDataTable extends DataTable
             ->editColumn('shares', function ($user) use ($total_trading) {
                 return number_format((floatval($user->trading_balance) * 100.00) / floatval($total_trading), 2);
             })
+            ->editColumn('totalProfit', function ($user) {
+                return $user->total_profit;
+            })
             ->rawColumns(['select_users', 'avatar', 'kyc', 'status', 'action']);
     }
 
@@ -90,7 +93,7 @@ class UsersDataTable extends DataTable
             Column::make('balance')
                 ->title('Balance (' . setting('site_currency')  .')')
                 ->orderable(true),
-            Column::make('profit_balance')
+            Column::computed('totalProfit')
                 ->title('Total Profit (' . setting('site_currency')  .')')
                 ->orderable(true),
             Column::computed('shares')

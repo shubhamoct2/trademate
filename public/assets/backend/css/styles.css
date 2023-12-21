@@ -2806,7 +2806,8 @@ img {
 }
 
 .site-datatable .data-table tbody tr td .site-badge {
-  display: inline;
+  display: inline-block;
+  text-align: center;
   font-weight: 700;
 }
 
