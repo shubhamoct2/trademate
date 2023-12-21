@@ -263,4 +263,8 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
             set: fn ($value) => encrypt($value),
         );
     }
+
+    public function kycInfo() {
+        return $this->belongsTo(KycInfo::class, 'kyc_info_id');
+    }
 }
