@@ -2809,6 +2809,7 @@ img {
   display: inline-block;
   text-align: center;
   font-weight: 700;
+  line-height: normal;
 }
 
 .site-datatable .data-table tbody tr td .transaction {
