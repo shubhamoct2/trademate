@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('global/css/nice-select.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/datatables.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('global/css/simple-notify.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('global/css/jquery.multiselect.min.css') }}"/>
     @stack('style')
     @notifyCss
     @yield('style')

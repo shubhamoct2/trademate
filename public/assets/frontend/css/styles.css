@@ -1911,6 +1911,16 @@ img {
     color: #ffffff;
 }
 
+.green-btn {
+    background: #5364f1;
+    color: #ffffff;
+}
+
+.green-btn:hover {
+    background: #e73667;
+    color: #ffffff;
+}
+
 .grad-btn {
     background: linear-gradient(90deg, #e52e71, #ff8a00);
     color: #ffffff;
@@ -11458,7 +11468,7 @@ i {
     line-height: 2rem;
 }
 
-form .error {
+form label.error {
     padding-left: 20px;
     color: #e73667 !important;
     font-size: 12px;
@@ -11537,6 +11547,73 @@ form .error {
 }
 
 /************ KYC ********************/
+.reg-step-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 30px 0;
+}
+.reg-step-item {
+    display: flex;
+    font-size: 16px;
+    color: #99BBD5;
+    align-items: center;
+}
+.reg-step-item.active {
+    color: #fff;
+}
+.reg-step-num {
+    position: relative;
+    padding-top: 3px;
+    color: #fff;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    background-color: #535a94;
+}
+.reg-step-item.passed .reg-step-num:after {
+    position: absolute;                    
+    top: -6px;
+    right: -8px;
+    content: '\2713';
+    display: inline-block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    color: #4BA000;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #A7FF59;
+}
+.reg-step-item.active .reg-step-txt {
+    font-size: 18px;
+}
+.reg-step-item.passed .reg-step-txt {
+    text-decoration-line: line-through;
+}
+.reg-step-item.active .reg-step-num {
+    color: #fff;
+    background-color: #5364f1;
+}
+.reg-container {
+    margin-top: 60px;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+}
+@media (max-width: 767px) {
+    .reg-step-list {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
 .field-step-btn {
     width: 100%;
     display: flex;
@@ -11641,4 +11718,49 @@ form .error {
 .progress-steps-form .step-title {
     margin: 30px 0;
     text-align: center;    
+}
+
+.progress-steps-form .input-group-label {
+    text-decoration: underline;
+    margin-bottom: 12px;
+}
+
+.progress-steps-form .ms-options-wrap {
+    width: 100%;
+}
+
+.progress-steps-form .ms-options-wrap button {
+    height: 48px;
+    font-size: 16px;
+    padding-left: 16px;
+}
+
+.progress-steps-form .ms-options-wrap>.ms-options>ul label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    color: #000 !important;
+    padding: 4px;
+}
+
+.progress-steps-form .ms-options-wrap>.ms-options>ul input[type=checkbox] {
+    position: relative;
+    top: unset;
+    left: unset;
+}
+
+.progress-steps-form div[class^="col-"], .progress-steps-form div[class*=" col-"] {
+    position: relative;
+}
+
+.progress-steps-form div[class^="input-group"] {
+    position: relative;
+}
+
+.progress-steps-form label.error {
+    position: absolute;
+    top: 51px;
+    left: 8px;
+    padding: 0;
 }

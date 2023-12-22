@@ -12,7 +12,8 @@ class KycInfo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'data'
+        'data',
+        'status',
     ];
 
     protected $casts = [
