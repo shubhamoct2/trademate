@@ -121,11 +121,11 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     {
 
         $sum = $this->transaction()->where('status', TxnStatus::Success)->where(function ($query) {
-            $query->where('type', TxnType::Referral)
-                ->orWhere('type', TxnType::SignupBonus)
-                ->orWhere('type', TxnType::Interest)
-                ->orWhere('type', TxnType::Bonus)
-                ->orWhere('type', TxnType::ProfitShare);
+            $query->where('type', TxnType::ProfitShare);
+                // ->orWhere('type', TxnType::SignupBonus)
+                // ->orWhere('type', TxnType::Interest)
+                // ->orWhere('type', TxnType::Bonus)
+                // ->orWhere('type', TxnType::ProfitShare);
 
         });
 
