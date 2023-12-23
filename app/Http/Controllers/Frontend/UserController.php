@@ -18,6 +18,7 @@ use Txn;
 use Validator;
 use Auth;
 use App\Traits\NotifyTrait;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -106,7 +107,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'from_wallet' => ['required', 'different:to_wallet'],
-            'to_wallet' => ['required', 'different:from_wallet'],
+            'to_wallet' => ['required', 'different:from_wallet', Rule::in([1,3])],
             'amount' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
         ]);
 
@@ -139,33 +140,49 @@ class UserController extends Controller
 
         $user = \Auth::user();
 
-        if (1 == $input['from_wallet'] && $user->balance < $totalAmount || 
-            2 == $input['from_wallet'] && $user->profit_balance < $totalAmount ||
-            3 == $input['from_wallet'] && $user->trading_balance < $totalAmount ) {
-            $walletName = 1 == $input['from_wallet'] ? __('Main Wallet') : (2 == $input['from_wallet'] ? __('Profit Wallet') : __('Trading Wallet'));
+        if ((1 == $input['from_wallet'] && $user->balance < $totalAmount) || 
+            (2 == $input['from_wallet'] && $user->profit_balance < $totalAmount) ||
+            (3 == $input['from_wallet'] && $user->trading_balance < $totalAmount) ||
+            (4 == $input['from_wallet'] && $user->commission_balance < $totalAmount)
+        ) {
+            $walletName = '';
+            if ($input['from_wallet'] == 1) {
+                $walletName = __('Main Wallet');
+            } elseif ($input['from_wallet'] == 2) {
+                $walletName = __('Profit Wallet');
+            } elseif ($input['from_wallet'] == 3) {
+                $walletName = __('Trading Wallet');
+            } elseif ($input['from_wallet'] == 4) {
+                $walletName = __('Commission Wallet');
+            } 
 
             notify()->error(__('Insufficient Balance In Your ').$walletName, 'Error');
 
             return redirect()->back();
         }
         
-        if (1 == $input['from_wallet']) {
+        if ($input['from_wallet'] == 1) {
             $user->decrement('balance', $totalAmount);
             $from_wallet = __('Main Wallet');
-        } else if (2 == $input['from_wallet']) {
+        } else if ($input['from_wallet'] == 2) {
             $user->decrement('profit_balance', $totalAmount);
             $from_wallet = __('Profit Wallet');
-        } else if (3 == $input['from_wallet']) {
+        } else if ($input['from_wallet'] == 3) {
             $user->decrement('trading_balance', $totalAmount);
             $from_wallet = __('Trading Wallet');
+        } else if ($input['from_wallet'] == 4) {
+            $user->decrement('commission_balance', $totalAmount);
+            $from_wallet = __('Commission Wallet');
         }
 
-        if (1 == $input['to_wallet']) {
+        if ($input['to_wallet'] == 1) {
             $to_wallet = __('Main Wallet');
-        } else if (2 == $input['to_wallet']) {
+        } else if ($input['to_wallet'] == 2) {
             $to_wallet = __('Profit Wallet');
-        } else if (3 == $input['to_wallet']) {
+        } else if ($input['to_wallet'] == 3) {
             $to_wallet = __('Trading Wallet');
+        } else if ($input['to_wallet'] == 4) {
+            $to_wallet = __('Commission Wallet');
         }
 
         $sendDescription = trans('translation.exchange_description', [
@@ -173,8 +190,16 @@ class UserController extends Controller
             'to' => $to_wallet,
         ]);
 
-        // 1: Main => Profit, 2: Main => Trading, 3: Profit => Main, 5: Profit => Trading, 6: Trading => Main, 7: Trading => Profit
-        $method = ($input['from_wallet'] - 1) * 3 + ($input['to_wallet'] - 1);
+        /*
+        2 Main => Trading
+        4 Profit => Main
+        6 Profit => Trading
+        8 Trading => Main
+        12 Commission => Main
+        14 Commission => Trading
+        */
+
+        $method = ($input['from_wallet'] - 1) * 4 + ($input['to_wallet'] - 1);
 
         $txnInfo = Txn::new($amount, $charge, $totalAmount, $method, $sendDescription,
                 TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
@@ -191,7 +216,6 @@ class UserController extends Controller
             'view_name' => 'wallet',
         ];
         Session::put('user_notify', $notify);
-
         return redirect()->route('user.notify');
     }
 

@@ -39,8 +39,8 @@ class TransactionsDataTable extends DataTable
                 } else {
                     $method = intval($transaction->method);
 
-                    $from = floor($method / 3);
-                    $to = $method % 3;
+                    $from = floor($method / 4);
+                    $to = $method % 4;
 
                     $from_wallet = '';
                     if (0 == $from) {
@@ -49,6 +49,8 @@ class TransactionsDataTable extends DataTable
                         $from_wallet = __('Profit Wallet');
                     } else if (2 == $from) {
                         $from_wallet = __('Trading Wallet');
+                    } else if (3 == $from) {
+                        $from_wallet = __('Commission Wallet');
                     }
 
                     $to_wallet = '';
@@ -58,6 +60,8 @@ class TransactionsDataTable extends DataTable
                         $to_wallet = __('Profit Wallet');
                     } else if (2 == $to) {
                         $to_wallet = __('Trading Wallet');
+                    } else if (2 == $to) {
+                        $to_wallet = __('Commission Wallet');
                     }
 
                     return trans('translation.exchange_description', [

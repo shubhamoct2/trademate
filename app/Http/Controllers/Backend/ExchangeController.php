@@ -47,7 +47,6 @@ class ExchangeController extends Controller
         if ($request->ajax()) {
             $data = Transaction::where('type', TxnType::Exchange)->latest();
 
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('status', 'backend.exchange.include.__txn_status')
@@ -96,7 +95,7 @@ class ExchangeController extends Controller
 
                     if ($input['type'] == "approve") {
                         $transaction->status = TxnStatus::Success;
-                        $to = $transaction->method % 3;
+                        $to = $transaction->method % 4;
 
                         if ($to == 0) {
                             $user->increment('balance', $transaction->amount);
@@ -104,11 +103,13 @@ class ExchangeController extends Controller
                             $user->increment('profit_balance', $transaction->amount);
                         } else if ($to == 2) {
                             $user->increment('trading_balance', $transaction->amount);
+                        } else if ($to == 3) {
+                            $user->increment('commission_balance', $transaction->amount);
                         }
                         
                     } else {
                         $transaction->status = TxnStatus::Rejected;
-                        $from = floor($transaction->method / 3);
+                        $from = floor($transaction->method / 4);
 
                         if ($from == 0) {
                             $user->increment('balance', $transaction->final_amount);
@@ -116,6 +117,8 @@ class ExchangeController extends Controller
                             $user->increment('profit_balance', $transaction->final_amount);
                         } else if ($from == 2) {
                             $user->increment('trading_balance', $transaction->final_amount);
+                        } else if ($from == 3) {
+                            $user->increment('commission_balance', $transaction->final_amount);
                         }
                     }
 

@@ -259,7 +259,9 @@ function creditReferralBonus($user, $type, $mainAmount, $level = null, $depth = 
 
         Txn::new($amount, 0, $amount, 'system', $description, TxnType::Referral, TxnStatus::Success, null, null, $referrer->id, $fromUserReferral->id, 'User', [], 'none', $depth, $type, true);
 
-        $referrer->profit_balance += $amount;
+        // $referrer->profit_balance += $amount;
+        $referrer->commission_balance += $amount;
+
         $referrer->save();
         creditReferralBonus($referrer, $type, $mainAmount, $level, $depth + 1, $user);
     }

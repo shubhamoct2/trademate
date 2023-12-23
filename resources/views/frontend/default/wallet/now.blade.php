@@ -7,13 +7,15 @@
                 <div class="col-xl-4 col-md-12">
                     <label for="exampleFormControlInput1" class="form-label">{{ __('From Wallet:') }}</label>
                     <div class="input-group">
-                        <select name="from_wallet" class="site-nice-select">
+                        <select name="from_wallet" id="from_wallet" class="site-nice-select">
                             <option selected
                                 value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
                             <option 
                                 value="2">{{ __('Profit Wallet').' ('. $user->profit_balance.' '.$currency .')' }}</option>
                             <option 
                                 value="3">{{ __('Trading Wallet').' ('. $user->trading_balance.' '.$currency .')' }}</option>
+                            <option 
+                                value="4">{{ __('Commisssion Wallet').' ('. $user->commission_balance.' '.$currency .')' }}</option>
                         </select>
                     </div>
                 </div>
@@ -31,13 +33,15 @@
                 <div class="col-xl-4 col-md-12">
                     <label for="exampleFormControlInput1" class="form-label">{{ __('To Wallet:') }}</label>
                     <div class="input-group">
-                        <select name="to_wallet" class="site-nice-select">
+                        <select name="to_wallet" id="to_wallet" class="site-nice-select">
                             <option 
                                 value="1">{{ __('Main Wallet').' ('. $user->balance.' '.$currency .')' }}</option>
                             <option selected
                                 value="2">{{ __('Profit Wallet').' ('. $user->profit_balance.' '.$currency .')' }}</option>
                             <option
                                 value="3">{{ __('Trading Wallet').' ('. $user->trading_balance.' '.$currency .')' }}</option>
+                            <option
+                                value="4">{{ __('Commission Wallet').' ('. $user->commission_balance.' '.$currency .')' }}</option>
                         </select>
                     </div>
 
@@ -102,7 +106,17 @@
 
 
             $('.charge').text('Charge ' + charge + ' ' + (charge_type === 'percentage' ? ' % ' : currency))
-        })
+        });
+
+        // $('#from_wallet').change(function () {
+        //     if ($(this).val() !== 1) {
+        //         $('#to_wallet option').each(function() {
+        //             if ($(this).val() !== 1) {
+        //                 $(this).attr('disabled', true);
+        //             }
+        //         });
+        //     }
+        // });
     </script>
 @endsection
 

@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="title-content">
-                            <h2 class="title">{{ __('All Exchange Requests') }}</h2>
+                            <h2 class="title">{{ __('All Internal Transfer Requests') }}</h2>
                         </div>
                     </div>
                 </div>

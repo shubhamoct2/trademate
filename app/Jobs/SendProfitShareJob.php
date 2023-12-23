@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
 use App\Models\Transaction;
+use App\Models\LevelReferral;
 
 use App\Enums\TxnType;
 use App\Enums\TxnStatus;
@@ -63,6 +64,11 @@ class SendProfitShareJob implements ShouldQueue
             $this->user->id,
             'Admin'
         );
+
+        if (setting('site_referral', 'global') == 'level' && setting('profit_level')) {
+            $level = LevelReferral::where('type', 'profit')->max('the_order') + 1;
+            creditReferralBonus($transaction->user, 'profit', $this->amount, $level);
+        }
 
         $shortcodes = [
             '[[full_name]]' => $transaction->user->full_name,
