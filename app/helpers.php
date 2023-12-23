@@ -257,7 +257,25 @@ function creditReferralBonus($user, $type, $mainAmount, $level = null, $depth = 
 
         $description = ucwords($type).' Referral Bonus Via '.$fromUserReferral->full_name.' - Level '.$depth;
 
-        Txn::new($amount, 0, $amount, 'system', $description, TxnType::Referral, TxnStatus::Success, null, null, $referrer->id, $fromUserReferral->id, 'User', [], 'none', $depth, $type, true);
+        Txn::new(
+            $amount, 
+            0, 
+            $amount, 
+            'system', 
+            $description, 
+            TxnType::Referral, 
+            TxnStatus::Success, 
+            null, 
+            null, 
+            $referrer->id, 
+            $fromUserReferral->id, 
+            'User', 
+            [], 
+            'none', 
+            $depth, 
+            $type, 
+            true
+        );
 
         // $referrer->profit_balance += $amount;
         $referrer->commission_balance += $amount;
