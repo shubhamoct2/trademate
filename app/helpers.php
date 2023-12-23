@@ -281,7 +281,7 @@ function creditReferralBonus($user, $type, $mainAmount, $level = null, $depth = 
         $referrer->commission_balance += $amount;
 
         $referrer->save();
-        creditReferralBonus($referrer, $type, $mainAmount, $level, $depth + 1, $user);
+        creditReferralBonus($referrer, $type, $mainAmount, $level, $depth + 1, $fromUserReferral);
     }
 }
 
