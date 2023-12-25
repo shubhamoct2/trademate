@@ -1614,6 +1614,16 @@ input {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 button {
     border: 0;
     outline: none;
@@ -11595,7 +11605,7 @@ form label.error {
     font-size: 18px;
 }
 .reg-step-item.passed .reg-step-txt {
-    text-decoration-line: line-through;
+    text-decoration-line: none;
 }
 .reg-step-item.active .reg-step-num {
     color: #fff;
@@ -11763,4 +11773,26 @@ form label.error {
     top: 51px;
     left: 8px;
     padding: 0;
+}
+
+/* percent input */
+.progress-steps-form .percent-input {
+    position: relative;
+}
+
+.progress-steps-form .percent-input:after {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    content: "%";
+    color: #fff;
+}
+
+.progress-steps-form .percent-input input {
+    padding-right: 30px;
+}
+
+#kyc_credential_file-error {
+    position: relative !important;
+    top: unset !important;    
 }

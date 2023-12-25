@@ -92,7 +92,6 @@
                                        class="form-label">{{ __('Date of Birth') }}</label>
                                 <div class="input-group">
                                     <input
-                                        disabled
                                         type="date"
                                         name="date_of_birth"
                                         class="form-control"
