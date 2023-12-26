@@ -274,9 +274,16 @@ class WithdrawController extends Controller
                 $alphapoSetting = config('alphapo.sandbox');
             }
 
+            $withdraw_currency = strtoupper($address->currency);
+            if ($address->blockchain == 'erc20' && $address->currency == 'usdt') {
+                $withdraw_currency = 'USDTE';
+            } elseif ($address->blockchain == 'trc20' && $address->currency == 'usdt') {
+                $withdraw_currency = 'USDTT';
+            }
+
             $currencySetting = null;
             foreach($alphapoSetting['currencies'] as $currency) {
-                if ($currency['currency'] == strtoupper($address->currency)) {
+                if ($currency['currency'] == $withdraw_currency) {
                     $currencySetting = $currency;
                     break;
                 }
