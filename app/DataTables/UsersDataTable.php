@@ -3,6 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use App\Enums\KyCStatus;
+
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -28,7 +30,10 @@ class UsersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('select_users', '<input type="checkbox" name="selected_users[]" value="{{ $id }}" >')
             ->addColumn('avatar', 'backend.user.include.__avatar')
-            ->addColumn('kyc', 'backend.user.include.__kyc')
+            ->addColumn('kyc', function (User $user) {
+                return $user->kycInfo && $user->kycInfo->status == KycStatus::Verified ? '<div class="site-badge success">Verified</div>' : 
+                    '<div class="site-badge pending">Unverified</div>';
+            })
             ->addColumn('status', 'backend.user.include.__status')
             ->addColumn('action', 'backend.user.include.__action')
             ->editColumn('shares', function ($user) use ($total_trading) {
@@ -48,7 +53,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['kycInfo']);
     }
 
     /**
