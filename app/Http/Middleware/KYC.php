@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\KYCStatus;
+use App\Enums\KyCStatus;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,10 +16,12 @@ class KYC
      */
     public function handle(Request $request, Closure $next)
     {
-        $kyc = auth()->user()->kyc;
-        if ($kyc == KYCStatus::Verified->value || ! setting('kyc_verification', 'permission')) {
+        $kycInfo = auth()->user()->kycInfo;
+
+        if ((!is_null($kycInfo) && $kycInfo->status == KyCStatus::Verified) || !setting('kyc_verification', 'permission')) {
             return $next($request);
         }
+        
         tnotify('warning', 'Your account is unverified with Kyc.');
 
         return redirect()->back();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Enums\KYCStatus;
+use App\Enums\KycStatus;
 use App\Enums\TxnStatus;
 use App\Enums\TxnType;
 use App\Http\Controllers\Controller;
@@ -15,6 +15,7 @@ use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\KycInfo;
 
 class DashboardController extends Controller
 {
@@ -47,7 +48,7 @@ class DashboardController extends Controller
                 ->where('status', 'pending');
         })->count();
 
-        $kycCount = $user->where('kyc', KYCStatus::Pending)->count();
+        $kycCount = KycInfo::where('status', KycStatus::Pending)->count();
 
         $depositCount = Transaction::where(function ($query) {
             $query->where('type', TxnType::ManualDeposit)

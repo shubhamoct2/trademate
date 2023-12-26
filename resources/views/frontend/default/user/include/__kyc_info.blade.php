@@ -1,10 +1,10 @@
-@if($user->kyc != \App\Enums\KYCStatus::Verified->value)
+@if(is_null($user->kycInfo) || ($user->kycInfo->status != \App\Enums\KyCStatus::Verified))
     <div class="row desktop-screen-show">
         <div class="col">
             <div class="alert site-alert alert-dismissible fade show" role="alert">
                 <div class="content">
                     <div class="icon"><i class="anticon anticon-warning"></i></div>
-                    @if($user->kyc == \App\Enums\KYCStatus::Pending->value)
+                    @if($user->kycInfo && $user->kycInfo->status == \App\Enums\KyCStatus::Pending)
                         <strong>{{ __('KYC Pending') }}</strong>
                     @else
                         {{ __('Please complete') }}
@@ -15,7 +15,7 @@
                         @endif                        
                     @endif
                 </div>
-                @if($user->kyc != \App\Enums\KYCStatus::Pending->value)
+                @if(is_null($user->kycInfo) || $user->kycInfo->status != \App\Enums\KYCStatus::Pending)
                     <div class="action">
                         <a href="{{ route('user.kyc') }}" class="site-btn-sm grad-btn"><i
                                 class="anticon anticon-info-circle"></i>{{ __('Submit Now') }}</a>
