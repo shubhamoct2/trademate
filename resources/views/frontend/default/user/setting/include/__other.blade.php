@@ -11,12 +11,12 @@
                 </div>
                 <div class="site-card-body">
 
-                    @if($user->kyc == \App\Enums\KYCStatus::Verified->value)
+                    @if($user->kycInfo && $user->kycInfo->status == \App\Enums\KycStatus::Verified)
                         <div class="site-badge success">{{ __('KYC Verified') }}</div>
-                        <p class="mt-3">{{ json_decode($user->kyc_credential,true)['Action Message'] ?? '' }}</p>
+                        <p class="mt-3">{{ isset($user->kycInfo->data['action_message']) ? $user->kycInfo->data['action_message'] : '' }}</p>
                     @else
                         <a href="{{ route('user.kyc') }}" class="site-btn blue-btn">{{ __('Upload KYC') }}</a>
-                        <p class="mt-3">{{ json_decode($user?->kyc_credential,true)['Action Message'] ?? '' }}</p>
+                        <p class="mt-3">{{ isset($user->kycInfo->data['action_message']) ? $user->kycInfo->data['action_message'] : '' }}</p>
                     @endif
                 </div>
             </div>

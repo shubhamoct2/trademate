@@ -167,7 +167,7 @@
                             var url = '{{ route("user.deposit.min",":code") }}';
                             url = url.replace(':code', code);
                             $.get(url, function (data) {
-                                $('.min-max').text('Minimum ' + data + ' ' + currency);
+                                $('.min-max').text('Minimum ' + data);
                             });
                         });
                     }

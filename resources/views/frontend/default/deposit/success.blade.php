@@ -10,12 +10,12 @@
             <p>{{ $notify['strong'] }}</p>
             <p>{{ 'Please make a deposit using the following ' . $notify['data']['currency'] . ' address' }}</p>
             <p>{{ $notify['data']['address'] }}</p>
-            <div style="margin: 20px 0;">
+            <!-- <div style="margin: 20px 0;">
                 <a href="{{ $notify['data']['currency'] }}:{{ $notify['data']['address'] }}" target="_blank">
                     <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&
                     chl={{ $notify['data']['currency'] }}:{{ $notify['data']['address'] }}&choe=UTF-8">
                 </a>
-            </div>
+            </div> -->
             <a href="{{ $notify['action'] }}" class="site-btn">
                 <i class="anticon anticon-plus"></i>{{ $notify['a'] }}
             </a>

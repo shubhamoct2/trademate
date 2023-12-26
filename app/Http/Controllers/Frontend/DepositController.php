@@ -126,17 +126,6 @@ class DepositController extends GatewayController
         $payAmount = $finalAmount * $gatewayInfo->rate;
         $depositType = TxnType::Deposit;
 
-        // if (isset($input['manual_data'])) {
-        //     $depositType = TxnType::ManualDeposit;
-        //     $manualData = $input['manual_data'];
-
-        //     foreach ($manualData as $key => $value) {
-        //         if (is_file($value)) {
-        //             $manualData[$key] = self::imageUploadTrait($value);
-        //         }
-        //     }
-        // }
-
         if ($request['gateway_code'] == 'alphapo') {
             $txnInfo = Txn::new(
                 $input['amount'], 
@@ -186,8 +175,6 @@ class DepositController extends GatewayController
         $this->smsNotify('manual_deposit_request', $shortcodes, $txnInfo->user->phone);
 
         return redirect()->route('user.notify');
-
-        // return self::depositAutoGateway($gatewayInfo->gateway_code, $txnInfo, $apiResponse);
     }
 
     public function depositLog()
