@@ -31,7 +31,7 @@ class KycController extends Controller
 
         if ($kycInfo) {
             $kycStatus = $kycInfo->status->name;
-            $step = $kycInfo->data['step'];
+            $step = isset($kycInfo->data['step']) ? $kycInfo->data['step'] : 0;
             $details = $kycInfo->data;
         } else {
             $kycStatus = null;
