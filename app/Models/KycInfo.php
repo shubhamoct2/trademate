@@ -20,4 +20,8 @@ class KycInfo extends Model
         'data' => 'array',
         'status' => KycStatus::class,
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
 }

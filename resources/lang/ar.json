@@ -1119,5 +1119,6 @@
     "TIN or Tax ID": "رقم التعريف الضريبي (TIN) أو المعرّف الضريبي",
     "If no Tax Identification Number has been supplied, tick this box": "إذا لم يتم توفير رقم التعريف الضريبي، ضع علامة في هذا المربع",
     "Personal Details": "تفاصيل شخصية",
-    "ID \/ Passport": "الهوية \/ جواز السفر"
+    "ID \/ Passport": "الهوية \/ جواز السفر",
+    "Verified KYC": "تم التحقق من KYC"
 }

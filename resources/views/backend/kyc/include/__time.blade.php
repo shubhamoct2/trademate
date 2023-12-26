@@ -1,1 +1,1 @@
-<span class="clock"> {{  \Carbon\Carbon::parse($kyc_time)->format('F d Y h:i') }} </span>
+<span class="clock"> {{  \Carbon\Carbon::parse($updated_at)->format('F d Y h:i') }} </span>

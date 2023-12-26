@@ -1,1 +1,1 @@
-<strong class="transaction">{{ $kyc_type }}</strong>
+<strong class="transaction">{{ ucwords($data['kyc_type']) }}</strong>

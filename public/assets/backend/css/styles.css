@@ -5059,3 +5059,12 @@ img {
   font-weight: 100;
   color: #888888;
 }
+
+/* Download Layout */
+.download-container {
+  padding-left: 20px !important;
+}
+
+.download-container img.passport {
+  max-width: 50%;
+}

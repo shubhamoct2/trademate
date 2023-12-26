@@ -1,4 +1,4 @@
-@switch($kyc)
+@switch($status)
     @case(1)
         <div class="site-badge success">{{ __('Verified') }}</div>
         @break
