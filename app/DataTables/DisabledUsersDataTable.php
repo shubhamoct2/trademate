@@ -25,7 +25,10 @@ class DisabledUsersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('select_users', '<input type="checkbox" name="selected_users[]" value="{{ $id }}" >')
             ->addColumn('avatar', 'backend.user.include.__avatar')
-            ->addColumn('kyc', 'backend.user.include.__kyc')
+            ->addColumn('kyc', function (User $user) {
+                return $user->kycInfo && $user->kycInfo->status == KycStatus::Verified ? '<div class="site-badge success">Verified</div>' : 
+                    '<div class="site-badge pending">Unverified</div>';
+            })
             ->addColumn('status', 'backend.user.include.__status')
             ->addColumn('balance', function ($request) {
                 return $request->balance.' '.setting('site_currency');

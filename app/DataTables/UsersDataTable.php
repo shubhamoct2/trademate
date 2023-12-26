@@ -53,7 +53,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery()->with(['kycInfo']);
+        return $model->newQuery();
     }
 
     /**
