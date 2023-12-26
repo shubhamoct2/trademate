@@ -1057,9 +1057,6 @@
     "Now": "الآن",
     "Today Scheduled Profit Distribution": "اليوم توزيع الارباح المقرر",
     "Current": "حاضِر",
-<<<<<<< HEAD
-    "All Internal Transfer Requests": "كافة طلبات التحويل الداخلي"
-=======
     "What best describes you?": "ما هو أفضل وصف لك؟",
     "KYC Type": "نوع KYC",
     "General Information": "معلومات عامة",
@@ -1126,5 +1123,4 @@
     "Verified KYC": "تم التحقق من KYC",
     "General information": "معلومات عامة",
     "Name of the relationship": "اسم العلاقة"
->>>>>>> new-kyc
 }

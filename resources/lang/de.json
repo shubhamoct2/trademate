@@ -1057,9 +1057,6 @@
     "Now": "Jetzt",
     "Today Scheduled Profit Distribution": "Heute geplante Gewinnausschüttung",
     "Current": "Aktuell",
-<<<<<<< HEAD
-    "All Internal Transfer Requests": "Alle internen Übertragungsanfragen"
-=======
     "What best describes you?": "Was beschreibt Sie am besten?",
     "KYC Type": "KYC-Typ",
     "General Information": "Allgemeine Informationen",
@@ -1126,5 +1123,4 @@
     "Verified KYC": "Verifizierter KYC",
     "General information": "allgemeine Informationen",
     "Name of the relationship": "Name der Beziehung"
->>>>>>> new-kyc
 }
