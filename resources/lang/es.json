@@ -1120,5 +1120,7 @@
     "If no Tax Identification Number has been supplied, tick this box": "Si no se ha facilitado ningún Número de Identificación Fiscal, marque esta casilla",
     "Personal Details": "Detalles personales",
     "ID \/ Passport": "DNI\/Pasaporte",
-    "Verified KYC": "KYC verificado"
+    "Verified KYC": "KYC verificado",
+    "General information": "información general",
+    "Name of the relationship": "Nombre de la relación"
 }

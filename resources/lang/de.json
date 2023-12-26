@@ -1120,5 +1120,7 @@
     "If no Tax Identification Number has been supplied, tick this box": "Wenn keine Steueridentifikationsnummer angegeben wurde, kreuzen Sie dieses Kästchen an",
     "Personal Details": "Persönliche Daten",
     "ID \/ Passport": "Personalausweis\/Reisepass",
-    "Verified KYC": "Verifizierter KYC"
+    "Verified KYC": "Verifizierter KYC",
+    "General information": "allgemeine Informationen",
+    "Name of the relationship": "Name der Beziehung"
 }

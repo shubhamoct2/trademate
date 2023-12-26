@@ -234,9 +234,16 @@ class KycController extends Controller
             '[[message]]' => $input['message'],
             '[[status]]' => $input['status'],
         ];
-        $this->mailNotify($user->email, 'kyc_action', $shortcodes);
-        $this->smsNotify('kyc_action', $shortcodes, $user->phone);
-        $this->pushNotify('kyc_action', $shortcodes, route('user.kyc'), $user->id);
+        
+        if (intval($input['status']) == 1) {
+            $this->mailNotify($user->email, 'kyc_action', $shortcodes);
+            $this->smsNotify('kyc_action', $shortcodes, $user->phone);
+            $this->pushNotify('kyc_action', $shortcodes, route('user.kyc'), $user->id);
+        } else {
+            $this->mailNotify($user->email, 'kyc_action_reject', $shortcodes);
+            $this->smsNotify('kyc_action_reject', $shortcodes, $user->phone);
+            $this->pushNotify('kyc_action_reject', $shortcodes, route('user.kyc'), $user->id);
+        }
 
         notify()->success(__('KYC Update Successfully'));
 
