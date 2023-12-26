@@ -32,7 +32,7 @@ class UsersDataTable extends DataTable
             ->addColumn('status', 'backend.user.include.__status')
             ->addColumn('action', 'backend.user.include.__action')
             ->editColumn('shares', function ($user) use ($total_trading) {
-                return number_format((floatval($user->trading_balance) * 100.00) / floatval($total_trading), 2);
+                return trading_balance > 0 ? number_format((floatval($user->trading_balance) * 100.00) / floatval($total_trading), 2) : 0;
             })
             ->editColumn('totalProfit', function ($user) {
                 return $user->total_profit;
