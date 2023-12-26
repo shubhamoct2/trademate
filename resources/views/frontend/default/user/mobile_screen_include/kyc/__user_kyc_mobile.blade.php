@@ -1,10 +1,10 @@
 <div class="row mobile-screen-show">
     <div class="col-12">
         <div class="user-kyc-mobile">
-            @if($user->kyc == \App\Enums\KYCStatus::Pending->value)
+            @if($user->kycInfo && $user->kycInfo->status == \App\Enums\KycStatus::Pending)
                 <i icon-name="fingerprint" class="kyc-star"></i>
                 {{ __('KYC Pending') }}
-            @elseif($user->kyc != \App\Enums\KYCStatus::Verified->value)
+            @elseif(is_null($user->kycInfo) || $user->kycInfo->status != \App\Enums\KycStatus::Verified)
                 <i icon-name="fingerprint" class="kyc-star"></i>
                 {{ __('Please Verify Your Identity') }} <a
                     href="{{ route('user.kyc') }}">{{ __('Submit Now') }}</a>
