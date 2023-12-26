@@ -26,8 +26,30 @@
                             </li>
                         </ul>
                     </div>
-                    @if ($kycInfo->data['kyc_type'] == "company")
                     <div>
+                        @if ($kycInfo->data['kyc_type'] == "individual")
+                        <h4 class="step-title">{{ __('General information') }}</h4>
+                        <ul class="list-group mb-4">                        
+                            @if (isset($kycInfo->data['general']))
+                                <li class="list-group-item">
+                                    {{ __('Name of the relationship') }}:
+                                    <strong>{{ $kycInfo->data['general']['relationship_name'] }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ __('Date of the KYC') }}:
+                                    <strong>{{ $kycInfo->data['kyc_date'] }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ __('Recommended by') }}:
+                                    <strong>{{ $kycInfo->data['general']['recommended_by'] }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ __('Summary of the background of the relationship') }}:
+                                    <strong>{{ $kycInfo->data['general']['summary_relation'] }}</strong>
+                                </li>
+                            @endif                        
+                        </ul>
+                        @else
                         <h4 class="step-title">{{ __('Business Relation Profile Corporate') }}</h4>
                         <ul class="list-group mb-4">                        
                             @if (isset($kycInfo->data['general']))
@@ -81,6 +103,7 @@
                                 </li>
                             @endif                        
                         </ul>
+                        @endif
                     </div>
                     <div>
                         <h4 class="step-title">{{ __('Information on assets transferred to the company') }}</h4>
@@ -311,7 +334,6 @@
                             @endif                        
                         </ul>
                     </div>
-                    @endif
                 </div>
             </div>
         </div>
