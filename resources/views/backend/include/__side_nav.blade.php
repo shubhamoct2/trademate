@@ -58,6 +58,10 @@
                                 <a href="{{ route('admin.kyc.pending') }}"><i
                                         icon-name="airplay"></i>{{ __('Pending KYC') }}</a>
                             </li>
+                            <li class="{{ isActive('admin.kyc.verified') }}">
+                                <a href="{{ route('admin.kyc.verified') }}"><i
+                                        icon-name="receipt"></i>{{ __('Verified KYC') }}</a>
+                            </li>
                             <li class="{{ isActive('admin.kyc.rejected') }}">
                                 <a href="{{ route('admin.kyc.rejected') }}"><i
                                         icon-name="file-warning"></i>{{ __('Rejected KYC') }}</a>

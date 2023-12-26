@@ -1,1 +1,1 @@
-<a href="{{ route('admin.user.edit',$id) }}" class="link">{{ safe($username) }}</a>
+<a href="{{ route('admin.user.edit', $user['id']) }}" class="link">{{ safe($user['username']) }}</a>

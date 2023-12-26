@@ -1614,6 +1614,16 @@ input {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 button {
     border: 0;
     outline: none;
@@ -1908,6 +1918,16 @@ img {
 
 .blue-btn:hover {
     background: #003049;
+    color: #ffffff;
+}
+
+.green-btn {
+    background: #5364f1;
+    color: #ffffff;
+}
+
+.green-btn:hover {
+    background: #e73667;
     color: #ffffff;
 }
 
@@ -11458,7 +11478,7 @@ i {
     line-height: 2rem;
 }
 
-form .error {
+form label.error {
     padding-left: 20px;
     color: #e73667 !important;
     font-size: 12px;
@@ -11534,4 +11554,245 @@ form .error {
 .switch-field.same-type label {
   padding: 13px 16px;
   border: 2px solid rgba(16, 25, 53, 0.2);
+}
+
+/************ KYC ********************/
+.reg-step-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 30px 0;
+}
+.reg-step-item {
+    display: flex;
+    font-size: 16px;
+    color: #99BBD5;
+    align-items: center;
+}
+.reg-step-item.active {
+    color: #fff;
+}
+.reg-step-num {
+    position: relative;
+    padding-top: 3px;
+    color: #fff;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    background-color: #535a94;
+}
+.reg-step-item.passed .reg-step-num:after {
+    position: absolute;                    
+    top: -6px;
+    right: -8px;
+    content: '\2713';
+    display: inline-block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    color: #4BA000;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #A7FF59;
+}
+.reg-step-item.active .reg-step-txt {
+    font-size: 18px;
+}
+.reg-step-item.passed .reg-step-txt {
+    text-decoration-line: none;
+}
+.reg-step-item.active .reg-step-num {
+    color: #fff;
+    background-color: #5364f1;
+}
+.reg-container {
+    margin-top: 60px;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+}
+@media (max-width: 767px) {
+    .reg-step-list {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.field-step-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 12px;
+}
+
+.progress-steps-form .radio-item {
+    margin-bottom: 20px;
+}
+
+.progress-steps-form .radio-item:hover {
+    cursor: pointer;
+}
+
+.progress-steps-form .radio-item .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-steps-form .radio-item label {
+    background: #535a94;
+    padding: 50px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 195, 0, 0.5);
+    transition: 0.4s;
+    cursor: default;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-items: center;
+    color: #fff;
+}
+
+.progress-steps-form .radio-item label svg {
+    transform: scale(2);
+    margin-bottom: 20px;
+}
+
+.progress-steps-form .radio-item label h5 {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.progress-steps-form .radio-item label:hover {
+    cursor: pointer;
+    transform: translate3d(0, -4px, 0);
+}
+
+.progress-steps-form .radio-item label:before {
+    background-color: #fff;
+    color: #fff;
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #e95f35;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 28px;
+    transition-duration: 0.4s;
+    transform: scale(0)
+}
+
+.progress-steps-form .radio-item label img {
+    transition-duration: 0.2s;
+    transform-origin: 50% 50%;
+    width: 15%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 15px!important
+}
+
+.progress-steps-form .radio-item input[type="radio"] {
+    display: none;
+}
+
+.progress-steps-form .radio-item input[type="radio"]:checked+label {
+    border-color: #e73667;
+    color: #000 !important;
+    font-weight: bold;
+}
+
+.progress-steps-form .radio-item input[type="radio"]:checked+label:before {
+    content: "✓";
+    background-color: #e73667;
+    transform: scale(1);
+}
+
+.progress-steps-form .radio-item input[type="radio"]:checked+label img {
+    transform: scale(.9);
+    z-index: -1;
+}
+
+.progress-steps-form .step-title {
+    margin: 30px 0;
+    text-align: center;    
+}
+
+.progress-steps-form .input-group-label {
+    text-decoration: underline;
+    margin-bottom: 12px;
+}
+
+.progress-steps-form .ms-options-wrap {
+    width: 100%;
+}
+
+.progress-steps-form .ms-options-wrap button {
+    height: 48px;
+    font-size: 16px;
+    padding-left: 16px;
+}
+
+.progress-steps-form .ms-options-wrap>.ms-options>ul label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    color: #000 !important;
+    padding: 4px;
+}
+
+.progress-steps-form .ms-options-wrap>.ms-options>ul input[type=checkbox] {
+    position: relative;
+    top: unset;
+    left: unset;
+}
+
+.progress-steps-form div[class^="col-"], .progress-steps-form div[class*=" col-"] {
+    position: relative;
+}
+
+.progress-steps-form div[class^="input-group"] {
+    position: relative;
+}
+
+.progress-steps-form label.error {
+    position: absolute;
+    top: 51px;
+    left: 8px;
+    padding: 0;
+}
+
+/* percent input */
+.progress-steps-form .percent-input {
+    position: relative;
+}
+
+.progress-steps-form .percent-input:after {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    content: "%";
+    color: #fff;
+}
+
+.progress-steps-form .percent-input input {
+    padding-right: 30px;
+}
+
+#kyc_credential_file-error {
+    position: relative !important;
+    top: unset !important;    
 }

@@ -71,10 +71,11 @@ Route::resource('kyc-form', KycController::class);
 Route::group(['prefix' => 'kyc', 'as' => 'kyc.', 'controller' => KycController::class], function () {
     Route::get('pending', 'KycPending')->name('pending');
     Route::get('rejected', 'KycRejected')->name('rejected');
-    Route::get('action/{id}', 'depositAction')->name('action');
+    Route::get('verified', 'KycVerified')->name('verified');
+    Route::get('action/{id}', 'showDetails')->name('action');
     Route::post('action-now', 'actionNow')->name('action.now');
     Route::get('all', 'kycAll')->name('all');
-
+    Route::get('download/{id}', 'downloadKycDetails')->name('download');
 });
 
 //===============================  Role Management ==================================

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Enums\KYCStatus;
+use App\Enums\KycStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Kyc;
+use App\Models\KycInfo;
 use App\Models\User;
 use App\Traits\NotifyTrait;
 use DataTables;
@@ -16,6 +17,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KycController extends Controller
 {
@@ -41,7 +44,7 @@ class KycController extends Controller
      */
     public function index()
     {
-        $kycs = Kyc::all();
+        $kycs = KycInfo::all();
 
         return view('backend.kyc.index', compact('kycs'));
     }
@@ -132,7 +135,7 @@ class KycController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = User::where('kyc', KYCStatus::Pending->value)->latest('updated_at');
+            $data = KycInfo::where('status', KycStatus::Pending->value)->with('user')->orderBy('updated_at', 'desc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -157,7 +160,7 @@ class KycController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = User::where('kyc', KYCStatus::Failed->value)->latest();
+            $data = KycInfo::where('status', KycStatus::Failed->value)->with('user')->orderBy('updated_at', 'desc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -173,19 +176,35 @@ class KycController extends Controller
         return view('backend.kyc.rejected');
     }
 
+    public function KycVerified(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $data = KycInfo::where('status', KycStatus::Verified->value)->with('user')->orderBy('updated_at', 'desc')->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('time', 'backend.kyc.include.__time')
+                ->addColumn('user', 'backend.kyc.include.__user')
+                ->addColumn('type', 'backend.kyc.include.__type')
+                ->addColumn('status', 'backend.kyc.include.__status')
+                ->addColumn('action', 'backend.kyc.include.__action')
+                ->rawColumns(['time', 'user', 'type', 'status', 'action'])
+                ->make(true);
+        }
+
+        return view('backend.kyc.verified');
+    }
+
     /**
      * @return string
      */
-    public function depositAction($id)
+    public function showDetails($id)
     {
-        $user = User::find($id);
-        $kycCredential = json_decode($user->kyc_credential, true);
-        unset($kycCredential['kyc_type_of_name']);
-        unset($kycCredential['kyc_time_of_time']);
+        $kycInfo = KycInfo::find($id);
+        $user = $kycInfo->user;
 
-        $kycStatus = $user->kyc;
-
-        return view('backend.kyc.include.__kyc_data', compact('kycCredential', 'id', 'kycStatus'))->render();
+        return view('backend.kyc.include.__kyc_data', compact('kycInfo', 'id', 'user'))->render();
     }
 
     /**
@@ -194,12 +213,16 @@ class KycController extends Controller
     public function actionNow(Request $request)
     {
         $input = $request->all();
-        $user = User::find($input['id']);
-        $kycCredential = json_decode($user->kyc_credential, true);
-        $kycCredential = array_merge($kycCredential, ['Action Message' => $input['message']]);
-        $user->update([
-            'kyc' => $input['status'],
-            'kyc_credential' => $kycCredential,
+
+        $kycInfo = KycInfo::find($input['id']);
+        $user = $kycInfo->user;
+        
+        $data = $kycInfo->data;
+        $data['action_message'] = $input['message'];
+
+        $kycInfo->update([
+            'status' => $input['status'],
+            'data' => $data,
         ]);
 
         $shortcodes = [
@@ -207,13 +230,20 @@ class KycController extends Controller
             '[[email]]' => $user->email,
             '[[site_title]]' => setting('site_title', 'global'),
             '[[site_url]]' => route('home'),
-            '[[kyc_type]]' => $kycCredential['kyc_type_of_name'],
+            '[[kyc_type]]' => ucfirst($kycInfo->data['kyc_type']),
             '[[message]]' => $input['message'],
             '[[status]]' => $input['status'],
         ];
-        $this->mailNotify($user->email, 'kyc_action', $shortcodes);
-        $this->smsNotify('kyc_action', $shortcodes, $user->phone);
-        $this->pushNotify('kyc_action', $shortcodes, route('user.kyc'), $user->id);
+        
+        if (intval($input['status']) == 1) {
+            $this->mailNotify($user->email, 'kyc_action', $shortcodes);
+            $this->smsNotify('kyc_action', $shortcodes, $user->phone);
+            $this->pushNotify('kyc_action', $shortcodes, route('user.kyc'), $user->id);
+        } else {
+            $this->mailNotify($user->email, 'kyc_action_reject', $shortcodes);
+            $this->smsNotify('kyc_action_reject', $shortcodes, $user->phone);
+            $this->pushNotify('kyc_action_reject', $shortcodes, route('user.kyc'), $user->id);
+        }
 
         notify()->success(__('KYC Update Successfully'));
 
@@ -263,7 +293,7 @@ class KycController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = User::whereNotNull('kyc_credential')->latest();
+            $data = KycInfo::where('status', '<>', KycStatus::Draft)->with('user')->orderBy('updated_at', 'desc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -277,5 +307,21 @@ class KycController extends Controller
         }
 
         return view('backend.kyc.all');
+    }
+
+    public function downloadKycDetails($id) {
+        $kycInfo = KycInfo::find($id);
+        $user = $kycInfo->user;
+
+        if (is_null($kycInfo) || is_null($user)) {
+            return null;
+        }
+
+        $full_name = $kycInfo->data['personal']['first_name'] . ' ' . $kycInfo->data['personal']['last_name'];
+
+        // return view('backend.kyc.include.__kyc_download_detail', compact('kycInfo'))->render();
+
+        $pdf = Pdf::loadView('backend.kyc.include.__kyc_download_detail', compact('kycInfo'));
+        return $pdf->download($full_name . '.pdf');
     }
 }

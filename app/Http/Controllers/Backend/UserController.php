@@ -29,6 +29,10 @@ use App\DataTables\DisabledUsersDataTable;
 
 use Illuminate\Support\Facades\Log;
 
+use App\Enums\KycStatus;
+
+use App\Models\KycInfo;
+
 class UserController extends Controller
 {
     use NotifyTrait;
@@ -118,18 +122,30 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+        $user = User::find($id);
+
+        if (is_null($user->kycInfo)) {
+            $kycInfo = KycInfo::create([
+                'status' => intval($input['kyc']) == 1 ? KycStatus::Verified : KycStatus::Draft,
+                'data' => []
+            ]);            
+        } else {
+            $kycInfo = $user->kycInfo;
+            $kycInfo->update([
+                'status' => intval($input['kyc']) == 1 ? KycStatus::Verified : KycStatus::Draft,
+            ]);
+        }
+
         $data = [
             'status' => $input['status'],
-            'kyc' => $input['kyc'],
+            'kyc_info_id' => $kycInfo->id,
             'two_fa' => $input['two_fa'],
             'deposit_status' => $input['deposit_status'],
             'withdraw_status' => $input['withdraw_status'],
             'transfer_status' => $input['transfer_status'],
             'email_verified_at' => $input['email_verified'] == 1 ? now() : null,
         ];
-
-        $user = User::find($id);
-
+        
         if ($user->status != $input['status'] && ! $input['status']) {
 
             $shortcodes = [
@@ -143,7 +159,7 @@ class UserController extends Controller
         }
 
         User::find($id)->update($data);
-
+        
         notify()->success('Status Updated Successfully', 'success');
 
         return redirect()->back();

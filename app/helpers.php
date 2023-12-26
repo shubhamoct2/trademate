@@ -105,6 +105,22 @@ if (! function_exists('getCountries')) {
     }
 }
 
+if (! function_exists('getCountryNameFromCode')) {
+
+    function getCountryNameFromCode($code)
+    {
+        $countryList = json_decode(file_get_contents(resource_path().'/json/CountryCodes.json'), true);
+
+        foreach ($countryList as $country) {
+            if ($country['code'] == $code) {
+                return $country['name'];
+            }
+        }
+
+        return '';
+    }
+}
+
 if (! function_exists('getJsonData')) {
 
     function getJsonData($fileName)

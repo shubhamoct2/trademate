@@ -62,7 +62,7 @@
                                 id="kyc1"
                                 name="kyc"
                                 value="1"
-                                @if($user->kyc == 1) checked @endif
+                                @if($user->kycInfo && $user->kycInfo->status->name == 'Verified') checked @endif
                             />
                             <label for="kyc1">{{ __('Verified') }}</label>
                             <input
@@ -70,7 +70,7 @@
                                 id="kyc2"
                                 name="kyc"
                                 value="0"
-                                @if($user->kyc != 1) checked @endif
+                                @if(is_null($user->kycInfo) || $user->kycInfo->status->name != 'Verified') checked @endif
                             />
                             <label for="kyc2">{{ __('Unverified') }}</label>
                         </div>

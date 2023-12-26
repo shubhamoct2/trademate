@@ -54,6 +54,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         'ref_id',
         'password',
         'withdrwal_address',
+        'kyc_info_id',
     ];
 
     protected $appends = [
@@ -264,5 +265,9 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
             get: fn ($value) => $value != null ? decrypt($value) : $value,
             set: fn ($value) => encrypt($value),
         );
+    }
+
+    public function kycInfo() {
+        return $this->belongsTo(KycInfo::class, 'kyc_info_id');
     }
 }
