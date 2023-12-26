@@ -116,6 +116,10 @@ class AlphaPo {
         $btc = 0;
         $price = 0;
 
+        if ($code == 'USDTE' || $code == 'USDTT') {
+            $code = 'USDT';
+        }
+        
         foreach( $json as $obj ){
             if( $obj->code == 'USD' ) $btc = $obj->rate;
             if( $obj->code == $code ) $price = $obj->rate;
