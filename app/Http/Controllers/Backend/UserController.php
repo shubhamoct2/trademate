@@ -114,6 +114,7 @@ class UserController extends Controller
             'deposit_status' => 'required',
             'withdraw_status' => 'required',
             'transfer_status' => 'required',
+            'editable_profile' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -144,6 +145,7 @@ class UserController extends Controller
             'withdraw_status' => $input['withdraw_status'],
             'transfer_status' => $input['transfer_status'],
             'email_verified_at' => $input['email_verified'] == 1 ? now() : null,
+            'editable_profile' => $input['editable_profile']
         ];
         
         if ($user->status != $input['status'] && ! $input['status']) {

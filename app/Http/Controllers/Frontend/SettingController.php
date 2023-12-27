@@ -77,40 +77,54 @@ class SettingController extends Controller
     {
         $input = $request->all();
         $user = \Auth::user();
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'username' => 'required|unique:users,username,'.$user->id,
-            'gender' => 'required',
-            'date_of_birth' => 'date',
-            'phone' => 'required',
-        ]);
+
+        if ($user->editable_profile) {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'username' => 'unique:users,username,'.$user->id,
+                'gender' => 'required',
+                'city' => 'required',
+                'zip_code' => 'required',
+                'address' => 'required',
+                'date_of_birth' => 'date',
+                'phone' => 'required',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'phone' => 'required',
+            ]);
+        }
 
         if ($validator->fails()) {
             notify()->error($validator->errors()->first(), 'Error');
-
             return redirect()->back();
         }
 
-        $data = [
-            'avatar' => $request->hasFile('avatar') ? self::imageUploadTrait($input['avatar'], $user->avatar) : $user->avatar,
-            'first_name' => $input['first_name'],
-            'last_name' => $input['last_name'],
-            'username' => $input['username'],
-            'gender' => $input['gender'],
-            'date_of_birth' => $input['date_of_birth'] == '' ? null : $input['date_of_birth'],
-            'phone' => $input['phone'],
-            'city' => $input['city'],
-            'zip_code' => $input['zip_code'],
-            'address' => $input['address'],
-        ];
+        if ($user->editable_profile) {
+            $data = [
+                'avatar' => $request->hasFile('avatar') ? self::imageUploadTrait($input['avatar'], $user->avatar) : $user->avatar,
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'username' => $input['username'],
+                'gender' => $input['gender'],
+                'date_of_birth' => $input['date_of_birth'] == '' ? null : $input['date_of_birth'],
+                'phone' => $input['phone'],
+                'city' => $input['city'],
+                'zip_code' => $input['zip_code'],
+                'address' => $input['address'],
+                'editable_profile' => 0,
+            ];
+        } else {
+            $data = [
+                'phone' => $input['phone'],
+            ];
+        }
 
         $user->update($data);
 
         notify()->success('Your Profile Updated successfully');
-
         return redirect()->route('user.setting.show');
-
     }
 
     public function twoFa()

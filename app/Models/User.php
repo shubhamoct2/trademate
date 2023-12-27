@@ -55,6 +55,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         'password',
         'withdrwal_address',
         'kyc_info_id',
+        'editable_profile',
     ];
 
     protected $appends = [

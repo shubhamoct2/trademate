@@ -168,6 +168,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-12">
+                    <div class="profile-card-single">
+                        <h5 class="heading">{{ __('Profile Edit') }}</h5>
+                        <div class="switch-field">
+                            <input
+                                type="radio"
+                                id="editable_profile1"
+                                name="editable_profile"
+                                value="1"
+                                @if($user->editable_profile) checked @endif
+                            />
+                            <label for="editable_profile1">{{ __('Active') }}</label>
+                            <input
+                                type="radio"
+                                id="editable_profile2"
+                                name="editable_profile"
+                                value="0"
+                                @if(!$user->editable_profile) checked @endif
+                            />
+                            <label for="editable_profile2">{{ __('Disabled') }}</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12">
                     <button type="submit" class="site-btn-sm primary-btn w-100 centered">
                         {{ __('Save Changes') }}
