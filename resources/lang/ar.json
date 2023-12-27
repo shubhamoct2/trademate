@@ -1123,5 +1123,20 @@
     "Verified KYC": "تم التحقق من KYC",
     "General information": "معلومات عامة",
     "Name of the relationship": "اسم العلاقة",
-    "Profile Edit": "تحرير الملف الشخصي"
+    "Profile Edit": "تحرير الملف الشخصي",
+    "Affiliate Partner": "الشريك التابع",
+    "Customer": "عميل",
+    "Corporate Client": "العملاء من الشركات",
+    "Professional Investor": "المستثمر المحترف",
+    "Personal Recommendation by a Friend": "توصية شخصية من صديق",
+    "Crypto Investments": "استثمارات التشفير",
+    "Private Funds": "الصناديق الخاصة",
+    "Risk Capital": "رأس المال المخاطر",
+    "Shares": "تشارك",
+    "Commissions": "اللجان",
+    "Dividends": "توزيعات الأرباح",
+    "Rental Payments": "مدفوعات الإيجار",
+    "Asset Sales": "مبيعات الأصول",
+    "Female": "أنثى",
+    "Diverse": "متنوع"
 }
