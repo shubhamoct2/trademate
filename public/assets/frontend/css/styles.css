@@ -11633,7 +11633,10 @@ form label.error {
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-    gap: 12px;
+}
+
+.field-step-btn .site-btn {
+    margin: 0 1rem;
 }
 
 .progress-steps-form .radio-item {
