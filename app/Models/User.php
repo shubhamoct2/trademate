@@ -44,8 +44,6 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
         'trading_balance',
         'commission_balance',
         'status',
-        'kyc',
-        'kyc_credential',
         'google2fa_secret',
         'two_fa',
         'deposit_status',
@@ -59,7 +57,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     ];
 
     protected $appends = [
-        'full_name', 'kyc_time', 'kyc_type', 'total_profit','total_deposit','total_invest',
+        'full_name', 'total_profit','total_deposit','total_invest',
     ];
 
     protected $dates = ['kyc_time'];
@@ -93,16 +91,6 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     public function getFullNameAttribute(): string
     {
         return ucwords("{$this->attributes['first_name']} {$this->attributes['last_name']}");
-    }
-
-    public function getKycTypeAttribute(): string
-    {
-        return json_decode($this->attributes['kyc_credential'], true)['kyc_type_of_name'] ?? '';
-    }
-
-    public function getKycTimeAttribute(): string
-    {
-        return json_decode($this->attributes['kyc_credential'], true)['kyc_time_of_time'] ?? '';
     }
 
     public function getTotalProfitAttribute(): string
@@ -163,6 +151,11 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     public function referrals()
     {
         return $this->hasMany(User::class, 'ref_id');
+    }
+
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'ref_id');
     }
 
     public function totalDeposit()

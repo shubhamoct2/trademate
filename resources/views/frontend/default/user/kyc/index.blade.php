@@ -107,14 +107,25 @@
                                                 <div class="col-xl-6 col-md-12">
                                                     <label for="relationship_name" class="form-label">{{ __('Name of the relationship') }}</label>
                                                     <div class="input-group">
-                                                        <input
-                                                            name="relationship_name"
-                                                            id="relationship_name"
-                                                            type="text"
-                                                            class="form-control"                                                          
-                                                            value="{{ isset($details['general']['relationship_name']) ? $details['general']['relationship_name'] : '' }}"
-                                                            placeholder="{{ __('Name of the relationship') }}"
-                                                        />
+                                                        <select name="relationship_name" id="relationship_name" class="nice-select site-nice-select">
+                                                            <option value="">{{ __('---Select---') }}</option>
+                                                            <option 
+                                                                value="affiliate_partner" 
+                                                                @if(isset($details['general']['relationship_name']) && $details['general']['relationship_name'] == 'affiliate_partner') selected @endif
+                                                            >{{ __('Affiliate Partner') }}</option>
+                                                            <option 
+                                                                value="customer"
+                                                                @if(isset($details['general']['relationship_name']) && $details['general']['relationship_name'] == 'customer') selected @endif
+                                                            >{{ __('Customer') }}</option>
+                                                            <option 
+                                                                value="corporate_client"
+                                                                @if(isset($details['general']['relationship_name']) && $details['general']['relationship_name'] == 'corporate_client') selected @endif
+                                                            >{{ __('Corporate Client') }}</option>
+                                                            <option 
+                                                                value="professional_investor"
+                                                                @if(isset($details['general']['relationship_name']) && $details['general']['relationship_name'] == 'professional_investor') selected @endif
+                                                            >{{ __('Professional Investor') }}</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">
@@ -138,23 +149,27 @@
                                                             name="recommended_by"
                                                             id="recommended_by"
                                                             type="text"
-                                                            class="form-control"                                                                
-                                                            value="{{ isset($details['general']['recommended_by']) ? $details['general']['recommended_by'] : '' }}"
+                                                            class="form-control disabled"                                                                
+                                                            value="{{ is_null($user->referrer) ? '' : $user->referrer->full_name . ' (' . $user->referrer->email . ')' }}"
                                                             placeholder=""
+                                                            disabled
                                                         />
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">
                                                     <label for="summary_relation" class="form-label">{{ __('Summary of the background of the relationship') }}</label>
                                                     <div class="input-group">
-                                                        <input
-                                                            name="summary_relation"
-                                                            id="summary_relation"
-                                                            type="text"
-                                                            class="form-control"                                                                
-                                                            value="{{ isset($details['general']['summary_relation']) ? $details['general']['summary_relation'] : '' }}"
-                                                            placeholder="{{ __('Personal Recommendation') }}"                                                                
-                                                        />
+                                                        <select name="summary_relation" id="summary_relation" class="nice-select site-nice-select">
+                                                            <option value="">{{ __('---Select---') }}</option>
+                                                            <option 
+                                                                value="friend" 
+                                                                @if(isset($details['general']['summary_relation']) && $details['general']['summary_relation'] == 'friend') selected @endif
+                                                            >{{ __('Personal Recommendation by a Friend') }}</option>
+                                                            <option 
+                                                                value="professional_investor"
+                                                                @if(isset($details['general']['summary_relation']) && $details['general']['summary_relation'] == 'professional_investor') selected @endif
+                                                            >{{ __('Professional Investor') }}</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,17 +330,17 @@
                                                         <select name="company_asset_range" id="company_asset_range" class="nice-select site-nice-select">
                                                             <option value="">{{ __('---Select---') }}</option>
                                                             <option value="1" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 1) selected @endif
-                                                            >< CHF 500.000</option>
+                                                            >< USD 500.000</option>
                                                             <option value="2" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 2) selected @endif
-                                                            >CHF 500.000 - 1.000.000</option>
+                                                            >USD 500.000 - 1.000.000</option>
                                                             <option value="3" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 3) selected @endif
-                                                            >CHF 1.000.000 - 2.500.000</option>
+                                                            >USD 1.000.000 - 2.500.000</option>
                                                             <option value="4" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 4) selected @endif
-                                                            >CHF 2.500.000 - 7.500.000</option>
+                                                            >USD 2.500.000 - 7.500.000</option>
                                                             <option value="5" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 5) selected @endif
-                                                            >CHF 7.500.000 - 10.000.000</option>
+                                                            >USD 7.500.000 - 10.000.000</option>
                                                             <option value="6" @if(isset($details['asset']['company_asset_range']) && $details['asset']['company_asset_range'] == 6) selected @endif
-                                                            >> CHF 10.000.000</option>
+                                                            >> USD 10.000.000</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -383,14 +398,15 @@
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">
                                                     <label for="transaction_amount" class="form-label">{{ __('Range of amounts of each transaction:') }}</label>
-                                                    <div class="input-group">
+                                                    <div class="input-group currency-input">
                                                         <input
                                                             id="transaction_amount"
                                                             type="number"
                                                             class="form-control"
                                                             name="transaction_amount"
                                                             value="{{ isset($details['asset']['transaction_amount']) ? $details['asset']['transaction_amount'] : '' }}"
-                                                            placeholder=""                                                                
+                                                            placeholder=""   
+                                                            oninput="setCurrencyInput(this)"                                                      
                                                         />
                                                     </div>
                                                 </div>
@@ -459,7 +475,7 @@
                                                     <div class="input-group">
                                                         <input
                                                             id="bank_account"
-                                                            type="number"
+                                                            type="text"
                                                             class="form-control"
                                                             name="bank_account"
                                                             value="{{ isset($details['asset']['bank_account']) ? $details['asset']['bank_account'] : '' }}"
@@ -472,7 +488,7 @@
                                                     <div class="input-group">
                                                         <input
                                                             id="bank_swift"
-                                                            type="number"
+                                                            type="text"
                                                             class="form-control"
                                                             name="bank_swift"
                                                             value="{{ isset($details['asset']['bank_swift']) ? $details['asset']['bank_swift'] : '' }}"
@@ -701,17 +717,36 @@
                                                         <label class="form-check-label" for="company_income_other">
                                                             {{ __('Other (please specify)') }}
                                                         </label>
-                                                    </div>  
+                                                    </div>
                                                     <div class="input-group">
-                                                        <input
-                                                            name="company_income_other_description"
-                                                            id="company_income_other_description"
-                                                            type="text"
-                                                            class="form-control"                                                                
-                                                            value="{{ isset($details['income']['company_income_other']) ? $details['income']['company_income_other']['description'] : '' }}"
-                                                            placeholder="{{ __('Please specify)') }}"
-                                                        />
-                                                    </div>   
+                                                        <select 
+                                                            name="company_income_other_description" 
+                                                            id="company_income_other_description" 
+                                                            class="nice-select site-nice-select"
+                                                        >
+                                                            <option value="">{{ __('---Select---') }}</option>
+                                                            <option 
+                                                                value="crypto_investment" 
+                                                                @if(isset($details['asset']['company_income_other_description']) && $details['asset']['company_income_other_description'] == 'crypto_investment') selected @endif
+                                                            >{{ __('Crypto Investments') }}</option>
+                                                            <option 
+                                                                value="private_funds"
+                                                                @if(isset($details['asset']['company_income_other_description']) && $details['asset']['company_income_other_description'] == 'private_funds') selected @endif
+                                                            >{{ __('Private Funds') }}</option>
+                                                            <option 
+                                                                value="risk_capital"
+                                                                @if(isset($details['asset']['company_income_other_description']) && $details['asset']['company_income_other_description'] == 'risk_capital') selected @endif
+                                                            >{{ __('Risk Capital') }}</option>
+                                                            <option 
+                                                                value="professional_investments"
+                                                                @if(isset($details['asset']['company_income_other_description']) && $details['asset']['company_income_other_description'] == 'professional_investments') selected @endif
+                                                            >{{ __('Professional Investments') }}</option>
+                                                            <option 
+                                                                value="shares"
+                                                                @if(isset($details['asset']['company_income_other_description']) && $details['asset']['company_income_other_description'] == 'shares') selected @endif
+                                                            >{{ __('Shares') }}</option>
+                                                        </select>
+                                                    </div>
                                                     <div class="input-group percent-input">
                                                         <input
                                                             name="company_income_other_amount"
@@ -727,33 +762,67 @@
                                                     <label class="input-group-label"></label>
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">
-                                                    <label for="origin_wealth" class="form-label">
-                                                        {{ __('Origin of wealth') }}
-                                                    </label>
+                                                    <label for="origin_wealth" class="form-label">{{ __('Origin of wealth') }}</label>
                                                     <div class="input-group">
-                                                        <input
-                                                            id="origin_wealth"
-                                                            name="origin_wealth"
-                                                            type="text"
-                                                            class="form-control"                                                                
-                                                            value="{{ isset($details['income']['origin_wealth']) ? $details['income']['origin_wealth'] : '' }}"
-                                                            placeholder=""                                                                
-                                                        />
+                                                        <select 
+                                                            name="origin_wealth" 
+                                                            id="origin_wealth" 
+                                                            class="nice-select site-nice-select"
+                                                        >
+                                                            <option value="">{{ __('---Select---') }}</option>
+                                                            <option 
+                                                                value="private_funds" 
+                                                                @if(isset($details['asset']['origin_wealth']) && $details['asset']['origin_wealth'] == 'private_funds') selected @endif
+                                                            >{{ __('Private Funds') }}</option>
+                                                            <option 
+                                                                value="commissions"
+                                                                @if(isset($details['asset']['origin_wealth']) && $details['asset']['origin_wealth'] == 'commissions') selected @endif
+                                                            >{{ __('Commissions') }}</option>
+                                                            <option 
+                                                                value="dividends"
+                                                                @if(isset($details['asset']['origin_wealth']) && $details['asset']['origin_wealth'] == 'dividends') selected @endif
+                                                            >{{ __('Dividends') }}</option>
+                                                            <option 
+                                                                value="rental_payments"
+                                                                @if(isset($details['asset']['origin_wealth']) && $details['asset']['origin_wealth'] == 'rental_payments') selected @endif
+                                                            >{{ __('Rental Payments') }}</option>
+                                                            <option 
+                                                                value="asset_sales"
+                                                                @if(isset($details['asset']['origin_wealth']) && $details['asset']['origin_wealth'] == 'asset_sales') selected @endif
+                                                            >{{ __('Asset Sales') }}</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">
-                                                    <label for="source_cscm" class="form-label">
-                                                        {{ __('Source of funds transferred to CSCM') }}
-                                                    </label>
+                                                    <label for="source_cscm" class="form-label">{{ __('Source of funds transferred to CSCM') }}</label>
                                                     <div class="input-group">
-                                                        <input
-                                                            id="source_cscm"
-                                                            name="source_cscm"
-                                                            type="text"
-                                                            class="form-control"                                                                
-                                                            value="{{ isset($details['income']['source_cscm']) ? $details['income']['source_cscm'] : '' }}"
-                                                            placeholder=""                                                                
-                                                        />
+                                                        <select 
+                                                            name="source_cscm" 
+                                                            id="source_cscm" 
+                                                            class="nice-select site-nice-select"
+                                                        >
+                                                            <option value="">{{ __('---Select---') }}</option>
+                                                            <option 
+                                                                value="private_funds" 
+                                                                @if(isset($details['asset']['source_cscm']) && $details['asset']['source_cscm'] == 'private_funds') selected @endif
+                                                            >{{ __('Private Funds') }}</option>
+                                                            <option 
+                                                                value="commissions"
+                                                                @if(isset($details['asset']['source_cscm']) && $details['asset']['source_cscm'] == 'commissions') selected @endif
+                                                            >{{ __('Commissions') }}</option>
+                                                            <option 
+                                                                value="dividends"
+                                                                @if(isset($details['asset']['source_cscm']) && $details['asset']['source_cscm'] == 'dividends') selected @endif
+                                                            >{{ __('Dividends') }}</option>
+                                                            <option 
+                                                                value="rental_payments"
+                                                                @if(isset($details['asset']['source_cscm']) && $details['asset']['source_cscm'] == 'rental_payments') selected @endif
+                                                            >{{ __('Rental Payments') }}</option>
+                                                            <option 
+                                                                value="asset_sales"
+                                                                @if(isset($details['asset']['source_cscm']) && $details['asset']['source_cscm'] == 'asset_sales') selected @endif
+                                                            >{{ __('Asset Sales') }}</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -837,7 +906,12 @@
                                                                 value="female" 
                                                                 @if(isset($details['personal']['gender']) && 
                                                                     $details['personal']['gender'] == 'male') selected @endif
-                                                            >{{ __('Feale') }}</option>
+                                                            >{{ __('Female') }}</option>
+                                                            <option 
+                                                                value="diverse" 
+                                                                @if(isset($details['personal']['gender']) && 
+                                                                    $details['personal']['gender'] == 'diverse') selected @endif
+                                                            >{{ __('Diverse') }}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -1009,6 +1083,10 @@
 @section('script')
     @if ($step >= 1)
     <script type="text/javascript">
+        function setCurrencyInput(el) {
+            el.value = parseFloat(el.value).toFixed(3);
+        }
+
         $(document).ready(function() {
             if ($('.multiple-select')) {
                 $('select[multiple]').multiselect({});
@@ -1115,19 +1193,7 @@
                     },
                     purpose_relationship: {
                         required: true
-                    },
-                    bank_name: {
-                        required: true
-                    },
-                    bank_account: {
-                        required: true
-                    },
-                    bank_swift: {
-                        required: true
-                    },
-                    wallet_address: {
-                        required: true
-                    },
+                    }
                 },
                 errorPlacement: function(error, element) {
                     error.insertAfter(element);           
@@ -1236,6 +1302,22 @@
                 return true;
             }, "This field is required.");
 
+            $.validator.addMethod('ageCheck', function (value, element) {
+                if (value !== '') {
+                    var date = new Date(value);
+                    var today = new Date();
+                    var age = today.getFullYear() - date.getFullYear();
+
+                    if(age >= 18){
+                        return true;
+                    }  else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            }, "You must be 18 years old or above.");
+
             $('#kyc_form').validate({ 
                 ignore: [],
                 rules: {
@@ -1250,7 +1332,8 @@
                         required: true
                     },
                     birth_date: {
-                        required: true
+                        required: true,
+                        ageCheck: true
                     },
                     residential_address: {
                         required: true

@@ -71,13 +71,6 @@
                                         icon-name="contact"></i>{{ __('All KYC Logs') }}</a>
                             </li>
                         @endcanany
-                        @can('kyc-form-manage')
-                            <li class="{{ isActive('admin.kyc-form*') }}">
-                                <a href="{{ route('admin.kyc-form.index') }}"><i
-                                        icon-name="check-square"></i>{{ __('KYC Form') }}</a>
-                            </li>
-                        @endcan
-
                     </ul>
                 </li>
             @endcanany

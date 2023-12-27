@@ -25,6 +25,7 @@ class KycController extends Controller
     public function kyc()
     {
         $user = Auth::user();
+
         $kycInfo = $user->kycInfo;
 
         $max_step = 5;
@@ -141,9 +142,7 @@ class KycController extends Controller
                     $data['general'] = [];
                     $data['general']['relationship_name'] = $input['relationship_name'];
                     $data['general']['summary_relation'] = $input['summary_relation'];
-                    if ($input['recommended_by']) {
-                        $data['general']['recommended_by'] = $input['recommended_by'];
-                    }    
+                    $data['general']['recommended_by'] = is_null($user->referrer) ? '' : $user->referrer->full_name . ' (' . $user->referrer->email . ')';
                 } else {
                     $validator = Validator::make($input, [
                         'company_name' => 'required|string|min:3',
@@ -190,12 +189,12 @@ class KycController extends Controller
                     'transactions_expected' => 'required|numeric',
                     'transaction_amount' => 'required|numeric',
                     'purpose_relationship' => 'required|array|min:1',
-                    'bank_name' => 'required|string|min:3',
-                    'bank_country' => 'required',
-                    'bank_account' => 'required|string|min:3',
-                    'bank_swift' => 'required|string|min:3',
-                    'crypto_currency' => 'required',
-                    'wallet_address' => 'required|string',
+                    // 'bank_name' => 'required|string|min:3',
+                    // 'bank_country' => 'required',
+                    // 'bank_account' => 'required|string|min:3',
+                    // 'bank_swift' => 'required|string|min:3',
+                    // 'crypto_currency' => 'required',
+                    // 'wallet_address' => 'required|string',
                 ]);
 
                 if ($validator->fails()) {
@@ -204,21 +203,23 @@ class KycController extends Controller
                 }
 
                 /* validation for wallet address */
-                $validFlag = false;
-                if ($input['crypto_currency'] == 'btc') {
-                    $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $input['wallet_address']); //mainet
-                    // $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $input['wallet_address']);
-                } else if ($input['crypto_currency'] == 'eth') {
-                    $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['wallet_address']);
-                } else if ($input['crypto_currency'] == 'usdte') {
-                    $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['wallet_address']);
-                }  else if ($input['crypto_currency'] == 'usdtt') {
-                    $validFlag = preg_match('/^T[a-zA-Z0-9]{33}$/', $input['wallet_address']);
-                }
+                if ($input['crypto_currency'] != '' && $input['wallet_address'] != '') {
+                    $validFlag = false;
+                    if ($input['crypto_currency'] == 'btc') {
+                        $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $input['wallet_address']); // mainet
+                        // $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $input['wallet_address']); // testnet
+                    } else if ($input['crypto_currency'] == 'eth') {
+                        $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['wallet_address']);
+                    } else if ($input['crypto_currency'] == 'usdte') {
+                        $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['wallet_address']);
+                    }  else if ($input['crypto_currency'] == 'usdtt') {
+                        $validFlag = preg_match('/^T[a-zA-Z0-9]{33}$/', $input['wallet_address']);
+                    }
 
-                if ($validFlag == false) {
-                    notify()->error(__('Invalid wallet address'), 'Error');            
-                    return redirect()->back();
+                    if ($validFlag == false) {
+                        notify()->error(__('Invalid wallet address'), 'Error');            
+                        return redirect()->back();
+                    }
                 }
 
                 $data['asset'] = [];
@@ -227,12 +228,12 @@ class KycController extends Controller
                 $data['asset']['transactions_expected'] = $input['transactions_expected'];
                 $data['asset']['transaction_amount'] = $input['transaction_amount'];
                 $data['asset']['purpose_relationship'] = $input['purpose_relationship'];
-                $data['asset']['bank_name'] = $input['bank_name'];
-                $data['asset']['bank_country'] = $input['bank_country'];
-                $data['asset']['bank_account'] = $input['bank_account'];
-                $data['asset']['bank_swift'] = $input['bank_swift'];
-                $data['asset']['crypto_currency'] = $input['crypto_currency'];
-                $data['asset']['wallet_address'] = $input['wallet_address'];
+                if ($input['bank_name'] != '') $data['asset']['bank_name'] = $input['bank_name'];
+                if ($input['bank_country'] != '') $data['asset']['bank_country'] = $input['bank_country'];
+                if ($input['bank_account'] != '') $data['asset']['bank_account'] = $input['bank_account'];
+                if ($input['bank_swift'] != '') $data['asset']['bank_swift'] = $input['bank_swift'];
+                if ($input['crypto_currency'] != '') $data['asset']['crypto_currency'] = $input['crypto_currency'];
+                if ($input['wallet_address'] != '') $data['asset']['wallet_address'] = $input['wallet_address'];
             } else if ($step == 3) {
                 $validator = Validator::make($input, [
                     'company_income_1' => 'nullable',

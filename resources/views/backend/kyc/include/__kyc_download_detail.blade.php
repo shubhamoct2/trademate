@@ -33,7 +33,7 @@
                             @if (isset($kycInfo->data['general']))
                                 <li class="list-group-item">
                                     {{ __('Name of the relationship') }}:
-                                    <strong>{{ $kycInfo->data['general']['relationship_name'] }}</strong>
+                                    <strong>{{ getDescriptionString($kycInfo->data['general']['relationship_name']) }}</strong>
                                 </li>
                                 <li class="list-group-item">
                                     {{ __('Date of the KYC') }}:
@@ -45,7 +45,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     {{ __('Summary of the background of the relationship') }}:
-                                    <strong>{{ $kycInfo->data['general']['summary_relation'] }}</strong>
+                                    <strong>{{ getDescriptionString($kycInfo->data['general']['summary_relation']) }}</strong>
                                 </li>
                             @endif                        
                         </ul>
@@ -112,17 +112,17 @@
                                 <li class="list-group-item">
                                     {{ __('Range of amount of assets to be transferred during one year and currency') }}:
                                     @if ($kycInfo->data['asset']['company_asset_range'] == 1)
-                                    <strong>< CHF 500.000</strong>
+                                    <strong>< USD 500.000</strong>
                                     @elseif ($kycInfo->data['asset']['company_asset_range'] == 2)
-                                    <strong>CHF 500.000 - 1.000.000</strong>
+                                    <strong>USD 500.000 - 1.000.000</strong>
                                     @elseif ($kycInfo->data['asset']['company_asset_range'] == 3)
-                                    <strong>CHF 1.000.000 - 2.500.000</strong>
+                                    <strong>USD 1.000.000 - 2.500.000</strong>
                                     @elseif ($kycInfo->data['asset']['company_asset_range'] == 4)
-                                    <strong>CHF 2.500.000 - 7.500.000</strong>
+                                    <strong>USD 2.500.000 - 7.500.000</strong>
                                     @elseif ($kycInfo->data['asset']['company_asset_range'] == 5)
-                                    <strong>CHF 7.500.000 - 10.000.000</strong>
+                                    <strong>USD 7.500.000 - 10.000.000</strong>
                                     @elseif ($kycInfo->data['asset']['company_asset_range'] == 6)
-                                    <strong>> CHF 10.000.000</strong>
+                                    <strong>> USD 10.000.000</strong>
                                     @endif
                                 </li>
                                 <li class="list-group-item">
@@ -173,22 +173,31 @@
                                 <li class="list-group-item">
                                     <strong>{{ __('Accounts from which the assets will be transferred to or by the company (if applicable)') }}</strong>
                                 </li>
+                                @if (isset($kycInfo->data['asset']['bank_name']))
                                 <li class="list-group-item pl-4">
                                     {{ __('Name of Bank:') }}
                                     <strong>{{ $kycInfo->data['asset']['bank_name'] }}</strong>
                                 </li>
+                                @endif
+                                @if (isset($kycInfo->data['asset']['bank_country']))
                                 <li class="list-group-item pl-4">
                                     {{ __('Country:') }}
                                     <strong>{{ getCountryNameFromCode($kycInfo->data['asset']['bank_country']) }}</strong>
                                 </li>
+                                @endif
+                                @if (isset($kycInfo->data['asset']['bank_account']))
                                 <li class="list-group-item pl-4">
                                     {{ __('Account number:') }}
                                     <strong>{{ $kycInfo->data['asset']['bank_account'] }}</strong>
                                 </li>
+                                @endif
+                                @if (isset($kycInfo->data['asset']['bank_swift']))
                                 <li class="list-group-item pl-4">
                                     SWIFT:
                                     <strong>{{ $kycInfo->data['asset']['bank_swift'] }}</strong>
                                 </li>
+                                @endif
+                                @if (isset($kycInfo->data['asset']['crypto_currency']))
                                 <li class="list-group-item pl-4">
                                     {{ __('Crypto Currencies used') }}:
                                     @if ($kycInfo->data['asset']['crypto_currency'] == 'btc')
@@ -201,10 +210,13 @@
                                     <strong>USDT (TRC-20)</strong>
                                     @endif
                                 </li>
+                                @endif
+                                @if (isset($kycInfo->data['asset']['wallet_address']))
                                 <li class="list-group-item pl-4">
                                     {{ __('Wallet(s) from which assets will be transferred to or by the company (if applicable) and cryptocurrencies') }}:
                                     <strong>{{ $kycInfo->data['asset']['wallet_address'] }}</strong>
                                 </li>
+                                @endif
                             @endif                        
                         </ul>
                     </div>
@@ -259,11 +271,11 @@
                                 @endif
                                 <li class="list-group-item">
                                     {{ __('Origin of wealth') }}:
-                                    <strong>{{ $kycInfo->data['income']['origin_wealth'] }}</strong>
+                                    <strong>{{ getDescriptionString($kycInfo->data['income']['origin_wealth']) }}</strong>
                                 </li>
                                 <li class="list-group-item">
                                     {{ __('Source of funds transferred to CSCM') }}:
-                                    <strong>{{ $kycInfo->data['income']['source_cscm'] }}</strong>
+                                    <strong>{{ getDescriptionString($kycInfo->data['income']['source_cscm']) }}</strong>
                                 </li>
                             @endif                        
                         </ul>
@@ -284,7 +296,8 @@
                                 </li>
                                 <li class="list-group-item">
                                     {{ __('Gender') }}:
-                                    <strong>{{ $kycInfo->data['personal']['gender'] == 'male' ? __('Male') : __('Female') }}</strong>
+                                    <strong>{{ $kycInfo->data['personal']['gender'] == 'male' ? __('Male') : (
+                                        $kycInfo->data['personal']['gender'] == 'female' ? __('Female') : __('Diverse')) }}</strong>
                                 </li>  
                                 <li class="list-group-item">
                                     {{ __('Date of Birth') }}:

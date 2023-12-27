@@ -377,3 +377,11 @@ if (! function_exists('getQRCode')) {
     };
 }
 
+if (! function_exists('getDescriptionString')) {
+    function getDescriptionString($data) {
+        $list = explode('_', $data);
+        $list = array_map('ucfirst', $list);
+        return implode(' ', $list);
+    };
+}
+

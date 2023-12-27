@@ -11798,6 +11798,22 @@ form label.error {
     padding-right: 30px;
 }
 
+.progress-steps-form .currency-input {
+    position: relative;
+}
+
+.progress-steps-form .currency-input:after {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    content: "USD";
+    color: #fff;
+}
+
+.progress-steps-form .currency-input input {
+    padding-right: 30px;
+}
+
 #kyc_credential_file-error {
     position: relative !important;
     top: unset !important;    
