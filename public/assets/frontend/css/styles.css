@@ -11566,7 +11566,6 @@ form label.error {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 24px;
     margin: 30px 0;
 }
 .reg-step-item {
@@ -11574,6 +11573,7 @@ form label.error {
     font-size: 16px;
     color: #99BBD5;
     align-items: center;
+    margin: 1rem;
 }
 .reg-step-item.active {
     color: #fff;
