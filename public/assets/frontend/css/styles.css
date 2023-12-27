@@ -2199,11 +2199,14 @@ img {
 
 .site-alert .content {
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .site-alert .content .icon {
-    height: 50px;
-    width: 50px;
+    height: 50px !important;
+    width: 50px !important;
     line-height: 50px;
     border-radius: 50%;
     text-align: center;
