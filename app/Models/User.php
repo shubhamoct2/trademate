@@ -60,7 +60,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     ];
 
     protected $appends = [
-        'full_name', 'total_profit','total_deposit','total_invest', 'wallet'
+        'full_name', 'total_profit','total_deposit','total_invest',
     ];
 
     protected $dates = ['kyc_time'];
