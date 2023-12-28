@@ -319,7 +319,7 @@ class WithdrawController extends Controller
             $apiResponse = $alphaPo->createWithdrawRequest([
                 'currency' => $currencySetting['currency'],
                 'foreign_id' => Auth::user()->id,
-                'address' => $address->address,
+                'address' => $wallet->address,
                 'amount' => $totalAmount,
             ]);
 
