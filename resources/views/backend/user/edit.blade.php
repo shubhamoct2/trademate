@@ -277,6 +277,22 @@
                                 </li>
                             @endcan
 
+                            @can('customer-kyc-manage')
+                                <li class="nav-item" role="presentation">
+                                    <a
+                                        href=""
+                                        class="nav-link"
+                                        id="pills-kyc-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-kyc"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-kyc"
+                                        aria-selected="true"
+                                    ><i class="far fa-id-card"></i>{{ __('KYC Information') }}</a>
+                                </li>
+                            @endcan
+
                         </ul>
                     </div>
 
@@ -321,6 +337,10 @@
                         <!-- Commission Wallet -->
                         @can('customer-commission-manage')
                             @include('backend.user.include.__commission_send')
+                        @endcan
+
+                        @can('customer-kyc-manage')
+                            @include('backend.user.include.__kyc_download')
                         @endcan
                     </div>
 

@@ -3497,6 +3497,10 @@ img {
   color: #ffffff;
 }
 
+.site-tab-bars .nav.nav-pills .nav-item .nav-link i {
+  margin-right: 6px;
+}
+
 /* File Uploads */
 .file-upload {
   background-color: #ffffff;
@@ -5069,4 +5073,8 @@ img {
 
 .download-container img.passport {
   max-width: 50%;
+}
+
+a.primary-btn i {
+  margin-right: 6px;
 }
