@@ -12,6 +12,17 @@
     ><button class="round-icon-btn red-btn" data-bs-toggle="tooltip" title="Send Email"
              data-bs-original-title="Send Email"><i icon-name="mail"></i></button></span>
 @endcan
+@can('customer-account-delete')
+    <span type="button"
+          data-id="{{$id}}"
+          data-name="{{ $first_name.' '. $last_name }}"
+          class="delete-user"
+    >
+        <button class="round-icon-btn red-btn" data-bs-toggle="tooltip" title="Delete User" data-bs-original-title="Delete User">
+            <i class="fas fa-user-times"></i>
+        </button>            
+    </span>
+@endcan
 
 <script>
     lucide.createIcons();

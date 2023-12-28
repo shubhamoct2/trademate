@@ -528,4 +528,33 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function deleteUser($id, Request $request)  {
+        $user = User::find($id);
+
+        if ($user) {
+            \App\Models\Invest::where('user_id', $id)->delete();
+            \App\Models\KycInfo::where('id', $user->kyc_info_id)->delete();
+            \App\Models\Message::where('user_id', $id)->delete();
+            \App\Models\Notification::where('user_id', $id)->delete();
+            \App\Models\ReferralLink::where('user_id', $id)->delete();
+            \App\Models\ReferralRelationship::where('user_id', $id)->delete();
+            \App\Models\Ticket::where('user_id', $id)->delete();
+            \App\Models\Transaction::where('user_id', $id)->delete();
+            \App\Models\Transaction::where('user_id', $id)->delete();
+
+            $parent = $user->referrer;
+            foreach ($user->referrals as $child) {
+                $child->update([
+                    'ref_id' => is_null($parent) ? null : $parent->id,
+                ]);
+            }
+
+            \App\Models\User::where('id', $id)->delete();
+
+            $message = $user->full_name . ' Account Deleted Successfully';
+            notify()->success($message, 'success');
+        }
+
+        return redirect()->route('admin.user.index');
+    }
 }

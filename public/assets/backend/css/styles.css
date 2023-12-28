@@ -5078,3 +5078,7 @@ img {
 a.primary-btn i {
   margin-right: 6px;
 }
+
+.no-margin i {
+  margin: 0 !important;
+}

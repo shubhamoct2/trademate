@@ -31,6 +31,12 @@
                         @include('backend.user.include.__mail_send')
                     @endcan
                     <!-- Modal for Send Email-->
+
+                    <!-- Modal for Delete User -->
+                    @can('customer-account-delete')
+                        @include('backend.user.include.__account_delete')
+                    @endcan
+                    <!-- Modal for Delete User -->
                 </div>
             </div>
         </div>
@@ -51,8 +57,18 @@
                 var url = '{{ route("admin.user.mail-send", ":id") }}';
                 url = url.replace(':id', id);
                 $('#send-mail-form').attr('action', url);
-                $('#sendEmail').modal('toggle')
+                $('#sendEmail').modal('toggle');
+            })
 
+            // Delete user
+            $('body').on('click', '.delete-user', function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                $('#name').html(name);
+                var url = '{{ route("admin.user.delete", ":id") }}';
+                url = url.replace(':id', id);
+                $('#account_delete_form').attr('action', url);
+                $('#account_delete').modal('toggle');
             })
 
         })(jQuery);
