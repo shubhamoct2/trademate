@@ -64,9 +64,9 @@ return [
         ]
     ],
     'prod' => [
-        'url' => env('SANDBOX_ALPHAPO_API_URL', null),
-        'key' => env('SANDBOX_ALPHAPO_API_KEY', null),
-        'secret' => env('SANDBOX_ALPHAPO_SECRET_KEY', null),
+        'url' => env('ALPHAPO_API_URL', null),
+        'key' => env('ALPHAPO_API_KEY', null),
+        'secret' => env('ALPHAPO_SECRET_KEY', null),
         'currencies' => [
             [
                 'id' => 1,
