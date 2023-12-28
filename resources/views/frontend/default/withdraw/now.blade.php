@@ -41,7 +41,7 @@
                     @else
                     <div class="site-card-header">
                         <h3 class="title">{{ __('Withdraw Money') }}</h3>
-                        @if (!is_null($wallet))
+                        @if (is_null($wallet))
                         <div class="card-header-links">
                             <a href="{{ route('user.setting.show') }}"
                             class="card-header-link">{{ __('ADD WITHDRAWAL ACCOUNT') }}</a>
