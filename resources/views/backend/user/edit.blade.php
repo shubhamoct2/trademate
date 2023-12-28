@@ -293,6 +293,22 @@
                                 </li>
                             @endcan
 
+                            @can('customer-wallet-manage')
+                                <li class="nav-item" role="presentation">
+                                    <a
+                                        href=""
+                                        class="nav-link"
+                                        id="pills-wallet-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-wallet"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-wallet"
+                                        aria-selected="true"
+                                    ><i class="fas fa-wallet"></i>{{ __('Wallet') }}</a>
+                                </li>
+                            @endcan
+
                         </ul>
                     </div>
 
@@ -341,6 +357,10 @@
 
                         @can('customer-kyc-manage')
                             @include('backend.user.include.__kyc_download')
+                        @endcan
+
+                        @can('customer-wallet-manage')
+                            @include('backend.user.include.__wallet_list')
                         @endcan
                     </div>
 

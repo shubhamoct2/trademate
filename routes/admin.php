@@ -62,10 +62,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => UserControlle
     Route::get('mail-send/all', 'mailSendAll')->name('mail-send.all');
     Route::post('mail-send', 'mailSend')->name('mail-send');
     Route::get('transaction/{id}', 'transaction')->name('transaction');
+    Route::get('wallet_list/{id}', 'walletList')->name('wallet_list');
     Route::post('referral-tree/{id}', 'getReferralTreeJson')->name('referral-tree');
     Route::post('save-referral-tree/{id}', 'saveReferralTree')->name('save-referral-tree');
     Route::post('send-commission/{id}', 'sendCommission')->name('send-commission');
     Route::post('delete/{id}', 'deleteUser')->name('delete');
+    Route::get('wallet-enable/{id}', 'enableWallet')->name('wallet-enable');
+    
 });
 
 Route::resource('kyc-form', KycController::class);

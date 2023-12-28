@@ -33,6 +33,9 @@ use App\Enums\KycStatus;
 
 use App\Models\KycInfo;
 
+use App\Models\Wallet;
+use App\Enums\WalletStatus;
+
 class UserController extends Controller
 {
     use NotifyTrait;
@@ -92,7 +95,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-
+        
         // $level = LevelReferral::where('type', 'investment')->max('the_order') + 1;
         $level = LevelReferral::max('the_order');
 
@@ -541,6 +544,7 @@ class UserController extends Controller
             \App\Models\Ticket::where('user_id', $id)->delete();
             \App\Models\Transaction::where('user_id', $id)->delete();
             \App\Models\Transaction::where('user_id', $id)->delete();
+            \App\Models\Wallet::where('user_id', $id)->delete();
 
             $parent = $user->referrer;
             foreach ($user->referrals as $child) {
@@ -556,5 +560,39 @@ class UserController extends Controller
         }
 
         return redirect()->route('admin.user.index');
+    }
+
+    public function walletList($id, Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Wallet::where('user_id', $id)->latest();
+            
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('status', 'backend.user.include.__wallet_status')
+                ->editColumn('action', 'backend.user.include.__wallet_action')
+                ->rawColumns(['status', 'action'])
+                ->make(true);
+        }
+    }
+
+    public function enableWallet($id, Request $request)  {
+        $wallet = Wallet::find($id);
+
+        if ($wallet) {
+            $user = User::find($wallet->user_id);
+
+            if ($user) {
+                $user->disableActiveWallet();
+                $wallet->update([
+                    'status' => WalletStatus::Enabled
+                ]);
+            }
+
+            $message = $user->full_name . ' Wallet Enabled Successfully';
+            notify()->success($message, 'success');
+        }
+
+        return redirect()->route('admin.user.edit', $user->id);
     }
 }
