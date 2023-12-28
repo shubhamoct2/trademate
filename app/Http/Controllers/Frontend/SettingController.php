@@ -46,8 +46,11 @@ class SettingController extends Controller
         /* validation for wallet address */
         $validFlag = false;
         if ($withdrawal_address['currency'] == 'btc') {
-            // $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $withdrawal_address['address']); //mainet
-            $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $withdrawal_address['address']);
+            // mainnet
+            $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $withdrawal_address['address']);
+            
+            // testnet
+            // $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $withdrawal_address['address']);
         } else if ($withdrawal_address['currency'] == 'eth') {
             $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $withdrawal_address['address']);
         } else if ($withdrawal_address['currency'] == 'usdt') {
