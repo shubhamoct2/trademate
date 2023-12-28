@@ -1,4 +1,7 @@
 @switch($status)
+    @case(0)
+        <div class="site-badge danger">{{ __('Draft') }}</div>
+        @break
     @case(1)
         <div class="site-badge success">{{ __('Verified') }}</div>
         @break
