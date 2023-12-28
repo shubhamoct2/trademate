@@ -18,7 +18,7 @@
                             @case(\App\Enums\KycStatus::Pending)
                                 <div class="site-badge pending">{{ __('Pending') }}</div>
                                 @break
-                            @case(\App\Enums\KycStatus::Rejected)
+                            @case(\App\Enums\KycStatus::Failed)
                                 <div class="site-badge danger">{{ __('Rejected') }}</div>
                                 @break
                         @endswitch
