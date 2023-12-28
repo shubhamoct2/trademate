@@ -11818,3 +11818,53 @@ form label.error {
     position: relative !important;
     top: unset !important;    
 }
+
+.warning-rounded {
+    display: inline-block;
+    padding: 13px 27px;
+    border-radius: 50px;
+    background: #003049;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 2px #00304966;
+}
+
+.wallet-update .form-check-label {
+    display: inline;
+}
+
+.wallet-update label.error {
+    position: relative;
+    margin-top: -16px;
+    top: unset;
+    left: unset;
+    padding: 0 0 0 20px;
+}
+
+/* Site Badge */
+.site-badge {
+    padding: 3px 14px;
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.site-badge.success {
+    background: #2a9d8f;
+}
+
+.site-badge.danger {
+    background: #ef476f;
+}
+
+.site-badge.pending {
+    background: #ffc300;
+    color: rgba(21, 29, 48, 0.7);
+}
+
+.site-badge.primary {
+    background: #5e3fc9;
+}

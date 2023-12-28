@@ -257,15 +257,15 @@ class WithdrawController extends Controller
 
         $input = $request->all();
         $amount = (float) $input['amount'];
-        $address = json_decode($user->withdrawal_address);
+        $wallet = $user->wallet();
 
-        if (is_null($address)) {
+        if (is_null($wallet)) {
             $message = 'You have to specify withdrawal address.';
             notify()->error($message, 'Error');
             return redirect()->back();
         }
 
-        $withdrawMethod = withdrawMethod::where('gateway_code', $input['gateway'])->first();
+        $withdrawMethod = WithdrawMethod::where('gateway_code', $input['gateway'])->first();
 
         if ($request['gateway'] == 'alphapo') {
             if (config('app.env') === 'production') {
@@ -274,16 +274,9 @@ class WithdrawController extends Controller
                 $alphapoSetting = config('alphapo.sandbox');
             }
 
-            $withdraw_currency = strtoupper($address->currency);
-            if ($address->blockchain == 'erc20' && $address->currency == 'usdt') {
-                $withdraw_currency = 'USDTE';
-            } elseif ($address->blockchain == 'trc20' && $address->currency == 'usdt') {
-                $withdraw_currency = 'USDTT';
-            }
-
             $currencySetting = null;
             foreach($alphapoSetting['currencies'] as $currency) {
-                if ($currency['currency'] == $withdraw_currency) {
+                if ($currency['currency'] == $wallet->currency) {
                     $currencySetting = $currency;
                     break;
                 }
@@ -408,28 +401,13 @@ class WithdrawController extends Controller
             return ! $value->method->status;
         });
 
-        $gateways = withdrawMethod::where('status', 1)->get();
+        $gateways = WithdrawMethod::where('status', 1)->get();
         $address = [];
 
         $user = Auth::user();
-        if ($user->withdrawal_address) {
-            $withdrawal_address = json_decode($user->withdrawal_address);
-
-            if (config('app.env') === 'production') {
-                $alphapoSetting = config('alphapo.prod');
-            } else {
-                $alphapoSetting = config('alphapo.sandbox');
-            }
-            
-            if (isset($withdrawal_address->currency) && isset($withdrawal_address->address)) {
-                $address['currency'] = $alphapoSetting['withdrawal']['currencies'][$withdrawal_address->currency];
-                if (isset($withdrawal_address->blockchain))
-                    $address['blockchain'] = $alphapoSetting['withdrawal']['blockchain'][$withdrawal_address->blockchain];
-                $address['address'] = $withdrawal_address->address;
-            } 
-        }
+        $wallet = $user->wallet();
         
-        return view('frontend::withdraw.now', compact('locked', 'accounts', 'gateways', 'address'));
+        return view('frontend::withdraw.now', compact('locked', 'accounts', 'gateways', 'wallet'));
     }
 
     public function withdrawLog()

@@ -14,6 +14,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Wallet;
+use App\Enums\WalletStatus;
+
 class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasTickets;
@@ -57,7 +60,7 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     ];
 
     protected $appends = [
-        'full_name', 'total_profit','total_deposit','total_invest',
+        'full_name', 'total_profit','total_deposit','total_invest', 'wallet'
     ];
 
     protected $dates = ['kyc_time'];
@@ -264,4 +267,30 @@ class User extends Authenticatable implements CanUseTickets, MustVerifyEmail
     public function kycInfo() {
         return $this->belongsTo(KycInfo::class, 'kyc_info_id');
     }
+
+    public function walletList() {
+        return $this->hasMany(Wallet::class);
+    }
+
+    public function wallet()
+    {
+        foreach ($this->walletList as $wallet) {
+            if ($wallet->status == WalletStatus::Enabled) {
+                return $wallet;
+            }
+        }
+        return null;
+    }
+
+    public function disableActiveWallet()
+    {
+        foreach ($this->walletList as $wallet) {
+            if ($wallet->status == WalletStatus::Enabled) {
+                $wallet->update([
+                    'status' => WalletStatus::Disabled
+                ]);
+            }
+        }
+    }
+
 }

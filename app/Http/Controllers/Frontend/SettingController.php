@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Wallet;
+use App\Enums\WalletStatus;
+
 use App\Http\Controllers\Controller;
 use App\Traits\ImageUpload;
 use Hash;
@@ -21,6 +24,7 @@ class SettingController extends Controller
 
     public function withdrawalUpdate(Request $request) {
         $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
             'currency' => 'required|string',
             'blockchain' => 'string',
             'address' => 'required|string'
@@ -33,46 +37,61 @@ class SettingController extends Controller
         }
 
         $input = $request->all();
-
-        $withdrawal_address = [
-            'currency' => $input['currency'],
-            'address' => $input['address']
-        ];
-
-        if ($input['currency'] == 'usdt') {
-            $withdrawal_address['blockchain'] = $input['blockchain'];
-        }
+        $input['name'] = trim($input['name']);
+        $input['address'] = trim($input['address']);
+        $input['currency'] = trim($input['currency']);
+        if (isset($input['blockchain'])) $input['blockchain'] = trim($input['blockchain']);
 
         /* validation for wallet address */
         $validFlag = false;
-        if ($withdrawal_address['currency'] == 'btc') {
+        if ($input['currency'] == 'BTC') {
             // mainnet
-            $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $withdrawal_address['address']);
+            $validFlag = preg_match('/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/', $input['address']);
             
             // testnet
             // $validFlag = preg_match('/\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b/', $withdrawal_address['address']);
-        } else if ($withdrawal_address['currency'] == 'eth') {
-            $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $withdrawal_address['address']);
-        } else if ($withdrawal_address['currency'] == 'usdt') {
-            if ($withdrawal_address['blockchain'] == 'erc20') {
-                $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $withdrawal_address['address']);
-            } else if ($withdrawal_address['blockchain'] == 'trc20') {
-                $validFlag = preg_match('/^T[a-zA-Z0-9]{33}$/', $withdrawal_address['address']);
+        } else if ($input['currency'] == 'ETH') {
+            $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['address']);
+        } else if ($input['currency'] == 'USDT') {
+            if ($input['blockchain'] == 'erc20') {
+                $validFlag = preg_match('/^0x[a-fA-F0-9]{40}$/', $input['address']);
+            } else if ($input['blockchain'] == 'trc20') {
+                $validFlag = preg_match('/^T[a-zA-Z0-9]{33}$/', $input['address']);
             }
         }   
 
         if ($validFlag == false) {
             notify()->error(__('Invalid wallet address'), 'Error');
-
             return redirect()->back();
         }
 
+        if ($input['currency'] == 'USDT') {
+            if ($input['blockchain'] == 'erc20') {
+                $currency = 'USDTE';
+            } else {
+                $currency = 'USDTT';
+            }
+        } else {
+            $currency = $input['currency'];
+        }
+
         $user = Auth::user();
-        $user->withdrawal_address = json_encode($withdrawal_address);
-        $user->update();
+        $used_count = Wallet::where('address', $input['address'])->where('currency', $currency)->count();
+        if ($used_count > 0) {
+            notify()->error(__('The wallet address is already used'), 'Error');
+            return redirect()->back();
+        }
 
-        notify()->success('Your Withdrawal Address Is Updated successfully');
+        $user->disableActiveWallet();
+        $wallet = Wallet::create([
+            'user_id' => $user->id,
+            'name' => $input['name'],
+            'currency' => $currency,
+            'address' => $input['address'],
+            'status' => WalletStatus::Enabled,
+        ]);
 
+        notify()->success(__('Your Withdrawal Address Is Updated successfully'));
         return redirect()->route('user.setting.show');
     }
 

@@ -41,7 +41,7 @@
                     @else
                     <div class="site-card-header">
                         <h3 class="title">{{ __('Withdraw Money') }}</h3>
-                        @if (!isset($address['currency']) || !isset($address['address']))
+                        @if (!is_null($wallet))
                         <div class="card-header-links">
                             <a href="{{ route('user.setting.show') }}"
                             class="card-header-link">{{ __('ADD WITHDRAWAL ACCOUNT') }}</a>
@@ -49,7 +49,7 @@
                         @endif
                     </div>
                     <div class="site-card-body">
-                        @if (isset($address['currency']) && isset($address['address']))
+                        @if ($wallet)
                         <div class="progress-steps-form">
                             <form id="withdraw_form" action="{{ route('user.withdraw.now') }}" method="post">
                                 @csrf
@@ -98,19 +98,15 @@
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Currency') }}</strong></td>
                                                 <td>
-                                                    @if($address) 
-                                                        <span class="">{{ $address['currency'] }}</span>
-                                                    @endif
-                                                    @if(isset($address['blockchain']))
-                                                        <span class="">({{ $address['blockchain'] }})</span>
-                                                    @endif
+                                                    <span class="">{{ $wallet->currency }}</span>
                                                 </td>
                                             </tr>
                                             
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Address') }}</strong></td>
-                                                <td><span class="">@if($address) {{ $address['address'] }} @endif</span></td>
+                                                <td><span class="">{{ $wallet->address }}</span></td>
                                             </tr>
+
                                             <tr class="detailsCol">
                                                 <td><strong>{{ __('Amount') }}</strong></td>
                                                 <td><span class="amount"></span></td>

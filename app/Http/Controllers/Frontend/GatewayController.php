@@ -44,15 +44,8 @@ class GatewayController extends Controller
     public function withdrawalGateway($code)
     {
         $gateway = WithdrawMethod::where('gateway_code', $code)->first();
-
-        $address = json_decode(Auth::user()->withdrawal_address);
-
-        $withdraw_currency = strtoupper($address->currency);
-        if ($address->blockchain == 'erc20' && $address->currency == 'usdt') {
-            $withdraw_currency = 'USDTE';
-        } elseif ($address->blockchain == 'trc20' && $address->currency == 'usdt') {
-            $withdraw_currency = 'USDTT';
-        }
+        $user = Auth::user();
+        $wallet = $user->wallet();
 
         if ($gateway->gateway_code == 'alphapo') {
             if (config('app.env') === 'production') {
@@ -63,7 +56,7 @@ class GatewayController extends Controller
 
             $currencySetting = null;
             foreach($alphapoSetting['currencies'] as $currency) {
-                if ($currency['currency'] == $withdraw_currency) {
+                if ($currency['currency'] == $wallet->currency) {
                     $currencySetting = $currency;
                     break;
                 }
