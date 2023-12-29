@@ -1143,5 +1143,6 @@
     "Download": "تحميل",
     "Please check double if you put in the right Wallet Address with the right Blockchain to send your funds to. Please be aware that we cannot take any responsibility for Tokens send to the wrong blockchain or wallet.These Coins or Tokens could be lost forever, and we do not reimburse or cover these loses.": "يرجى التحقق جيدًا إذا قمت بإدخال عنوان المحفظة الصحيح باستخدام Blockchain المناسب لإرسال أموالك إليه. يرجى العلم أننا لا نستطيع تحمل أي مسؤولية عن الرموز التي يتم إرسالها إلى blockchain أو المحفظة الخطأ. يمكن أن تفقد هذه العملات أو الرموز إلى الأبد، ونحن لا نعوض أو نغطي هذه الخسائر.",
     "The wallet address is already used": "عنوان المحفظة مستخدم بالفعل",
-    "Your Withdrawal Address Is Updated successfully": "تم تحديث عنوان السحب الخاص بك بنجاح"
+    "Your Withdrawal Address Is Updated successfully": "تم تحديث عنوان السحب الخاص بك بنجاح",
+    "All Wallets": "جميع المحافظ"
 }

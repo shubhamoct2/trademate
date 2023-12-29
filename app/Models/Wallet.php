@@ -22,4 +22,9 @@ class Wallet extends Model
     protected $casts = [
         'status' => WalletStatus::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

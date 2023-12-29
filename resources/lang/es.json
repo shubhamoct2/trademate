@@ -1143,5 +1143,6 @@
     "Download": "Descargar",
     "Please check double if you put in the right Wallet Address with the right Blockchain to send your funds to. Please be aware that we cannot take any responsibility for Tokens send to the wrong blockchain or wallet.These Coins or Tokens could be lost forever, and we do not reimburse or cover these loses.": "Verifique dos veces si ingresó la dirección de billetera correcta con la cadena de bloques correcta para enviar sus fondos. Tenga en cuenta que no podemos asumir ninguna responsabilidad por los tokens enviados a la cadena de bloques o billetera incorrecta. Estas monedas o tokens podrían perderse para siempre y no reembolsamos ni cubrimos estas pérdidas.",
     "The wallet address is already used": "La dirección de la billetera ya está utilizada",
-    "Your Withdrawal Address Is Updated successfully": "Su dirección de retiro se actualizó exitosamente"
+    "Your Withdrawal Address Is Updated successfully": "Su dirección de retiro se actualizó exitosamente",
+    "All Wallets": "Todas las carteras"
 }

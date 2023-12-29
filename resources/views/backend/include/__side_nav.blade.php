@@ -291,6 +291,14 @@
                     </li>
                 @endcanany
 
+                @canany(['customer-wallet-manage']) 
+                    <li class="side-nav-item {{ isActive('admin.wallet.index') }}">
+                        <a href="{{ route('admin.wallet.index') }}">
+                            <i icon-name="compass"></i><span>{{ __('Wallet') }}</span>
+                        </a>
+                    </li>
+                @endcanany
+
             @endcanany
 
 

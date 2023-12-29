@@ -33,6 +33,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\WithdrawController;
 use App\Http\Controllers\Backend\ExchangeController;
 use App\Http\Controllers\Backend\CommissionController;
+use App\Http\Controllers\Backend\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +69,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => UserControlle
     Route::post('send-commission/{id}', 'sendCommission')->name('send-commission');
     Route::post('delete/{id}', 'deleteUser')->name('delete');
     Route::get('wallet-enable/{id}', 'enableWallet')->name('wallet-enable');
+    
+});
+
+Route::group(['prefix' => 'wallet', 'as' => 'wallet.', 'controller' => WalletController::class], function () {
+    Route::get('index', 'index')->name('index');
     
 });
 
