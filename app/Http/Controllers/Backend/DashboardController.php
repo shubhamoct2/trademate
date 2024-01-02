@@ -129,6 +129,11 @@ class DashboardController extends Controller
 
         // total trading wallet balance
         $total_trading = User::where('status', 1)->sum('trading_balance');
+
+        // pending transactions waiting approvement
+        $total_pending_transaction = Transaction::where('status', TxnStatus::Pending)->where(function ($query) {
+            $query->where('type', TxnType::SendMoney);
+        })->count();
         
         $data = [
             'withdraw_count' => $withdrawCount,
@@ -165,6 +170,9 @@ class DashboardController extends Controller
             'total_ticket' => count($open_tickets),
             'pending_client' => $pending_client,
             'pending_support' => $pending_support,
+
+            'total_pending_transaction' => $total_pending_transaction,
+            'total_pending_kyc' => $kycCount,
 
             'browser' => $browser,
             'platform' => $platform,

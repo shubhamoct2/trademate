@@ -145,6 +145,32 @@
             </div>
             <a class="link" href="{{ route('admin.ticket.index') }}"><i icon-name="external-link"></i></a>
         </div>
+    </div>    
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+        <div class="data-card">
+            <div class="icon">
+                <i class="far fa-credit-card"></i>
+            </div>
+            <div class="content">
+                <h4 class="count">{{ $data['total_pending_kyc'] }}</h4>
+                <p>{{ __('Pending KYC') }}</p>
+            </div>
+            <a class="link" href="{{ route('admin.kyc.pending') }}"><i icon-name="external-link"></i></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+        <div class="data-card">
+            <div class="icon">
+                <i class="fas fa-money-check-alt"></i>
+            </div>
+            <div class="content">
+                <h4 class="count">{{ $data['total_pending_transaction'] }}</h4>
+                <p>{{ __('Pending Transaction') }}</p>
+            </div>
+            <a class="link" href="{{ route('admin.exchange.list') }}"><i icon-name="external-link"></i></a>
+        </div>
     </div>
 
 </div>

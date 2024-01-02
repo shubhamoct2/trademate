@@ -1144,5 +1144,6 @@
     "Please check double if you put in the right Wallet Address with the right Blockchain to send your funds to. Please be aware that we cannot take any responsibility for Tokens send to the wrong blockchain or wallet.These Coins or Tokens could be lost forever, and we do not reimburse or cover these loses.": "Bitte überprüfen Sie noch einmal, ob Sie die richtige Wallet-Adresse mit der richtigen Blockchain eingegeben haben, an die Ihr Geld gesendet werden soll. Bitte beachten Sie, dass wir keine Verantwortung für Token übernehmen können, die an die falsche Blockchain oder Wallet gesendet werden. Diese Coins oder Token könnten für immer verloren sein und wir erstatten oder decken diese Verluste nicht.",
     "The wallet address is already used": "Die Wallet-Adresse wird bereits verwendet",
     "Your Withdrawal Address Is Updated successfully": "Ihre Auszahlungsadresse wurde erfolgreich aktualisiert",
-    "All Wallets": "Alle Geldbörsen"
+    "All Wallets": "Alle Geldbörsen",
+    "Pending Transaction": "Ausstehende Transaktion"
 }
