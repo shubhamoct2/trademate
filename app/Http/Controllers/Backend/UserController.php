@@ -543,7 +543,6 @@ class UserController extends Controller
             \App\Models\ReferralRelationship::where('user_id', $id)->delete();
             \App\Models\Ticket::where('user_id', $id)->delete();
             \App\Models\Transaction::where('user_id', $id)->delete();
-            \App\Models\Transaction::where('user_id', $id)->delete();
             \App\Models\Wallet::where('user_id', $id)->delete();
 
             $parent = $user->referrer;

@@ -1146,5 +1146,7 @@
     "Your Withdrawal Address Is Updated successfully": "Votre adresse de retrait est mise à jour avec succès",
     "All Wallets": "Tous les portefeuilles",
     "Pending Transaction": "Transaction en attente",
-    "The transaction between these wallets is not allowed.": "La transaction entre ces portefeuilles n'est pas autorisée."
+    "The transaction between these wallets is not allowed.": "La transaction entre ces portefeuilles n'est pas autorisée.",
+    "Do you want to delete all transactions?": "Voulez-vous supprimer toutes les transactions ?",
+    "Delete All History": "Supprimer tout l'historique"
 }

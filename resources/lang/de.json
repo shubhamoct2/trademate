@@ -1146,5 +1146,7 @@
     "Your Withdrawal Address Is Updated successfully": "Ihre Auszahlungsadresse wurde erfolgreich aktualisiert",
     "All Wallets": "Alle Geldbörsen",
     "Pending Transaction": "Ausstehende Transaktion",
-    "The transaction between these wallets is not allowed.": "Die Transaktion zwischen diesen Wallets ist nicht erlaubt."
+    "The transaction between these wallets is not allowed.": "Die Transaktion zwischen diesen Wallets ist nicht erlaubt.",
+    "Do you want to delete all transactions?": "Möchten Sie alle Transaktionen löschen?",
+    "Delete All History": "Gesamten Verlauf löschen"
 }

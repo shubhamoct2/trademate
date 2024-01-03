@@ -165,4 +165,15 @@ class ProfitController extends Controller
                 ->make(true);
         }
     }
+
+    public function delete_all_transaction() {
+        Transaction::whereIn('type', [
+            TxnType::Referral,
+            TxnType::Interest,
+            TxnType::Bonus,
+            TxnType::SignupBonus,
+        ])->delete();
+
+        return redirect()->back();
+    }
 }

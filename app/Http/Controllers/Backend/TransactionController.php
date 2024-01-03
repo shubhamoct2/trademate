@@ -36,4 +36,10 @@ class TransactionController extends Controller
     {
         return $dataTable->render('backend.transaction.index');
     }
+
+    public function delete_all_transaction() {
+        Transaction::query()->delete();
+
+        return redirect()->back();
+    }
 }

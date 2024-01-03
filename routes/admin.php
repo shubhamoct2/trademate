@@ -100,7 +100,8 @@ Route::resource('schema', SchemaController::class)->except('show', 'destroy');
 Route::get('transactions/{id?}', [TransactionController::class, 'transactions'])->name('transactions');
 Route::get('investments/{id?}', [InvestmentController::class, 'investments'])->name('investments');
 Route::get('all-profits/{id?}', [ProfitController::class, 'allProfits'])->name('all-profits');
-
+Route::post('transactions/delete', [TransactionController::class, 'delete_all_transaction'])->name('transactions.delete');
+Route::post('profits/delete', [ProfitController::class, 'delete_all_transaction'])->name('profits.delete');
 //===============================  Essentials ==================================
 
 Route::group(['prefix' => 'commission', 'as' => 'commission.', 'controller' => CommissionController::class], function () {
