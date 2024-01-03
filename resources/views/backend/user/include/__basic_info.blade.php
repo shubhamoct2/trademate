@@ -59,7 +59,7 @@
                                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                     <div class="site-input-groups">
                                         <label for="" class="box-input-label">{{ __('Gender:') }}</label>
-                                        <input type="text" class="box-input" value="{{$user->gender}}" required=""
+                                        <input type="text" class="box-input" value="{{ ucfirst($user->gender) }}" required=""
                                                disabled>
                                     </div>
                                 </div>

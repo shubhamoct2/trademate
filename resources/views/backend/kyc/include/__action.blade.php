@@ -13,6 +13,12 @@
       <i icon-name="edit-3"></i>
     </button>
   </span>
+  <a href="{{ route('admin.kyc.draft', $id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
+    title="Update to Draft" data-bs-original-title="Update to Draft">
+    <i class="fas fa-wrench"></i>
+  </a>
+  <a href="{{route('admin.user.login',$id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
+       title="Login As User" data-bs-original-title="Login As User"><i icon-name="user-plus"></i></a>
   <script>
     'use strict';
     lucide.createIcons();

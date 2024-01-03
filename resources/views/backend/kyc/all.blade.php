@@ -100,8 +100,6 @@
 
             var id = $(this).data('id');
 
-            console.log(id);
-
             var url = '{{ route("admin.kyc.action",":id") }}';
             url = url.replace(':id', id);
             $.get(url, function (data) {

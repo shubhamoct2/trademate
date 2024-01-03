@@ -293,7 +293,8 @@ class KycController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = KycInfo::where('status', '<>', KycStatus::Draft)->with('user')->orderBy('updated_at', 'desc')->get();
+            // $data = KycInfo::where('status', '<>', KycStatus::Draft)->with('user')->orderBy('updated_at', 'desc')->get();
+            $data = KycInfo::whereNotNull('status')->with('user')->orderBy('updated_at', 'desc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -323,5 +324,20 @@ class KycController extends Controller
 
         $pdf = Pdf::loadView('backend.kyc.include.__kyc_download_detail', compact('kycInfo'));
         return $pdf->download($full_name . '.pdf');
+    }
+
+    public function markAsDraft($id) {
+        $kycInfo = KycInfo::find($id);
+        $user = $kycInfo->user;
+
+        if (is_null($kycInfo) || is_null($user)) {
+            return null;
+        }
+
+        $kycInfo->update([
+            'status' => KycStatus::Draft
+        ]);
+
+        return redirect()->back();
     }
 }

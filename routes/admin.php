@@ -86,6 +86,7 @@ Route::group(['prefix' => 'kyc', 'as' => 'kyc.', 'controller' => KycController::
     Route::post('action-now', 'actionNow')->name('action.now');
     Route::get('all', 'kycAll')->name('all');
     Route::get('download/{id}', 'downloadKycDetails')->name('download');
+    Route::get('draft/{id}', 'markAsDraft')->name('draft');
 });
 
 //===============================  Role Management ==================================
