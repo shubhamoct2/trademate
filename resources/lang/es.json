@@ -1145,5 +1145,6 @@
     "The wallet address is already used": "La dirección de la billetera ya está utilizada",
     "Your Withdrawal Address Is Updated successfully": "Su dirección de retiro se actualizó exitosamente",
     "All Wallets": "Todas las carteras",
-    "Pending Transaction": "Transacción pendiente"
+    "Pending Transaction": "Transacción pendiente",
+    "The transaction between these wallets is not allowed.": "No se permiten transacciones entre estas billeteras."
 }

@@ -1145,5 +1145,6 @@
     "The wallet address is already used": "Die Wallet-Adresse wird bereits verwendet",
     "Your Withdrawal Address Is Updated successfully": "Ihre Auszahlungsadresse wurde erfolgreich aktualisiert",
     "All Wallets": "Alle Geldbörsen",
-    "Pending Transaction": "Ausstehende Transaktion"
+    "Pending Transaction": "Ausstehende Transaktion",
+    "The transaction between these wallets is not allowed.": "Die Transaktion zwischen diesen Wallets ist nicht erlaubt."
 }

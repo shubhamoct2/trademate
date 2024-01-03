@@ -1145,5 +1145,6 @@
     "The wallet address is already used": "عنوان المحفظة مستخدم بالفعل",
     "Your Withdrawal Address Is Updated successfully": "تم تحديث عنوان السحب الخاص بك بنجاح",
     "All Wallets": "جميع المحافظ",
-    "Pending Transaction": "المعاملة المعلقة"
+    "Pending Transaction": "المعاملة المعلقة",
+    "The transaction between these wallets is not allowed.": "المعاملات بين هذه المحافظ غير مسموح بها."
 }

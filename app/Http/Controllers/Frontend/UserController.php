@@ -105,19 +105,29 @@ class UserController extends Controller
 
     public function walletExchangeNow(Request $request)
     {
+        // $validator = Validator::make($request->all(), [
+        //     'from_wallet' => ['required', 'different:to_wallet'],
+        //     'to_wallet' => ['required', 'different:from_wallet', Rule::in([1,3])],
+        //     'amount' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
+        // ]);
+
         $validator = Validator::make($request->all(), [
             'from_wallet' => ['required', 'different:to_wallet'],
-            'to_wallet' => ['required', 'different:from_wallet', Rule::in([1,3])],
+            'to_wallet' => ['required', 'different:from_wallet'],
             'amount' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
         ]);
 
         if ($validator->fails()) {
             notify()->error($validator->errors()->first(), 'Error');
-
             return redirect()->back();
         }
 
         $input = $request->all();
+
+        if (!in_array($input['to_wallet'], [1, 3])) {
+            notify()->error(__('The transaction between these wallets is not allowed.'), 'Error');
+            return redirect()->back();
+        }
 
         $amount = (float) $input['amount'];
         $chargeType = Setting('wallet_exchange_charge_type', 'fee');
