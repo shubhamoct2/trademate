@@ -115,15 +115,15 @@ class HistoryController extends Controller
 
             $day_summary = $this->getSummaryData($date_str);
 
-            $summary_month[$week_number]['list']['main_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['main_wallet'];
-            $summary_month[$week_number]['list']['trading_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['trading_wallet'];
-            $summary_month[$week_number]['list']['profit_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['profit_wallet'];
-            $summary_month[$week_number]['list']['profit_distribution'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['profit_distribution'];
-            $summary_month[$week_number]['list']['profit_share'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['profit_share'];
-            $summary_month[$week_number]['list']['commission_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['commission_wallet'];
-            $summary_month[$week_number]['list']['commission_distribution'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['commission_distribution'];
-            $summary_month[$week_number]['list']['withdraw_request'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['withdraw_request'];
-            $summary_month[$week_number]['list']['withdraw_processed'][$weekday_str[$date->dayOfWeekIso - 1]] = $day_summary['withdraw_processed'];
+            $summary_month[$week_number]['list']['main_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['main_wallet'], 2);
+            $summary_month[$week_number]['list']['trading_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['trading_wallet'], 2);
+            $summary_month[$week_number]['list']['profit_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['profit_wallet'], 2);
+            $summary_month[$week_number]['list']['profit_distribution'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['profit_distribution'], 2);
+            $summary_month[$week_number]['list']['profit_share'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['profit_share'], 2);
+            $summary_month[$week_number]['list']['commission_wallet'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['commission_wallet'], 2);
+            $summary_month[$week_number]['list']['commission_distribution'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['commission_distribution'], 2);
+            $summary_month[$week_number]['list']['withdraw_request'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['withdraw_request'], 2);
+            $summary_month[$week_number]['list']['withdraw_processed'][$weekday_str[$date->dayOfWeekIso - 1]] = number_format($day_summary['withdraw_processed'], 2);
         }
         
         foreach ($summary_month as $week_number => &$summary_week) {
