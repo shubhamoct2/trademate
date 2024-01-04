@@ -11736,6 +11736,10 @@ form label.error {
     text-align: center;    
 }
 
+.progress-steps-form .step-title-desc {
+    text-align: center;    
+}
+
 .progress-steps-form .input-group-label {
     text-decoration: underline;
     margin-bottom: 12px;

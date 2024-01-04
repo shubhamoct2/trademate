@@ -99,7 +99,9 @@ class UserController extends Controller
         // $level = LevelReferral::where('type', 'investment')->max('the_order') + 1;
         $level = LevelReferral::max('the_order');
 
-        return view('backend.user.edit', compact('user', 'level'));
+        $kycInfo = $user->kycInfo;
+
+        return view('backend.user.edit', compact('user', 'level', 'kycInfo'));
     }
 
     /**

@@ -320,9 +320,7 @@ class KycController extends Controller
 
         $full_name = $kycInfo->data['personal']['first_name'] . ' ' . $kycInfo->data['personal']['last_name'];
 
-        // return view('backend.kyc.include.__kyc_download_detail', compact('kycInfo'))->render();
-
-        $pdf = Pdf::loadView('backend.kyc.include.__kyc_download_detail', compact('kycInfo'));
+        $pdf = Pdf::loadView('backend.kyc.include.__kyc_download_detail', compact('kycInfo', 'user'));
         return $pdf->download($full_name . '.pdf');
     }
 
