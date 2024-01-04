@@ -1168,5 +1168,15 @@
     "Are you a Politically exposed person (PEP) or close to one?": "¿Es usted una persona políticamente expuesta (PEP) o cercana a una?",
     "If yes, to whom": "Si es así, ¿a quién?",
     "Add More Client": "Agregar más cliente",
-    "Discard": "Desechar"
+    "Discard": "Desechar",
+    "History": "Historia",
+    "Main Wallet Client": "Cliente de billetera principal",
+    "Trading Wallet Client": "Cliente de billetera comercial",
+    "Profit Wallet Client": "Cliente de billetera de ganancias",
+    "Profit Wallet Distribution": "Distribución de billetera de ganancias",
+    "Profit Percentages": "Porcentajes de ganancias",
+    "Commission Wallet Client": "Cliente de billetera de comisión",
+    "Commission Wallet Distribution": "Distribución de billetera de comisiones",
+    "Withdraws Request Client": "Cliente de solicitud de retiros",
+    "Withdraws Processed Client": "Retiros Procesados ​​Cliente"
 }

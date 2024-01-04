@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\ReferralController;
 use App\Http\Controllers\Frontend\SchemaController;
 use App\Http\Controllers\Frontend\SendMoneyController;
 use App\Http\Controllers\Frontend\SettingController;
+use App\Http\Controllers\Frontend\HistoryController;
 use App\Http\Controllers\Frontend\StatusController;
 use App\Http\Controllers\Frontend\TicketController;
 use App\Http\Controllers\Frontend\TransactionController;
@@ -149,6 +150,11 @@ Route::group(['middleware' => ['auth', '2fa', 'isActive', setting('email_verific
         Route::post('/2fa/verify', function () {
             return redirect(route('user.dashboard'));
         })->name('2fa.verify');
+    });
+
+    //settings
+    Route::group(['prefix' => 'history', 'as' => 'history.', 'controller' => HistoryController::class], function () {
+        Route::get('/', 'show')->name('show');
     });
 
 });

@@ -1168,5 +1168,15 @@
     "Are you a Politically exposed person (PEP) or close to one?": "هل أنت شخص مكشوف سياسيًا (PEP) أو قريب منه؟",
     "If yes, to whom": "إذا كانت الإجابة بنعم، لمن",
     "Add More Client": "إضافة المزيد من العملاء",
-    "Discard": "ينبذ"
+    "Discard": "ينبذ",
+    "History": "تاريخ",
+    "Main Wallet Client": "عميل المحفظة الرئيسي",
+    "Trading Wallet Client": "عميل محفظة التداول",
+    "Profit Wallet Client": "عميل محفظة الربح",
+    "Profit Wallet Distribution": "توزيع محفظة الربح",
+    "Profit Percentages": "نسب الربح",
+    "Commission Wallet Client": "عميل محفظة العمولة",
+    "Commission Wallet Distribution": "توزيع محفظة العمولة",
+    "Withdraws Request Client": "سحب طلب العميل",
+    "Withdraws Processed Client": "يسحب العميل المعالج"
 }

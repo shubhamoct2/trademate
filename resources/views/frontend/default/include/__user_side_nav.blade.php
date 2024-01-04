@@ -101,6 +101,14 @@
                 <a href="{{ route('user.setting.show') }}"><i
                         class="anticon anticon-setting"></i><span>{{ __('Settings') }}</span></a>
             </li>
+
+            <li class="side-nav-item {{ isActive('user.history*') }}">
+                <a href="{{ route('user.history.show') }}">
+                    <i class="fas fa-history"></i>
+                    <span>{{ __('History') }}</span>
+                </a>
+            </li>
+
             <li class="side-nav-item {{ isActive('user.ticket*') }}">
                 <a href="{{ route('user.ticket.index') }}"
                 ><i class="anticon anticon-tool"></i><span>{{ __('Support Tickets') }}</span></a

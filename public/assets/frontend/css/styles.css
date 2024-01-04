@@ -11872,3 +11872,78 @@ form label.error {
 .site-badge.primary {
     background: #5e3fc9;
 }
+
+
+.site-table .table-header .progress-steps-form .input-group {
+    margin-bottom: 0;
+}
+
+.site-table .table-header .apply-btn {
+    display: inline-block;
+    background: #e73667;
+    border-radius: 3px;
+    padding: 4px 20px;
+    border: none;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 116px;
+}
+
+.site-table .table-header .apply-btn svg {
+    width: 14px;
+    margin-right: 5px;
+    position: relative;
+    top: -1px;
+}
+
+.site-table .table-header .apply-btn:hover {
+    background: #535a94;
+}
+
+.site-table .table.history-tbl thead tr th {
+    border: 1px solid #888;
+}
+
+.site-table .table.history-tbl tbody tr td {
+    border: 1px solid #888;
+    padding: 2px 10px;
+}
+
+.site-table .table.history-tbl tbody tr td {
+    color: #000000;
+}
+
+.site-table .table tbody tr.main {
+    background-color: #FFF2CC;
+}
+.site-table .table tbody tr.trading {
+    background-color: #A9D08E;
+}
+.site-table .table tbody tr.profit {
+    background-color: #DDEBF7;
+}
+.site-table .table tbody tr.profit-distribution {
+    background-color: #F4B183;
+}
+.site-table .table tbody tr.profit-share {
+    background-color: #B4C6E7;
+}
+.site-table .table tbody tr.profit-distribution {
+    background-color: #D0CECE;
+}
+.site-table .table tbody tr.commission {
+    background-color: #9CC3E5;
+}
+.site-table .table tbody tr.commission-distribution {
+    background-color: #C5E0B3;
+}
+.site-table .table tbody tr.withdraw-request {
+    background-color: #F8CBAD;
+}
+.site-table .table tbody tr.withdraw {
+    background-color: #FF99CC;
+}
+
+

@@ -130,8 +130,6 @@ class KycController extends Controller
         $user = Auth::user();
         $input = $request->all();
 
-        Log::info(json_encode($input));
-
         // Basic Validation
         $validator = Validator::make($input, [
             'step' => 'required|integer',
