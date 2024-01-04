@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth', '2fa', 'isActive', setting('email_verific
     Route::get('kyc', [KycController::class, 'kyc'])->name('kyc');
     Route::get('kyc/{id}', [KycController::class, 'kycData'])->name('kyc.data');
     Route::get('kyc-back', [KycController::class, 'back'])->name('kyc.back');
+    Route::get('kyc-client-discard/{client_number}', [KycController::class, 'discard'])->name('kyc.discard');
     Route::post('kyc-submit', [KycController::class, 'submit'])->name('kyc.submit');
 
     Route::get('schemas', [SchemaController::class, 'index'])->name('schema');

@@ -102,6 +102,30 @@ class KycController extends Controller
         return redirect()->back();
     }
 
+    public function discard(Request $request, $client_number) {
+        $user = Auth::user();
+
+        if ($user->kycInfo) {
+            $kycInfo = $user->kycInfo;
+            $data = $kycInfo->data;
+
+            if (isset($data['client'])) {
+                if (isset($data['client'][$client_number])) {
+                    $client = $data['client'];
+                    unset($client[$client_number]);
+                    $data['client'] = $client;
+                    $data['client_number'] = $client_number - 1;
+
+                    $kycInfo->update([
+                        'data' => $data
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->back();
+    }
+
     public function submit(Request $request) {
         $user = Auth::user();
         $input = $request->all();

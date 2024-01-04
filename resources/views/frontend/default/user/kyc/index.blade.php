@@ -1926,6 +1926,9 @@
                                             @endif
                                             @if ($step == 3 && isset($details['kyc_type']) && $details['kyc_type'] != "company") 
                                                 @if (isset($details['client']))
+                                                    @if ($client_number != 0) 
+                                                    <a href="{{ route('user.kyc.discard', $client_number) }}" class="site-btn green-btn">{{ __('Discard') }}</a>
+                                                    @endif
                                                     @if (count($details['client']) == ($client_number + 1))
                                                     <button type="button" id="add_more_client" class="site-btn green-btn">
                                                         {{ __('Add More Client') }}
