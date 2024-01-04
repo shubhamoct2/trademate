@@ -90,7 +90,7 @@
                                     >
                                         @foreach(['male','female','other'] as $gender)
                                         <option @if($user->gender == $gender) selected @endif value="{{$gender}}">
-                                            {{ $gender }}
+                                            {{ ucfirst($gender) }}
                                         </option>
                                         @endforeach
                                     </select>
