@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('profit:share')
-            ->everyMinutes()
+            ->everyMinute()
             ->runInBackground();
 
         $schedule->command('admin:history')
