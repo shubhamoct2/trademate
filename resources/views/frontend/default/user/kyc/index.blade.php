@@ -2210,21 +2210,6 @@
                         activity: {
                             required: true
                         },
-                        company_name: {
-                            required: true
-                        },
-                        company_date: {
-                            required: true
-                        },
-                        company_annual: {
-                            required: true
-                        },
-                        company_employees: {
-                            required: true
-                        },
-                        pep_whom: {
-                            pep_checked: true
-                        }
                     },
                     errorPlacement: function(error, element) {
                         error.insertAfter(element);                        

@@ -402,12 +402,6 @@ class KycController extends Controller
                         'marital_status' => 'required',
                         'job_title' => 'required',
                         'activity' => 'required',
-                        'company_name' => 'required',
-                        'company_country' => 'required',
-                        'company_date' => 'required',
-                        'company_annual' => 'required',
-                        'company_employees' => 'required',
-                        'own_office' => 'required',
                     ]);
 
                     if ($validator->fails()) {
