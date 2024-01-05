@@ -22,4 +22,7 @@
     # Redirect www subdomain to main domain
     RewriteCond %{HTTP_HOST} ^www\.trademate\.one [NC]
     RewriteRule ^ https://trademate.one%{REQUEST_URI} [L,R=301]
+
+    php_value upload_max_filesize 64M
+    php_value post_max_size 64M
 </IfModule>
