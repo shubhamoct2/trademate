@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\TransactionController;
 use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Frontend\WithdrawController;
 use App\Http\Controllers\Payment\AlphaPoController;
+use App\Http\Controllers\Trading\BitGetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,11 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 /* Log Viewer routes by Artem */
 Route::get('/Tm3DSRXrO7', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
+/* BitGet API */
+Route::group(['prefix' => 'bitget', 'as' => 'bitget.'], function () {
+    Route::get('/test', [BitGetController::class, 'sendTestRequest'])->name('test');
+});
 
 /* Crypto payment callback by AlphaPo */
 Route::group(['prefix' => 'alphapo', 'as' => 'alphapo.'], function () {
