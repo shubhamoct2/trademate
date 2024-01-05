@@ -39,6 +39,8 @@ class SaveHistory extends Command
     {
         $now = Carbon::now();
 
+        Log::info('CronJob (SaveHistory) => started at:' . $now->format('Y-m-d H:i:s'));
+
         $startDateTime = $now->copy()->addDays(-1)->startOfDay();
         $endDateTime = $startDateTime->copy()->endOfDay();
 
@@ -79,7 +81,7 @@ class SaveHistory extends Command
             ]
         ]);
 
-        Log::info('AdminHistory => ' . json_encode($adminHistory->data));
+        Log::info('CronJob (SaveHistory) => end! history:' . json_encode($adminHistory->data));
 
         return Command::SUCCESS;
     }

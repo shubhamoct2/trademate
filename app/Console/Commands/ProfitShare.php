@@ -41,6 +41,10 @@ class ProfitShare extends Command
      */
     public function handle()
     {
+        $now = Carbon::now();
+
+        Log::info('CronJob (ProfitShare) => started at:' . $now->format('Y-m-d H:i:s'));
+
         $autoTaskList = AutoTask::where('type', AutoTaskType::ProfitShare)
             ->where('status', TxnStatus::Pending)
             ->whereDate('created_at', Carbon::today())
@@ -60,12 +64,14 @@ class ProfitShare extends Command
                 }
             }
         } else {
-            // Log::info('Not found profit command for today');
+            Log::info('CronJob (ProfitShare) => not found any task for profit share.');
         }
+
+        return Command::SUCCESS;
     }
 
     private function sendProfit(AutoTask $task, $amount) {
-        Log::info('Send profit: ' . $task->id . ' start! details => ' . $task->data);
+        Log::info('CronJob (ProfitShare) => send profit: ' . $task->id . ' start! details => ' . $task->data);
 
         $total_profit = floatval($amount);
         $total_trading = User::where('status', 1)->sum('trading_balance');
@@ -83,6 +89,6 @@ class ProfitShare extends Command
             'status' => TxnStatus::Success
         ]);
 
-        Log::info('Send profit: ' . $task->id . ' end!');
+        Log::info('CronJob (ProfitShare) => send profit: ' . $task->id . ' end!');
     }
 }

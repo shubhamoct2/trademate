@@ -15,20 +15,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('profit:share')
-        //     ->daily()
-        //     ->timezone('Europe/Berlin')
-        //     ->at('18:00')
-        //     ->runInBackground();
-
         $schedule->command('profit:share')
-            ->everyMinute()
+            ->everyMinutes()
             ->runInBackground();
 
         $schedule->command('admin:history')
             ->daily()
             ->timezone('Europe/Berlin')
-            ->at('00:00')
+            ->at('17:45')
             ->runInBackground();
     }
 
@@ -39,7 +33,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
