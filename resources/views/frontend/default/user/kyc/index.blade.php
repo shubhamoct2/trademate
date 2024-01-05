@@ -2152,12 +2152,6 @@
                         company_income_other_description: {
                             required_desc_if_checked: true,                            
                         },
-                        origin_wealth: {
-                            required: true,
-                        },
-                        source_cscm: {
-                            required: true,
-                        }
                     },
                     errorPlacement: function(error, element) {
                         error.insertAfter(element);       
@@ -2370,12 +2364,6 @@
                         company_income_other_description: {
                             required_desc_if_checked: true,                            
                         },
-                        origin_wealth: {
-                            required: true,
-                        },
-                        source_cscm: {
-                            required: true,
-                        }
                     },
                     errorPlacement: function(error, element) {
                         error.insertAfter(element);       
