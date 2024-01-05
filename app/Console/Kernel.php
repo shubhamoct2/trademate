@@ -24,6 +24,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('profit:share')
             ->everyMinute()
             ->runInBackground();
+
+        $schedule->command('admin:history')
+            ->daily()
+            ->timezone('Europe/Berlin')
+            ->at('00:00')
+            ->runInBackground();
     }
 
     /**

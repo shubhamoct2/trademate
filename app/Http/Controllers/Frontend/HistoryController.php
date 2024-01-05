@@ -189,7 +189,7 @@ class HistoryController extends Controller
             ->whereBetween('updated_at', array($start, $now))
             ->sum('amount');
             
-        $withdraw = $user->transaction()->where('status', TxnStatus::Success)
+        $withdraw_processed = $user->transaction()->where('status', TxnStatus::Success)
             ->where('type', TxnType::Withdraw)                
             ->whereBetween('updated_at', array($start, $now))
             ->sum('pay_amount');
@@ -243,21 +243,15 @@ class HistoryController extends Controller
             ->whereBetween('updated_at', array($start, $end))
             ->sum('amount');
 
-        $withdraw_processed_day = $user->transaction()
-            ->where('status', TxnStatus::Success)
-            ->where('type', TxnType::Withdraw)  
-            ->whereBetween('updated_at', array($start, $end))
-            ->sum('amount');
-
         return [
-            'main_wallet' => $user->balance - $deposit - $transfer_to_main + $transfer_from_main + $withdraw,
+            'main_wallet' => $user->balance - $deposit - $transfer_to_main + $transfer_from_main + $withdraw_processed,
             'trading_wallet' => $user->trading_balance - $transfer_to_trading + $transfer_from_trading,
             'profit_wallet' => $user->profit_balance - $profit_share + $transfer_from_profit,
             'profit_distribution' => $profit_share_day,
             'commission_wallet' => $user->commission_balance - $commision_share + $transfer_from_commission,
             'commission_distribution' => $commision_share_day,
             'withdraw_request' => $withdraw_request_day,
-            'withdraw_processed' => $withdraw_processed_day,
+            'withdraw_processed' => $withdraw_processed,
             'profit_share' => 0,
         ];
     }
