@@ -11943,4 +11943,7 @@ form label.error {
     background-color: #FF99CC;
 }
 
-
+.wallet-copy-btn {
+    border-radius: 20px;
+    padding: 4px 8px;
+}

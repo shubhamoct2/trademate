@@ -149,17 +149,32 @@ class DepositController extends GatewayController
             $txnInfo = Txn::new($input['amount'], $charge, $finalAmount, $gatewayInfo->gateway_code, 'Deposit With '.$gatewayInfo->name, $depositType, TxnStatus::Pending, $gatewayInfo->currency, $payAmount, auth()->id(), null, 'User', $manualData ?? []);
         }
 
+        $currency_name = [
+            'BTC' => 'bitcoin',
+            'ETH' => 'ethereum',
+            'USDTE' => 'usdt',
+            'USDTT' => 'usdt',
+        ];
+
+        $notify_data = $apiResponse['data'];
+        $notify_data['amount'] = floatval($input['amount']);
+        $notify_data['currency_name'] = $currency_name[$apiResponse['data']['currency']];
+
         $symbol = $currencySetting['currency'];
         $notify = [
             'card-header' => 'Deposit Money',
             'title' => $symbol. ' ' . $txnInfo->amount.' Deposit Requested Successfully',
             'p' => 'The Deposit Request has been successfully sent.',
             'strong' => 'Transaction ID: '.$txnInfo->tnx,
-            'action' => route('user.deposit.now'),
+            'action' => route('user.deposit.amount'),
             'a' => 'DEPOSIT REQUEST AGAIN',
-            'data' => $apiResponse['data'],
+            'data' => $notify_data,
             'view_name' => 'deposit',
         ];
+
+        /* test */
+        Log::info('API response => '.json_encode($apiResponse['data']));
+
         Session::put('user_notify', $notify);
         $shortcodes = [
             '[[full_name]]' => $txnInfo->user->full_name,
