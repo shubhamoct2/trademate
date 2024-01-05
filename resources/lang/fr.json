@@ -1178,5 +1178,14 @@
     "Commission Wallet Client": "Client de portefeuille de commissions",
     "Commission Wallet Distribution": "Distribution du portefeuille de commissions",
     "Withdraws Request Client": "Retrait du client de la demande",
-    "Withdraws Processed Client": "Retrait du client traité"
+    "Withdraws Processed Client": "Retrait du client traité",
+    "History Calendar Admin": "Administrateur du calendrier de l'historique",
+    "Main Wallets Total": "Principaux portefeuilles Total",
+    "Trading Wallets Total": "Portefeuilles de trading Total",
+    "Profit Wallets Total": "Portefeuilles de bénéfices Total",
+    "Profit Wallets Distribution": "Distribution des portefeuilles de bénéfices",
+    "Commission Wallets Total": "Portefeuilles de commissions Total",
+    "Commission Wallets Distribution": "Distribution des portefeuilles de commissions",
+    "Withdraws Request Total": "Total des demandes de retrait",
+    "Withdraws Processed Total": "Total des retraits traités"
 }

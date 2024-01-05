@@ -1178,5 +1178,14 @@
     "Commission Wallet Client": "Provisions-Wallet-Client",
     "Commission Wallet Distribution": "Provisions-Wallet-Verteilung",
     "Withdraws Request Client": "Zieht den Request-Client zurück",
-    "Withdraws Processed Client": "Zieht verarbeiteten Kunden zurück"
+    "Withdraws Processed Client": "Zieht verarbeiteten Kunden zurück",
+    "History Calendar Admin": "Verlaufskalenderadministrator",
+    "Main Wallets Total": "Haupt-Wallets insgesamt",
+    "Trading Wallets Total": "Trading-Wallets insgesamt",
+    "Profit Wallets Total": "Gesamtgewinn der Geldbörsen",
+    "Profit Wallets Distribution": "Verteilung der Profit-Geldbörsen",
+    "Commission Wallets Total": "Provisionsgelder insgesamt",
+    "Commission Wallets Distribution": "Verteilung der Provisionsgeldbörsen",
+    "Withdraws Request Total": "Entnimmt den Gesamtbetrag der Anforderung",
+    "Withdraws Processed Total": "Insgesamt verarbeitete Abhebungen"
 }

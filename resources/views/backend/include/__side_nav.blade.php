@@ -159,6 +159,15 @@
                         </a>
                     </li>
                 @endcanany
+
+                @canany(['site-history-manage']) 
+                    <li class="side-nav-item {{ isActive('admin.history.list') }}">
+                        <a href="{{ route('admin.history.list') }}">
+                            <i class="fas fa-history"></i>
+                            <span>{{ __('History Calendar Admin') }}</span>
+                        </a>
+                    </li>
+                @endcanany
             @endcanany
 
             {{-- *************************************************************  Essentials *********************************************************--}}
@@ -300,8 +309,6 @@
                 @endcanany
 
             @endcanany
-
-
 
             {{-- ************************************************************* Site  Settings *********************************************************--}}
             @canany(['site-setting','email-setting','plugin-setting','page-manage'])

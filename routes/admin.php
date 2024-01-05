@@ -34,6 +34,7 @@ use App\Http\Controllers\Backend\WithdrawController;
 use App\Http\Controllers\Backend\ExchangeController;
 use App\Http\Controllers\Backend\CommissionController;
 use App\Http\Controllers\Backend\WalletController;
+use App\Http\Controllers\Backend\HistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -103,6 +104,7 @@ Route::get('investments/{id?}', [InvestmentController::class, 'investments'])->n
 Route::get('all-profits/{id?}', [ProfitController::class, 'allProfits'])->name('all-profits');
 Route::post('transactions/delete', [TransactionController::class, 'delete_all_transaction'])->name('transactions.delete');
 Route::post('profits/delete', [ProfitController::class, 'delete_all_transaction'])->name('profits.delete');
+Route::get('history/list', [HistoryController::class, 'list'])->name('history.list');
 //===============================  Essentials ==================================
 
 Route::group(['prefix' => 'commission', 'as' => 'commission.', 'controller' => CommissionController::class], function () {

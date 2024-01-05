@@ -1178,5 +1178,14 @@
     "Commission Wallet Client": "Cliente de billetera de comisión",
     "Commission Wallet Distribution": "Distribución de billetera de comisiones",
     "Withdraws Request Client": "Cliente de solicitud de retiros",
-    "Withdraws Processed Client": "Retiros Procesados ​​Cliente"
+    "Withdraws Processed Client": "Retiros Procesados ​​Cliente",
+    "History Calendar Admin": "Administrador de calendario histórico",
+    "Main Wallets Total": "Total de carteras principales",
+    "Trading Wallets Total": "Total de carteras comerciales",
+    "Profit Wallets Total": "Carteras de ganancias totales",
+    "Profit Wallets Distribution": "Distribución de carteras de ganancias",
+    "Commission Wallets Total": "Total de carteras de comisiones",
+    "Commission Wallets Distribution": "Distribución de carteras de comisiones",
+    "Withdraws Request Total": "Total de solicitudes de retiros",
+    "Withdraws Processed Total": "Total de retiros procesados"
 }

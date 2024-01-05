@@ -1178,5 +1178,14 @@
     "Commission Wallet Client": "عميل محفظة العمولة",
     "Commission Wallet Distribution": "توزيع محفظة العمولة",
     "Withdraws Request Client": "سحب طلب العميل",
-    "Withdraws Processed Client": "يسحب العميل المعالج"
+    "Withdraws Processed Client": "يسحب العميل المعالج",
+    "History Calendar Admin": "مشرف تقويم التاريخ",
+    "Main Wallets Total": "إجمالي المحافظ الرئيسية",
+    "Trading Wallets Total": "إجمالي محافظ التداول",
+    "Profit Wallets Total": "إجمالي محافظ الربح",
+    "Profit Wallets Distribution": "توزيع محافظ الربح",
+    "Commission Wallets Total": "إجمالي محافظ العمولة",
+    "Commission Wallets Distribution": "توزيع محافظ العمولة",
+    "Withdraws Request Total": "إجمالي طلبات السحب",
+    "Withdraws Processed Total": "عمليات سحب إجمالي المعالجة"
 }
