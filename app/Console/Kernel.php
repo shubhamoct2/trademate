@@ -17,13 +17,15 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('profit:share')
             ->everyMinute()
-            ->runInBackground();
+            ->runInBackground()
+            ->withoutOverlapping();
 
         $schedule->command('admin:history')
             ->daily()
             ->timezone('Europe/Berlin')
             ->at('17:45')
-            ->runInBackground();
+            ->runInBackground()
+            ->withoutOverlapping();
     }
 
     /**
