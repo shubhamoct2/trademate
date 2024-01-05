@@ -41,6 +41,6 @@ class BitgetController extends Controller
             'locale' => 'en-US',
         ])->get($endpoint)->json();
 
-        dd ($response);
+        dd ($timestamp, $response);
     }
 }
