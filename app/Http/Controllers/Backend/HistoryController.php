@@ -55,20 +55,8 @@ class HistoryController extends Controller
     }
 
     private function getSummaryData($date_str) {
-        return [
-            'main_wallet' => 0,
-            'trading_wallet' => 0,
-            'profit_wallet' => 0,
-            'profit_distribution' => 0,
-            'commission_wallet' => 0,
-            'commission_distribution' => 0,
-            'withdraw_request' => 0,
-            'withdraw_processed' => 0,
-        ];
-
-        $user = Auth::user();
-
         $now = Carbon::now()->endOfDay();
+
         $start = Carbon::parse($date_str)->addDays(1)->startOfDay();
         $end = $start->copy()->endOfDay();
 
@@ -85,8 +73,8 @@ class HistoryController extends Controller
             ];
         }
 
-        $admin_history = AdminHistory::whereBetween('updated_at', array($start, $now));
-        
+        $admin_history = AdminHistory::whereBetween('updated_at', array($start, $end))->first();
+
         if ($admin_history) {
             $data = $admin_history->data;
 
@@ -115,8 +103,6 @@ class HistoryController extends Controller
     }
 
     private function getSummary($year, $month) {
-        // dd ($year, $month);
-
         $now = Carbon::now();
 
         $current_year = $now->year;
@@ -209,9 +195,9 @@ class HistoryController extends Controller
                         $key == 'profit_wallet' || 
                         $key == 'commission_wallet' ||
                         $key == 'profit_share') {
-                        $item['week'] = number_format($this->getLastValue($item), 2);
+                        $item['week'] = number_format(floatval($this->getLastValue($item)), 2);
                     } else {
-                        $item['week'] = number_format($this->getSumValue($item), 2);
+                        $item['week'] = number_format(floatval($this->getSumValue($item)), 2);
                         // if ($start_of_month->gt($now)) {
                         //     $item['week'] = '';
                         // } else {
