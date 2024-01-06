@@ -385,3 +385,17 @@ if (! function_exists('getDescriptionString')) {
     };
 }
 
+if (! function_exists('getFileExtension')) {
+    function getFileExtension($file_path) {
+        $temp = explode('.', $file_path);
+        return strtolower(end($temp));
+    };
+}
+
+if (! function_exists('getFileName')) {
+    function getFileName($file_path) {
+        $temp = explode('/', $file_path);
+        return end($temp);
+    };
+}
+

@@ -8,7 +8,7 @@ use App\Enums\KycStatus;
 
 use App\Models\KycInfo;
 
-use App\Traits\ImageUpload;
+use App\Traits\KycFileUploadTrait;
 use App\Traits\NotifyTrait;
 
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ use Carbon\Carbon;
 
 class KycController extends Controller
 {
-    use ImageUpload, NotifyTrait;
+    use KycFileUploadTrait, NotifyTrait;
 
     public function kyc()
     {
@@ -489,7 +489,7 @@ class KycController extends Controller
 
                     $data['personal'] = [];
                     if (isset($input['kyc_credential_file'])) {
-                        $data['personal']['file'] = self::imageUploadTrait($input['kyc_credential_file']);
+                        $data['personal']['file'] = self::kycFileUpload($input['kyc_credential_file'], $kyc_file);
                     } else {
                         $data['personal']['file'] = $kyc_file;
                     }
@@ -679,7 +679,7 @@ class KycController extends Controller
                     $data['personal'] = [];
                     
                     if (isset($input['kyc_credential_file'])) {
-                        $data['personal']['file'] = self::imageUploadTrait($input['kyc_credential_file']);
+                        $data['personal']['file'] = self::kycFileUpload($input['kyc_credential_file'], $kyc_file);
                     } else {
                         $data['personal']['file'] = $kyc_file;
                     }

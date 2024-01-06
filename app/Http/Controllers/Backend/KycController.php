@@ -338,4 +338,22 @@ class KycController extends Controller
 
         return redirect()->back();
     }
+
+    public function fileDownload($id) {
+        $kycInfo = KycInfo::find($id);
+
+        if (is_null($kycInfo)) {
+            return null;
+        }
+
+        if (isset($kycInfo->data['personal']['file'])) {
+            if (file_exists('assets/'.$kycInfo->data['personal']['file'])) {
+                $full_name = $kycInfo->data['personal']['first_name'] . ' ' . $kycInfo->data['personal']['last_name'];
+                $file = 'assets/' . $kycInfo->data['personal']['file'];
+                return response()->download($file, $full_name.'.pdf');
+            }
+        }
+
+        return null;
+    }
 }

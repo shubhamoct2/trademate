@@ -2260,7 +2260,7 @@
                     rules: {
                         kyc_credential_file: {
                             kyc_file_check: true,
-                            accept: 'image/*'
+                            accept: 'image/*,application/pdf'
                         },
                         first_name: {
                             required: true
@@ -2421,7 +2421,7 @@
                     rules: {
                         kyc_credential_file: {
                             kyc_file_check: true,
-                            accept: 'image/*'
+                            accept: 'image/*,application/pdf'
                         },
                         first_name: {
                             required: true

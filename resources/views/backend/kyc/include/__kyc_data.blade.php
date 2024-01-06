@@ -353,8 +353,15 @@
             @if (isset($kycInfo->data['personal']))
                 <li class="list-group-item">
                     {{ __('ID / Passport') }}:
-                    @if( file_exists('assets/'.$kycInfo->data['personal']['file']))
-                    <img class="passport" src="{{ asset($kycInfo->data['personal']['file']) }}" alt=""/>
+                    @if (file_exists('assets/'.$kycInfo->data['personal']['file']))
+                        @if (getFileExtension($kycInfo->data['personal']['file']) == 'pdf')
+                        <a href="{{ route('admin.kyc.file_download', $kycInfo->id) }}" target="_blank" class="site-btn-sm primary-btn my-3">
+                            <i class="fas fa-download"></i>
+                            {{ __('Download') }}
+                        </a>
+                        @else
+                        <img class="passport" src="{{ asset($kycInfo->data['personal']['file']) }}" alt=""/>
+                        @endif
                     @endif
                 </li>
                 <li class="list-group-item">
