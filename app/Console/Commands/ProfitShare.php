@@ -43,7 +43,7 @@ class ProfitShare extends Command
     {
         $now = Carbon::now();
 
-        Log::info('CronJob (ProfitShare) => started at:' . $now->format('Y-m-d H:i:s'));
+        // Log::info('CronJob (ProfitShare) => started at: ' . $now->format('Y-m-d H:i:s'));
 
         $autoTaskList = AutoTask::where('type', AutoTaskType::ProfitShare)
             ->where('status', TxnStatus::Pending)
@@ -64,7 +64,7 @@ class ProfitShare extends Command
                 }
             }
         } else {
-            Log::info('CronJob (ProfitShare) => not found any task for profit share.');
+            // Log::info('CronJob (ProfitShare) => not found any task for profit share.');
         }
 
         return Command::SUCCESS;
