@@ -460,13 +460,15 @@ class KycController extends Controller
                         return redirect()->back();
                     }
 
+                    if (isset($data['personal']['file'])) {
+                        $kyc_file = $data['personal']['file'];
+                    }
+
                     if (!isset($data['personal']['file']) || !file_exists('assets/'.$data['personal']['file'])) {
                         if (!isset($input['kyc_credential_file'])) {
                             notify()->error('ID card file is required', 'Error');
                             return redirect()->back();
                         }
-                    } else {
-                        $kyc_file = $data['personal']['file'];
                     }
 
                     if (isset($input['tax_other']) && $input['tax_other'] == "on") {
@@ -649,13 +651,15 @@ class KycController extends Controller
                         return redirect()->back();
                     }
 
+                    if (isset($data['personal']['file'])) {
+                        $kyc_file = $data['personal']['file'];
+                    }
+
                     if (!isset($data['personal']['file']) || !file_exists('assets/'.$data['personal']['file'])) {
                         if (!isset($input['kyc_credential_file'])) {
                             notify()->error('ID card file is required', 'Error');
                             return redirect()->back();
                         }
-                    } else {
-                        $kyc_file = $data['personal']['file'];
                     }
 
                     if (isset($input['tax_other']) && $input['tax_other'] == "on") {
