@@ -142,35 +142,35 @@ class HistoryController extends Controller
                 $summary_month[$week_number]['list'] = [
                     'main_wallet' => [
                         'name' => __('Main Wallets Total'),
-                        'class' => 'main',
+                        'class' => '',
                     ],
                     'trading_wallet' => [
                         'name' => __('Trading Wallets Total'),
-                        'class' => 'trading',
+                        'class' => '',
                     ],
                     'profit_wallet' => [
                         'name' => __('Profit Wallets Total'),
-                        'class' => 'profit',
+                        'class' => '',
                     ],
                     'profit_distribution' => [
                         'name' => __('Profit Wallets Distribution'),
-                        'class' => 'profit-distribution',
+                        'class' => '',
                     ],
                     'commission_wallet' => [
                         'name' => __('Commission Wallets Total'),
-                        'class' => 'commission',
+                        'class' => '',
                     ],
                     'commission_distribution' => [
                         'name' => __('Commission Wallets Distribution'),
-                        'class' => 'commission-distribution',
+                        'class' => '',
                     ],
                     'withdraw_request' => [
                         'name' => __('Withdraws Request Total'),
-                        'class' => 'withdraw-request',
+                        'class' => '',
                     ],
                     'withdraw_processed' => [
                         'name' => __('Withdraws Processed Total'),
-                        'class' => 'withdraw',
+                        'class' => '',
                     ],
                 ];
             }

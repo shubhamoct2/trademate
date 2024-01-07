@@ -105,14 +105,14 @@
                                             @foreach ($summary_week['list'] as $summary_item)
                                             <tr class="{{ isset($summary_item['class']) ? $summary_item['class'] : '' }}">
                                                 <td>{{ $summary_item['name'] ?? '' }}</td>
-                                                <td>{{ $summary_item['monday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['tuesday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['wednesday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['thursday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['friday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['saturday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['sunday'] ?? '' }}</td>
-                                                <td>{{ $summary_item['week'] ?? '' }}</td>
+                                                <td>{{ $summary_item['monday'] ? '$ ' . $summary_item['monday'] : '' }}</td>
+                                                <td>{{ $summary_item['tuesday'] ? '$ ' . $summary_item['tuesday'] : '' }}</td>
+                                                <td>{{ $summary_item['wednesday'] ? '$ ' . $summary_item['wednesday'] : '' }}</td>
+                                                <td>{{ $summary_item['thursday'] ? '$ ' . $summary_item['thursday'] : '' }}</td>
+                                                <td>{{ $summary_item['friday'] ? '$ ' . $summary_item['friday'] : '' }}</td>
+                                                <td>{{ $summary_item['saturday'] ? '$ ' . $summary_item['saturday'] : '' }}</td>
+                                                <td>{{ $summary_item['sunday'] ? '$ ' . $summary_item['sunday'] : '' }}</td>
+                                                <td>{{ $summary_item['week'] ? '$ ' . $summary_item['week'] : '' }}</td>
                                             </tr>
                                             @endforeach                                                         
                                         </tbody>
