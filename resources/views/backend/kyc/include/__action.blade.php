@@ -14,7 +14,7 @@
     </button>
   </span>
   <a href="{{ route('admin.kyc.draft', $id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
-    title="Update to Draft" data-bs-original-title="Update to Draft">
+    title="Change Status to Draft" data-bs-original-title="Change Status to Draft">
     <i class="fas fa-wrench"></i>
   </a>
   <a href="{{route('admin.user.login',$id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
