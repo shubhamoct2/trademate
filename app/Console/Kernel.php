@@ -22,6 +22,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('save:history')
             ->dailyAt('00:00')
             ->runInBackground(); 
+
+        $schedule->command('deposit:cancel')
+            ->everyFiveMinutes()
+            ->runInBackground(); 
     }
 
     /**
