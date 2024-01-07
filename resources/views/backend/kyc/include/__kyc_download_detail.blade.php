@@ -91,7 +91,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         {{ __('Date of the KYC') }}:
-                                        <strong>{{ $kycInfo->data['kyc_date'] }}</strong>
+                                        <strong>{{ isset($kycInfo->data['kyc_date']) ? $kycInfo->data['kyc_date'] : \Carbon\Carbon::now()->format('Y-m-d') }}</strong>
                                     </li>
                                     <li class="list-group-item">
                                         {{ __('Recommended by') }}:
