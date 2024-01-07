@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
             ->runInBackground(); 
 
         $schedule->command('deposit:cancel')
-            ->everyFiveMinutes()
+            ->hourly()
             ->runInBackground(); 
     }
 
