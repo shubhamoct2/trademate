@@ -224,7 +224,11 @@ class HistoryController extends Controller
             ->sum('amount');
         
         $commision_share = $user->transaction()->where('status', TxnStatus::Success)
-            ->where('type', TxnType::SendCommission)  
+            ->where(function ($query) {
+                $query->where('type', TxnType::SendCommission)
+                    ->orWhere('type', TxnType::Referral)
+                    ->orWhere('type', TxnType::Bonus);;
+            })
             ->whereBetween('updated_at', array($start, $now))
             ->sum('amount');
 
@@ -234,7 +238,11 @@ class HistoryController extends Controller
             ->sum('amount');
 
         $commision_share_day = $user->transaction()->where('status', TxnStatus::Success)
-            ->where('type', TxnType::SendCommission)  
+            ->where(function ($query) {
+                $query->where('type', TxnType::SendCommission)
+                    ->orWhere('type', TxnType::Referral)
+                    ->orWhere('type', TxnType::Bonus);;
+            }) 
             ->whereBetween('updated_at', array($start, $end))
             ->sum('amount');
 
@@ -242,6 +250,9 @@ class HistoryController extends Controller
             ->where('type', TxnType::Withdraw)  
             ->whereBetween('updated_at', array($start, $end))
             ->sum('amount');
+
+        // $trading_wallet_balance = $user->trading_balance - $transfer_to_trading + $transfer_from_trading;
+        $profit_percentage = 0;
 
         return [
             'main_wallet' => $user->balance - $deposit - $transfer_to_main + $transfer_from_main + $withdraw_processed,
@@ -252,7 +263,7 @@ class HistoryController extends Controller
             'commission_distribution' => $commision_share_day,
             'withdraw_request' => $withdraw_request_day,
             'withdraw_processed' => $withdraw_processed,
-            'profit_share' => 0,
+            'profit_share' => $profit_percentage,
         ];
     }
 

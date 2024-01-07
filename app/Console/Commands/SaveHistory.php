@@ -55,7 +55,11 @@ class SaveHistory extends Command
             ->sum('amount');
 
         $commission_share = Transaction::where('status', TxnStatus::Success)
-            ->where('type', TxnType::SendCommission)  
+            ->where(function ($query) {
+                $query->where('type', TxnType::SendCommission)
+                    ->orWhere('type', TxnType::Referral)
+                    ->orWhere('type', TxnType::Bonus);;
+            })
             ->whereBetween('updated_at', array($startDateTime, $endDateTime))
             ->sum('amount');
 
