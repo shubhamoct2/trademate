@@ -213,7 +213,7 @@ class CronJobController extends Controller
 
                 foreach ($eligibleRanks as $rank) {
                     Txn::new($rank->bonus, 0, $rank->bonus, 'system', 'Referral Bonus by ' . $rank->ranking, TxnType::Bonus, TxnStatus::Success, null, null, $user->id);
-                    $user->profit_balance += $rank->bonus;
+                    $user->increment('commission_balance', $rank->bonus);
 
                     if ($rank->id === $highestRank->id) {
                         $user->update([

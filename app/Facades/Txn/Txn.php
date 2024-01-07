@@ -39,9 +39,9 @@ class Txn
         $isLevel = false, 
         $address = null): Transaction
     {
-        if ($type == 'withdraw') {
-            self::withdrawBalance($amount);
-        }
+        // if ($type == 'withdraw') {
+        //     self::withdrawBalance($amount);
+        // }
 
         $transaction = new Transaction();
         $transaction->user_id = $userID ?? Auth::user()->id;
