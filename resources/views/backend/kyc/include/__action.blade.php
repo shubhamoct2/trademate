@@ -17,7 +17,7 @@
     title="Change Status to Draft" data-bs-original-title="Change Status to Draft">
     <i class="fas fa-wrench"></i>
   </a>
-  <a href="{{route('admin.user.login',$id)}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
+  <a href="{{route('admin.user.login',$user['id'])}}" class="round-icon-btn red-btn" data-bs-toggle="tooltip"
        title="Login As User" data-bs-original-title="Login As User"><i icon-name="user-plus"></i></a>
   <script>
     'use strict';
