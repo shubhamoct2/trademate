@@ -35,8 +35,6 @@ class HistoryController extends Controller
     }
 
     private function getSummary($year, $month) {
-        // dd ($year, $month);
-
         $now = Carbon::now();
 
         $current_year = $now->year;
@@ -251,8 +249,18 @@ class HistoryController extends Controller
             ->whereBetween('updated_at', array($start, $end))
             ->sum('amount');
 
-        // $trading_wallet_balance = $user->trading_balance - $transfer_to_trading + $transfer_from_trading;
-        $profit_percentage = 0;
+        $trading_wallet_balance = $user->trading_balance - $transfer_to_trading + $transfer_from_trading;
+        
+        $start = $start->addDays(1)->startOfDay();
+        $end = $start->copy()->endOfDay();
+        
+        $admin_history = AdminHistory::whereBetween('updated_at', array($start, $end))->first();
+        if ($admin_history) {
+            $data = $admin_history->data;
+            $profit_percentage = (floatval($trading_wallet_balance) * 100.00) / floatval($data['trading_wallet']);
+        } else {
+            $profit_percentage = 0;
+        }
 
         return [
             'main_wallet' => $user->balance - $deposit - $transfer_to_main + $transfer_from_main + $withdraw_processed,
