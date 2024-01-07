@@ -1187,5 +1187,7 @@
     "Commission Wallets Total": "إجمالي محافظ العمولة",
     "Commission Wallets Distribution": "توزيع محافظ العمولة",
     "Withdraws Request Total": "إجمالي طلبات السحب",
-    "Withdraws Processed Total": "عمليات سحب إجمالي المعالجة"
+    "Withdraws Processed Total": "عمليات سحب إجمالي المعالجة",
+    "Withdraws Request": "طلب سحب",
+    "Withdraws Processed": "تمت معالجة عمليات السحب"
 }

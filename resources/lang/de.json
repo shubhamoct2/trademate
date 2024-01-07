@@ -1187,5 +1187,7 @@
     "Commission Wallets Total": "Provisionsgelder insgesamt",
     "Commission Wallets Distribution": "Verteilung der Provisionsgeldbörsen",
     "Withdraws Request Total": "Entnimmt den Gesamtbetrag der Anforderung",
-    "Withdraws Processed Total": "Insgesamt verarbeitete Abhebungen"
+    "Withdraws Processed Total": "Insgesamt verarbeitete Abhebungen",
+    "Withdraws Request": "Zieht die Anfrage zurück",
+    "Withdraws Processed": "Auszahlungen verarbeitet"
 }

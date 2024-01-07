@@ -11912,7 +11912,7 @@ form label.error {
 }
 
 .site-table .table.history-tbl tbody tr td {
-    color: #000000;
+    /* color: #000000; */
 }
 
 .site-table .table tbody tr.main {

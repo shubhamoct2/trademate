@@ -1187,5 +1187,7 @@
     "Commission Wallets Total": "Portefeuilles de commissions Total",
     "Commission Wallets Distribution": "Distribution des portefeuilles de commissions",
     "Withdraws Request Total": "Total des demandes de retrait",
-    "Withdraws Processed Total": "Total des retraits traités"
+    "Withdraws Processed Total": "Total des retraits traités",
+    "Withdraws Request": "Demande de retrait",
+    "Withdraws Processed": "Retraits traités"
 }

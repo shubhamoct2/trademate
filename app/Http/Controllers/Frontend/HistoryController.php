@@ -75,40 +75,40 @@ class HistoryController extends Controller
             if (!isset($summary_month[$week_number]['list'])) {
                 $summary_month[$week_number]['list'] = [
                     'main_wallet' => [
-                        'name' => __('Main Wallet Client'),
-                        'class' => 'main',
+                        'name' => __('Main Wallet'),
+                        'class' => '',
                     ],
                     'trading_wallet' => [
-                        'name' => __('Trading Wallet Client'),
-                        'class' => 'trading',
+                        'name' => __('Trading Wallet'),
+                        'class' => '',
                     ],
                     'profit_wallet' => [
-                        'name' => __('Profit Wallet Client'),
-                        'class' => 'profit',
+                        'name' => __('Profit Wallet'),
+                        'class' => '',
                     ],
                     'profit_distribution' => [
                         'name' => __('Profit Wallet Distribution'),
-                        'class' => 'profit-distribution',
+                        'class' => '',
                     ],
                     'profit_share' => [
                         'name' => __('Profit Percentages'),
-                        'class' => 'profit-share',
+                        'class' => '',
                     ],
                     'commission_wallet' => [
-                        'name' => __('Commission Wallet Client'),
-                        'class' => 'commission',
+                        'name' => __('Commission Wallet'),
+                        'class' => '',
                     ],
                     'commission_distribution' => [
                         'name' => __('Commission Wallet Distribution'),
-                        'class' => 'commission-distribution',
+                        'class' => '',
                     ],
                     'withdraw_request' => [
-                        'name' => __('Withdraws Request Client'),
-                        'class' => 'withdraw-request',
+                        'name' => __('Withdraws Request'),
+                        'class' => '',
                     ],
                     'withdraw_processed' => [
-                        'name' => __('Withdraws Processed Client'),
-                        'class' => 'withdraw',
+                        'name' => __('Withdraws Processed'),
+                        'class' => '',
                     ],
                 ];
             }
