@@ -10,7 +10,7 @@
             <p>{{ $notify['strong'] }}</p>
             <p>{{ 'Please make a deposit using the following ' . $notify['data']['currency'] . ' address' }}</p>
             <div class="mb-3">
-                <span id="wallet_address">{{ $notify['data']['address'] }}</span>
+                <span id="wallet_address" class="text-break">{{ $notify['data']['address'] }}</span>
                 <button type="button" class="wallet-copy-btn ml-2" onclick="copyRef()">
                     <i class="anticon anticon-copy"></i>
                     <span id="copy">{{ __('Copy') }}</span>

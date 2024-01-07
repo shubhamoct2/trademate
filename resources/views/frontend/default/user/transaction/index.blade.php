@@ -35,8 +35,7 @@
                                     <th>{{ __('Type') }}</th>
                                     <th>{{ __('Amount') }}</th>
                                     <th>{{ __('Fee') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Method') }}</th>
+                                    <th>{{ __('Status') }}</th>                                    
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -181,7 +180,46 @@
                         <div class="single-transaction">
                             <div class="transaction-left">
                                 <div class="transaction-des">
-                                    <div class="transaction-title">{{ $transaction->description }}
+                                    @php
+                                        $re = "/^[0-9]+$/";
+
+                                        if (!preg_match($re, $transaction->method)) {
+                                            $description = $transaction->description;
+                                        } else {
+                                            $method = intval($transaction->method);
+
+                                            $from = floor($method / 4);
+                                            $to = $method % 4;
+
+                                            $from_wallet = '';
+                                            if (0 == $from) {
+                                                $from_wallet = __('Main Wallet');
+                                            } else if (1 == $from) {
+                                                $from_wallet = __('Profit Wallet');
+                                            } else if (2 == $from) {
+                                                $from_wallet = __('Trading Wallet');
+                                            } else if (3 == $from) {
+                                                $from_wallet = __('Commission Wallet');
+                                            }
+
+                                            $to_wallet = '';
+                                            if (0 == $to) {
+                                                $to_wallet = __('Main Wallet');
+                                            } else if (1 == $to) {
+                                                $to_wallet = __('Profit Wallet');
+                                            } else if (2 == $to) {
+                                                $to_wallet = __('Trading Wallet');
+                                            } else if (3 == $to) {
+                                                $to_wallet = __('Commission Wallet');
+                                            }
+
+                                            $description = trans('translation.exchange_description', [
+                                                'from' => $from_wallet,
+                                                'to' => $to_wallet,
+                                            ]);
+                                        }
+                                    @endphp
+                                    <div class="transaction-title">{{ $description }}
                                     </div>
                                     <div class="transaction-id">{{ $transaction->tnx }}</div>
                                     <div class="transaction-date">{{ $transaction->created_at }}</div>
@@ -191,20 +229,31 @@
                                 </div>
                             </div>
                             <div class="transaction-right">
-                                <div
-                                    class="transaction-amount {{ txn_type($transaction->type->value,['add','sub']) }}">
-                                    {{txn_type($transaction->type->value,['+','-']).$transaction->amount .' '.$currency}}</div>
+                                @if ($transaction->type->value == 'send_commission')
+                                    <div
+                                        class="transaction-amount {{ $transaction->amount > 0 ? 'add': 'sub' }}">
+                                        {{ ($transaction->amount > 0 ? '+': '' ).$transaction->amount.' '.$currency }}
+                                    </div>
+                                @else
+                                    <div
+                                        class="transaction-amount {{ $transaction->type->value !== 'subtract' 
+                                                && $transaction->type->value !== 'investment' 
+                                                && $transaction->type->value !== 'send_money' 
+                                                && $transaction->type->value !== 'withdraw' ? 'add': 'sub' }}">
+                                        {{ ($transaction->type->value !== 'subtract'
+                                            && $transaction->type->value !== 'investment' 
+                                            && $transaction->type->value !== 'send_money'
+                                            && $transaction->type->value !== 'withdraw' ? '+': '-' ) . $transaction->amount. ' ' . ($transaction->pay_currency ? $transaction->pay_currency : $currency ) }}
+                                    </div>
+                                @endif
                                 <div class="transaction-fee sub">
                                     -{{  $transaction->charge.' '. $currency .' '.__('Fee') }} </div>
-                                <div class="transaction-gateway">{{ $transaction->method }}</div>
-
-
                                 @if($transaction->status->value == App\Enums\TxnStatus::Pending->value)
                                     <div class="transaction-status pending">{{ __('Pending') }}</div>
                                 @elseif($transaction->status->value ==  App\Enums\TxnStatus::Success->value)
                                     <div class="transaction-status success">{{ __('Success') }}</div>
                                 @elseif($transaction->status->value ==  App\Enums\TxnStatus::Failed->value)
-                                    <div class="transaction-status canceled">{{ __('canceled') }}</div>
+                                    <div class="transaction-status canceled">{{ __('Canceled') }}</div>
                                 @endif
                             </div>
                         </div>

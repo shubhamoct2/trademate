@@ -78,7 +78,7 @@
                                                     <div class="site-badge success">{{ __('Success') }}</div>
                                                     @break
                                                 @case('failed')
-                                                    <div class="site-badge primary-bg">{{ __('canceled') }}</div>
+                                                    <div class="site-badge primary-bg">{{ __('Canceled') }}</div>
                                                     @break
                                             @endswitch
                                         </td>
@@ -125,7 +125,7 @@
                             <div class="transaction-right">
                                 <div
                                     class="transaction-amount add">
-                                    + {{$raw->amount .' '.$currency}}</div>
+                                    +{{$raw->final_amount.' '.$raw->pay_currency }}</div>
                                 <div class="transaction-fee sub">
                                     -{{  $raw->charge.' '. $currency .' '.__('Fee') }} </div>
                                 <div class="transaction-gateway">{{ $raw->method }}</div>
@@ -136,7 +136,7 @@
                                 @elseif($raw->status->value ==  App\Enums\TxnStatus::Success->value)
                                     <div class="transaction-status success">{{ __('Success') }}</div>
                                 @elseif($raw->status->value ==  App\Enums\TxnStatus::Failed->value)
-                                    <div class="transaction-status canceled">{{ __('canceled') }}</div>
+                                    <div class="transaction-status canceled">{{ __('Canceled') }}</div>
                                 @endif
                             </div>
                         </div>

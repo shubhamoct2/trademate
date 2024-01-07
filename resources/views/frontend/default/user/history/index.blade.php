@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-4 col-6">
-                                        <button type="submit" class="apply-btn">
+                                        <button type="submit" class="apply-btn mt-3 mt-md-0">
                                             <i icon-name="search"></i>
                                             {{ __('Search') }}
                                         </button>

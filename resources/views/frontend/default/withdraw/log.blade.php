@@ -127,7 +127,7 @@
                                 <div class="transaction-right">
                                     <div
                                         class="transaction-amount sub">
-                                        - {{$raw->amount .' '.$currency}}</div>
+                                        -{{$raw->final_amount.' '.$raw->pay_currency }}</div>
                                     <div class="transaction-fee sub">
                                         -{{  $raw->charge.' '. $currency .' '.__('Fee') }} </div>
                                     <div class="transaction-gateway">{{ $raw->method }}</div>
