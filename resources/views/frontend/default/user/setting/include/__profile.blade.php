@@ -158,7 +158,7 @@
                                 <div class="input-group">
                                     <input
                                         type="text"
-                                        class="form-control"
+                                        class="form-control @if ($user->editable_profile == 0) disabled @endif"
                                         name="city"
                                         id="city"
                                         value="{{ $user->city }}"
