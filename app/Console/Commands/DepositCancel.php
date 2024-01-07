@@ -37,7 +37,7 @@ class DepositCancel extends Command
     public function handle()
     {
         $now = Carbon::now();
-        Log::info('CronJob (DepositCancel) => started at: ' . $now->format('Y-m-d H:i:s'));
+        // Log::info('CronJob (DepositCancel) => started at: ' . $now->format('Y-m-d H:i:s'));
 
         $pending_deposit_count = Transaction::where('status', TxnStatus::Pending)
             ->where('type', TxnType::Deposit)                
@@ -53,7 +53,7 @@ class DepositCancel extends Command
             Log::info('CronJob (DepositCancel) => cancelled ' . $pending_deposit_count . ' deposit');
         }
 
-        Log::info('CronJob (DepositCancel) => finished at: ' . $now->format('Y-m-d H:i:s'));
+        // Log::info('CronJob (DepositCancel) => finished at: ' . $now->format('Y-m-d H:i:s'));
 
         return Command::SUCCESS;
     }
