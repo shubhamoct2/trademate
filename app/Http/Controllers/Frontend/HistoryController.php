@@ -134,12 +134,12 @@ class HistoryController extends Controller
                         $key == 'profit_wallet' || 
                         $key == 'commission_wallet' ||
                         $key == 'profit_share') {
-                        $item['week'] = number_format($this->getLastValue($item), 2);
+                        $item['week'] = number_format(floatval($this->getLastValue($item)), 2);
                     } else {
                         if ($start_of_month->gt($now)) {
                             $item['week'] = '';
                         } else {
-                            $item['week'] = number_format($this->getSumValue($item), 2);
+                            $item['week'] = number_format(floatval($this->getSumValue($item)), 2);
                         }
                     }
                 }
