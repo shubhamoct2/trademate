@@ -19,7 +19,8 @@
             <div style="margin: 20px 0 40px 0;">
             @if ($notify['data']['currency_name'] != 'usdt')            
                 <a href="{{ $notify['data']['currency_name'] }}:{{ $notify['data']['address'] }}?amount={{ $notify['data']['amount'] }}" target="_blank">
-                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{ $notify['data']['currency_name'] }}:{{ $notify['data']['address'] }}?amount={{ $notify['data']['amount'] }}&choe=UTF-8">
+                    <!-- <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{ $notify['data']['currency_name'] }}:{{ $notify['data']['address'] }}?amount={{ $notify['data']['amount'] }}&choe=UTF-8"> -->
+                    <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ $notify['data']['currency_name'] }}:{{ $notify['data']['address'] }}?amount={{ $notify['data']['amount'] }}">
                 </a>            
             @else
                 <span>({{ $notify['data']['currency'] == 'USDTE' ? 'ERC-20' : 'TRC-20'}})</span>

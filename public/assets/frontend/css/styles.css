@@ -11947,3 +11947,8 @@ form label.error {
     border-radius: 20px;
     padding: 4px 8px;
 }
+
+img.qrcode {
+    padding: 40px;
+    background-color: #fff;
+}
