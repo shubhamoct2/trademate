@@ -47,7 +47,7 @@ class ProfitShare extends Command
 
         $autoTaskList = AutoTask::where('type', AutoTaskType::ProfitShare)
             ->where('status', TxnStatus::Pending)
-            ->whereDate('created_at', '<', Carbon::now('Europe/Berlin'))
+            ->where('created_at', '<', Carbon::now('Europe/Berlin'))
             ->get();
 
         if (!is_null($autoTaskList) && count($autoTaskList) > 0) {

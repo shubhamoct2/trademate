@@ -44,13 +44,13 @@ class DepositCancel extends Command
 
         $pending_deposit_count = Transaction::where('status', TxnStatus::Pending)
             ->where('type', TxnType::Deposit)                
-            ->whereDate('created_at', '<', $oneHourBefore)
+            ->where('created_at', '<', $oneHourBefore)
             ->count();
 
         if ($pending_deposit_count > 0) {
             Transaction::where('status', TxnStatus::Pending)
                 ->where('type', TxnType::Deposit)                
-                ->whereDate('created_at', '<', $oneHourBefore)
+                ->where('created_at', '<', $oneHourBefore)
                 ->update(['status' => TxnStatus::Failed]);
 
             Log::info('CronJob (DepositCancel) => cancelled ' . $pending_deposit_count . ' deposit');
