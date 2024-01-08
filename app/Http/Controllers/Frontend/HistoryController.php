@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\AdminHistory;
 use App\Models\Wallet;
 use App\Enums\WalletStatus;
 use App\Traits\ImageUpload;
@@ -15,6 +14,8 @@ use Auth;
 use Carbon\Carbon;
 use App\Enums\TxnStatus;
 use App\Enums\TxnType;
+
+use App\Models\AdminHistory;
 
 class HistoryController extends Controller
 {
@@ -281,7 +282,9 @@ class HistoryController extends Controller
 
         foreach ($list as $key => $item) {
             if ($key != 'name' && $key != 'class') {
-                $value = $item;
+                if (is_numeric($item)) {
+                    $value = $item ;
+                }
             }
         }
 
@@ -293,7 +296,9 @@ class HistoryController extends Controller
 
         foreach ($list as $key => $item) {
             if ($key != 'name' && $key != 'class') {
-                $value += $item;
+                if (is_numeric($item)) {
+                    $value += $item ;
+                }
             }
         }
 

@@ -20,7 +20,9 @@ class HistoryController extends Controller
 
         foreach ($list as $key => $item) {
             if ($key != 'name' && $key != 'class') {
-                $value = $item;
+                if (is_numeric($item)) {
+                    $value = $item ;
+                }
             }
         }
 
@@ -32,7 +34,9 @@ class HistoryController extends Controller
 
         foreach ($list as $key => $item) {
             if ($key != 'name' && $key != 'class') {
-                $value += $item;
+                if (is_numeric($item)) {
+                    $value += $item ;
+                }
             }
         }
 
