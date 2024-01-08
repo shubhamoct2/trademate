@@ -209,6 +209,6 @@ Route::get('schema-select/{id}', [SchemaController::class, 'schemaSelect'])->nam
 Route::get('notification-tune', [AppController::class, 'notificationTune'])->name('notification-tune');
 
 //site cron job
-Route::get('cron-job/investment', [CronJobController::class, 'investmentCronJob'])->name('cron-job.investment');
-Route::get('cron-job/referral', [CronJobController::class, 'referralCronJob'])->name('cron-job.referral');
-Route::get('cron-job/user-ranking', [CronJobController::class, 'userRanking'])->name('cron-job.user-ranking');
+// Route::get('cron-job/investment', [CronJobController::class, 'investmentCronJob'])->name('cron-job.investment');
+// Route::get('cron-job/referral', [CronJobController::class, 'referralCronJob'])->name('cron-job.referral');
+// Route::get('cron-job/user-ranking', [CronJobController::class, 'userRanking'])->name('cron-job.user-ranking');
