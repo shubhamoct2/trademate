@@ -259,7 +259,11 @@ class HistoryController extends Controller
         $admin_history = AdminHistory::whereBetween('updated_at', array($start, $end))->first();
         if ($admin_history) {
             $data = $admin_history->data;
-            $profit_percentage = (floatval($trading_wallet_balance) * 100.00) / floatval($data['trading_wallet']);
+
+            if ($data['trading_wallet'] > 0)
+                $profit_percentage = (floatval($trading_wallet_balance) * 100.00) / floatval($data['trading_wallet']);
+            else
+                $profit_percentage = 0;    
         } else {
             $profit_percentage = 0;
         }
