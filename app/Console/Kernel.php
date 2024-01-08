@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('deposit:cancel')
             ->hourly()
             ->runInBackground(); 
+
+        $schedule->command('auto:ranking')
+            ->hourly()
+            ->runInBackground(); 
     }
 
     /**
