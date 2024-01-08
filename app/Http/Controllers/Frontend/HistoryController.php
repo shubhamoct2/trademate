@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\AdminHistory;
 use App\Models\Wallet;
 use App\Enums\WalletStatus;
 use App\Traits\ImageUpload;
