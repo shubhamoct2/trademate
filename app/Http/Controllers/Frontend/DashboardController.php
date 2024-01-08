@@ -18,6 +18,8 @@ class DashboardController extends Controller
 
         $referral = $user->getReferrals()->first();
 
+        dd ($referral);
+
         $dataCount = [
             'total_transaction' => $transactions->count(),
             'total_deposit' => $user->totalDeposit(),
