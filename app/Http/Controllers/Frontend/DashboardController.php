@@ -35,6 +35,8 @@ class DashboardController extends Controller
             'total_ticket' => $user->ticket->count(),
         ];
 
+        dd ($dataCount);
+
         return view('frontend::user.dashboard', compact('dataCount', 'recentTransactions', 'referral'));
     }
 }
