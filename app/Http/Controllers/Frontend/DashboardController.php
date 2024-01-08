@@ -15,12 +15,7 @@ class DashboardController extends Controller
         $transactions = Transaction::where('user_id', $user->id);
 
         $recentTransactions = $transactions->latest()->take(5)->get();
-
-        dd ($recentTransactions);
-        
         $referral = $user->getReferrals()->first();
-
-        dd ($referral);
 
         $dataCount = [
             'total_transaction' => $transactions->count(),
@@ -31,16 +26,14 @@ class DashboardController extends Controller
             'total_withdraw' => $user->totalWithdraw(),
             'total_transfer' => $user->totalTransfer(),
             'total_referral_profit' => $user->totalReferralProfit(),
-            'total_referral' => 0, //$referral->relationships()->count(),
+            'total_referral' => $referral->relationships()->count(),
             'total_commission' => $user->totalCommission(),
             'deposit_bonus' => $user->totalDepositBonus(),
             'investment_bonus' => $user->totalInvestBonus(),
             'rank_achieved' => $user->rankAchieved(),
             'total_ticket' => $user->ticket->count(),
         ];
-
-        dd ($dataCount);
-
+        
         return view('frontend::user.dashboard', compact('dataCount', 'recentTransactions', 'referral'));
     }
 }
