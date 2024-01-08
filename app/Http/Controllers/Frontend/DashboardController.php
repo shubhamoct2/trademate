@@ -27,7 +27,7 @@ class DashboardController extends Controller
             'total_withdraw' => $user->totalWithdraw(),
             'total_transfer' => $user->totalTransfer(),
             'total_referral_profit' => $user->totalReferralProfit(),
-            'total_referral' => $referral->relationships()->count(),
+            'total_referral' => 0, //$referral->relationships()->count(),
             'total_commission' => $user->totalCommission(),
             'deposit_bonus' => $user->totalDepositBonus(),
             'investment_bonus' => $user->totalInvestBonus(),
@@ -35,7 +35,6 @@ class DashboardController extends Controller
             'total_ticket' => $user->ticket->count(),
         ];
 
-        $referral = $user->getReferrals()->first();
         return view('frontend::user.dashboard', compact('dataCount', 'recentTransactions', 'referral'));
     }
 }
