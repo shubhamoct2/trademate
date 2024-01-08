@@ -16,6 +16,8 @@ class DashboardController extends Controller
 
         $recentTransactions = $transactions->latest()->take(5)->get();
 
+        dd ($recentTransactions);
+        
         $referral = $user->getReferrals()->first();
 
         dd ($referral);
