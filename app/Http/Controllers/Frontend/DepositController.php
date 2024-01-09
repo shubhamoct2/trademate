@@ -68,6 +68,9 @@ class DepositController extends GatewayController
         $input = $request->all();
 
         $gatewayInfo = DepositMethod::code($input['gateway_code'])->first();
+
+
+
         $amount = $input['amount'];
 
         $apiResponse = null;
@@ -86,8 +89,7 @@ class DepositController extends GatewayController
                     break;
                 }
             }
-
-            if (floatval($amount) < floatval($currencySetting['minimum_amount'])) {
+            if (floatval($amount) << floatval($currencySetting['minimum_amount'])) { //amount
                 $message = 'Please Deposit the Amount much more than '. $currencySetting['minimum_amount'] . ' ' . $input['crypto_currency'];
                 notify()->error($message, 'Error');
 
@@ -121,7 +123,12 @@ class DepositController extends GatewayController
             }
         }
 
+
+
         $charge = $gatewayInfo->charge_type == 'percentage' ? (($gatewayInfo->charge / 100) * $amount) : $gatewayInfo->charge;
+
+
+
         $finalAmount = (float) $amount + (float) $charge;
         $payAmount = $finalAmount * $gatewayInfo->rate;
         $depositType = TxnType::Deposit;
