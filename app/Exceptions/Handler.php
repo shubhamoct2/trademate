@@ -52,6 +52,8 @@ class Handler extends ExceptionHandler
 
     public function report($e)
     {
-        Log::error($e);
+        if (!str_contains($e, 'Unauthenticated')) {
+            Log::error($e);
+        }
     }
 }
