@@ -50,6 +50,6 @@ class Handler extends ExceptionHandler
 
     public function report($e)
     {
-        // dd($e);
+        dd($e);
     }
 }
