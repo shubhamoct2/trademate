@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use Session;
 
 class DashboardController extends Controller
 {
@@ -32,8 +33,8 @@ class DashboardController extends Controller
             'investment_bonus' => $user->totalInvestBonus(),
             'rank_achieved' => $user->rankAchieved(),
             'total_ticket' => $user->ticket->count(),
+          
         ];
-        
         return view('frontend::user.dashboard', compact('dataCount', 'recentTransactions', 'referral'));
     }
 }

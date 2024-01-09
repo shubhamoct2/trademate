@@ -28,6 +28,7 @@
                                         <th>{{ __('Ticket Name') }}</th>
                                         <th>{{ __('Opening Date') }}</th>
                                         <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Assignee') }}</th>
                                         <th>{{ __('Action') }}</th>
                                     </tr>
                                     </thead>
@@ -58,6 +59,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'status', name: 'status'},
+                    {data: 'assignee', name: 'assignee'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });

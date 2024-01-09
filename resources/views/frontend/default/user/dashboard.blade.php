@@ -22,6 +22,7 @@
 
 
 @endsection
+
 @section('script')
     <script>
         function copyRef() {
@@ -53,5 +54,6 @@
                 $(this).text("Load more")
             }
         });
+    
     </script>
 @endsection

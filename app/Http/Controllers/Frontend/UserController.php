@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Enums\TxnStatus;
 use App\Enums\TxnType;
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
 use App\Models\Ranking;
@@ -29,7 +30,7 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            $data = 'Name: '.$user->first_name.' '.$user->last_name;
+            $data = 'Name: ' . $user->first_name . ' ' . $user->last_name;
         } else {
             $data = 'User Not Found';
         }
@@ -47,7 +48,8 @@ class UserController extends Controller
         return view('frontend::user.disabled.index', compact('feature'));
     }
 
-    public function askUnlock(Request $request) {
+    public function askUnlock(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'feature' => 'required',
         ]);
@@ -89,7 +91,7 @@ class UserController extends Controller
     public function rankingBadge()
     {
         $alreadyRank = json_decode(auth()->user()->rankings, true);
-        
+
         $rankings = Ranking::where('status', true)->get();
 
         return view('frontend::ranking.index', compact('rankings', 'alreadyRank'));
@@ -150,7 +152,7 @@ class UserController extends Controller
 
         $user = \Auth::user();
 
-        if ((1 == $input['from_wallet'] && $user->balance < $totalAmount) || 
+        if ((1 == $input['from_wallet'] && $user->balance < $totalAmount) ||
             (2 == $input['from_wallet'] && $user->profit_balance < $totalAmount) ||
             (3 == $input['from_wallet'] && $user->trading_balance < $totalAmount) ||
             (4 == $input['from_wallet'] && $user->commission_balance < $totalAmount)
@@ -164,13 +166,13 @@ class UserController extends Controller
                 $walletName = __('Trading Wallet');
             } elseif ($input['from_wallet'] == 4) {
                 $walletName = __('Commission Wallet');
-            } 
+            }
 
-            notify()->error(__('Insufficient Balance In Your ').$walletName, 'Error');
+            notify()->error(__('Insufficient Balance In Your ') . $walletName, 'Error');
 
             return redirect()->back();
         }
-        
+
         if ($input['from_wallet'] == 1) {
             $user->decrement('balance', $totalAmount);
             $from_wallet = __('Main Wallet');
@@ -211,21 +213,39 @@ class UserController extends Controller
 
         $method = ($input['from_wallet'] - 1) * 4 + ($input['to_wallet'] - 1);
 
-        $txnInfo = Txn::new($amount, $charge, $totalAmount, $method, $sendDescription,
-                TxnType::Exchange, TxnStatus::Pending, null, null, $user->id);
+        $txnInfo = Txn::new(
+            $amount,
+            $charge,
+            $totalAmount,
+            $method,
+            $sendDescription,
+            TxnType::Exchange,
+            TxnStatus::Pending,
+            null,
+            null,
+            $user->id
+        );
 
         $symbol = setting('currency_symbol', 'global');
-
         $notify = [
             'card-header' => 'Success Your Exchange Money Request',
-            'title' => $symbol.$txnInfo->amount.' Exchange Wallet Money Requested Successfully. Admin will review it.',
+            'title' => $symbol . $txnInfo->amount . ' Exchange Wallet Money Requested Successfully. Admin will review it.',
             'p' => $sendDescription,
-            'strong' => 'Transaction ID: '.$txnInfo->tnx,
+            'strong' => 'Transaction ID: ' . $txnInfo->tnx,
             'action' => route('user.wallet-exchange'),
             'a' => 'Exchange Wallet Money again',
             'view_name' => 'wallet',
         ];
         Session::put('user_notify', $notify);
+        $data = [
+            'icon' => 'user-gems',
+            'user_id' => $user->id,
+            'for' => 'admin',
+            'title' => $notify['title'],
+            'notice' =>  "Hello Admin {$user->username} Internal Transfer {$sendDescription}",
+            'action_url' => $notify['action'],
+        ];
+        Notification::create($data); // sending push notification without template
         return redirect()->route('user.notify');
     }
 
@@ -236,7 +256,7 @@ class UserController extends Controller
         $isStepTwo = 'current';
         $viewName = $notify['view_name'];
 
-        return view('frontend::'.$viewName.'.success', compact('isStepOne', 'isStepTwo', 'notify'));
+        return view('frontend::' . $viewName . '.success', compact('isStepOne', 'isStepTwo', 'notify'));
     }
 
     public function latestNotification()

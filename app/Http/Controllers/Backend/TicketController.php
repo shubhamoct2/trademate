@@ -24,13 +24,11 @@ class TicketController extends Controller
     {
         $this->middleware('permission:support-ticket-list|support-ticket-action', ['only' => ['index']]);
         $this->middleware('permission:support-ticket-action', ['only' => ['closeNow', 'reply', 'show']]);
-
     }
 
     public function index(Request $request, $id = null)
     {
         if ($request->ajax()) {
-
             if ($id) {
                 $data = Ticket::where('user_id', $id)->latest();
             } else {
@@ -41,8 +39,9 @@ class TicketController extends Controller
                 ->addIndexColumn()
                 ->addColumn('name', 'backend.ticket.include.__name')
                 ->addColumn('status', 'backend.ticket.include.__status')
+                ->addColumn('assignee', 'backend.ticket.include.__assignee')
                 ->addColumn('action', 'backend.ticket.include.__action')
-                ->rawColumns(['name', 'status', 'action'])
+                ->rawColumns(['name', 'status', 'assignee', 'action'])
                 ->make(true);
         }
 
@@ -62,7 +61,6 @@ class TicketController extends Controller
         notify()->success('Ticket Closed successfully', 'success');
 
         return Redirect::route('admin.ticket.index');
-
     }
 
     public function reply(Request $request)
@@ -108,6 +106,19 @@ class TicketController extends Controller
         notify()->success('Ticket Reply successfully', 'success');
 
         return Redirect::route('admin.ticket.show', $ticket->uuid);
+    }
 
+    public function assign($uuid)
+    {
+        // /{$tickerID}/{$assignee}
+        if (!$uuid) {
+            notify()->error('Please chose a valid ticket', 'Error');
+            return redirect()->back();
+        }
+        Ticket::uuid($uuid)->assignToDeveloper();
+        notify()->success('Ticket assigned to developer', 'success');
+        return redirect()->back();
+        // dd($uuid);
+        // $user->tickets()->update(['assigned_to' => 'developer']);
     }
 }

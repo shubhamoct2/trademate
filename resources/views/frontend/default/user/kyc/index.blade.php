@@ -862,7 +862,7 @@
                                                     <label class="input-group-label">{{ __('Client Number') }} : {{ isset($details['client_number']) ? $details['client_number'] + 1 : 1 }}</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <h2 class="step-title">{{ __('Infomration on Client(s)') }}</h2>
+                                                    <h2 class="step-title">{{ __('Information on Client(s)') }}</h2>
                                                     <p class="step-title-desc">{{ __('(Replicate this section for each client or UBO)') }}</p>
                                                 </div>
                                                 <div class="col-xl-6 col-md-12">

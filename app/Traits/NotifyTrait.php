@@ -55,13 +55,12 @@ trait NotifyTrait
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            
+
             notify()->error('SMTP connection failed', 'Error');
 
             return false;
         }
     }
-
     //============================= push notification template helper ===================================================
     protected function pushNotify($code, $shortcodes, $action, $userId)
     {
@@ -79,7 +78,6 @@ trait NotifyTrait
                     'notice' => strip_tags(str_replace($find, $replace, $template->message_body)),
                     'action_url' => $action,
                 ];
-
                 $pusher_credentials = config('broadcasting.connections.pusher');
                 if ($pusher_credentials) {
                     $userId = $template->for == 'Admin' ? '' : $userId;
@@ -99,7 +97,7 @@ trait NotifyTrait
     protected function smsNotify($code, $shortcodes, $phone)
     {
 
-        if (! config('sms.default') && ! $phone) {
+        if (!config('sms.default') && !$phone) {
             return false;
         }
 
@@ -114,10 +112,8 @@ trait NotifyTrait
                 ];
                 self::sendSms($phone, $message);
             }
-
         } catch (Exception $e) {
             return false;
         }
-
     }
 }

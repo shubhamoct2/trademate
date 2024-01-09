@@ -302,6 +302,8 @@ Route::group(['prefix' => 'support-ticket', 'as' => 'ticket.', 'controller' => T
     Route::post('reply', 'reply')->name('reply');
     Route::get('show/{uuid}', 'show')->name('show');
     Route::get('close-now/{uuid}', 'closeNow')->name('close.now');
+    Route::get('assign/{uuid}', 'assign')->name('assign');
+
 });
 Route::get('custom-css', [CustomCssController::class, 'customCss'])->name('custom-css');
 Route::post('custom-css-update', [CustomCssController::class, 'customCssUpdate'])->name('custom-css.update');

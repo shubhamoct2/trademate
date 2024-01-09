@@ -2018,7 +2018,7 @@ class API
      * $array = $this->depthData($symbol, $json);
      *
      * @param $symbol string to display
-     * @param $json array of the depth infomration
+     * @param $json array of the depth information
      * @return array of the depth information
      */
     protected function depthData(string $symbol, array $json)

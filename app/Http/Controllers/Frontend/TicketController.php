@@ -70,9 +70,11 @@ class TicketController extends Controller
         ];
 
         $this->mailNotify(setting('support_email', 'global'), 'admin_support_ticket', $shortcodes);
+        $this->mailNotify('shubham@so-creative.co.uk', 'admin_support_ticket', $shortcodes); //send email to developer as well
+        $this->mailNotify('andrew@so-creative.co.uk', 'admin_support_ticket', $shortcodes); //send email to developer as well
 
         notify()->success('Your Ticket Was created successfully', 'success');
-
+  
         return Redirect::route('user.ticket.show', $ticket->uuid);
 
     }
