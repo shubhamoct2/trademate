@@ -52,7 +52,6 @@ class Handler extends ExceptionHandler
 
     public function report($e)
     {
-        dd($e);
-        // Log::error(json_encode($e));
+        Log::error($e);
     }
 }
